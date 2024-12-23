@@ -37,8 +37,10 @@ class TestAgents:
                 "instructions": "instructions",
                 "max_infer_iters": 0,
                 "model": "model",
+                "available_tools": ["string"],
                 "input_shields": ["string"],
                 "output_shields": ["string"],
+                "preprocessing_tools": ["string"],
                 "sampling_params": {
                     "strategy": "greedy",
                     "max_tokens": 0,
@@ -49,22 +51,6 @@ class TestAgents:
                 },
                 "tool_choice": "auto",
                 "tool_prompt_format": "json",
-                "tools": [
-                    {
-                        "api_key": "api_key",
-                        "engine": "bing",
-                        "type": "brave_search",
-                        "input_shields": ["string"],
-                        "output_shields": ["string"],
-                        "remote_execution": {
-                            "method": "GET",
-                            "url": {"uri": "uri"},
-                            "body": {"foo": True},
-                            "headers": {"foo": True},
-                            "params": {"foo": True},
-                        },
-                    }
-                ],
             },
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
@@ -167,8 +153,10 @@ class TestAsyncAgents:
                 "instructions": "instructions",
                 "max_infer_iters": 0,
                 "model": "model",
+                "available_tools": ["string"],
                 "input_shields": ["string"],
                 "output_shields": ["string"],
+                "preprocessing_tools": ["string"],
                 "sampling_params": {
                     "strategy": "greedy",
                     "max_tokens": 0,
@@ -179,22 +167,6 @@ class TestAsyncAgents:
                 },
                 "tool_choice": "auto",
                 "tool_prompt_format": "json",
-                "tools": [
-                    {
-                        "api_key": "api_key",
-                        "engine": "bing",
-                        "type": "brave_search",
-                        "input_shields": ["string"],
-                        "output_shields": ["string"],
-                        "remote_execution": {
-                            "method": "GET",
-                            "url": {"uri": "uri"},
-                            "body": {"foo": True},
-                            "headers": {"foo": True},
-                            "params": {"foo": True},
-                        },
-                    }
-                ],
             },
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )

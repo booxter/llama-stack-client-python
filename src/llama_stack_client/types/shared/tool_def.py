@@ -1,34 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
-from .sampling_params import SamplingParams
+from .tool_parameter import ToolParameter
 
-__all__ = ["AgentConfig"]
+__all__ = ["ToolDef"]
 
 
-class AgentConfig(BaseModel):
-    enable_session_persistence: bool
+class ToolDef(BaseModel):
+    description: str
 
-    instructions: str
+    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
 
-    max_infer_iters: int
+    name: str
 
-    model: str
-
-    available_tools: Optional[List[str]] = None
-
-    input_shields: Optional[List[str]] = None
-
-    output_shields: Optional[List[str]] = None
-
-    preprocessing_tools: Optional[List[str]] = None
-
-    sampling_params: Optional[SamplingParams] = None
-
-    tool_choice: Optional[Literal["auto", "required"]] = None
+    parameters: List[ToolParameter]
 
     tool_prompt_format: Optional[Literal["json", "function_tag", "python_list"]] = None
     """
