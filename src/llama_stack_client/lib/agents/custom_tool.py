@@ -8,10 +8,8 @@ import json
 from abc import abstractmethod
 from typing import Dict, List, Union
 
-from llama_stack_client.types import (FunctionCallToolDefinition,
-                                      ToolResponseMessage, UserMessage)
-from llama_stack_client.types.tool_param_definition_param import \
-    ToolParamDefinitionParam
+from llama_stack_client.types import CustomToolDef, ToolResponseMessage, UserMessage
+from llama_stack_client.types.custom_tool_def import Parameter
 
 
 class CustomTool:
@@ -37,7 +35,7 @@ class CustomTool:
         raise NotImplementedError
 
     @abstractmethod
-    def get_params_definition(self) -> Dict[str, ToolParamDefinitionParam]:
+    def get_params_definition(self) -> Dict[str, Parameter]:
         raise NotImplementedError
 
     def get_instruction_string(self) -> str:
@@ -48,16 +46,21 @@ class CustomTool:
             {
                 "name": self.get_name(),
                 "description": self.get_description(),
-                "parameters": {name: definition.__dict__ for name, definition in self.get_params_definition().items()},
+                "parameters": {
+                    name: definition.__dict__
+                    for name, definition in self.get_params_definition().items()
+                },
             }
         )
 
-    def get_tool_definition(self) -> FunctionCallToolDefinition:
-        return FunctionCallToolDefinition(
-            type="function_call",
-            function_name=self.get_name(),
+    def get_tool_definition(self) -> CustomToolDef:
+        return CustomToolDef(
+            name=self.get_name(),
             description=self.get_description(),
-            parameters=self.get_params_definition(),
+            parameters=list(self.get_params_definition().values()),
+            metadata={},
+            type="custom",
+            tool_prompt_format="python_list",
         )
 
     @abstractmethod
