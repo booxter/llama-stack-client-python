@@ -2,37 +2,34 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-from .sampling_params import SamplingParams
-from ..custom_tool_def_param import CustomToolDefParam
-
-__all__ = ["AgentConfig"]
+__all__ = ["CustomToolDefParam", "Parameter"]
 
 
-class AgentConfig(TypedDict, total=False):
-    enable_session_persistence: Required[bool]
+class Parameter(TypedDict, total=False):
+    description: Required[str]
 
-    instructions: Required[str]
+    name: Required[str]
 
-    max_infer_iters: Required[int]
+    parameter_type: Required[str]
 
-    model: Required[str]
+    required: Required[bool]
 
-    available_tools: List[str]
+    default: Union[bool, float, str, Iterable[object], object, None]
 
-    custom_tools: Iterable[CustomToolDefParam]
 
-    input_shields: List[str]
+class CustomToolDefParam(TypedDict, total=False):
+    description: Required[str]
 
-    output_shields: List[str]
+    metadata: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
 
-    preprocessing_tools: List[str]
+    name: Required[str]
 
-    sampling_params: SamplingParams
+    parameters: Required[Iterable[Parameter]]
 
-    tool_choice: Literal["auto", "required"]
+    type: Required[Literal["custom"]]
 
     tool_prompt_format: Literal["json", "function_tag", "python_list"]
     """
