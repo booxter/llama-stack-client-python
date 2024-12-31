@@ -6,7 +6,6 @@ from typing import Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.attachment import Attachment
 from ..shared_params.user_message import UserMessage
 from ..shared_params.tool_response_message import ToolResponseMessage
 
@@ -19,8 +18,6 @@ class TurnCreateParamsBase(TypedDict, total=False):
     messages: Required[Iterable[Message]]
 
     session_id: Required[str]
-
-    attachments: Iterable[Attachment]
 
     x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
 
