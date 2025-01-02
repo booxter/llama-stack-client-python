@@ -49,12 +49,6 @@ class TestTurn:
                 }
             ],
             session_id="session_id",
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
             stream=False,
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
@@ -138,12 +132,6 @@ class TestTurn:
             ],
             session_id="session_id",
             stream=True,
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         turn_stream.response.close()
@@ -276,12 +264,6 @@ class TestAsyncTurn:
                 }
             ],
             session_id="session_id",
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
             stream=False,
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
@@ -365,12 +347,6 @@ class TestAsyncTurn:
             ],
             session_id="session_id",
             stream=True,
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         await turn_stream.response.aclose()
