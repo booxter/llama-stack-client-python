@@ -49,13 +49,8 @@ class TestTurn:
                 }
             ],
             session_id="session_id",
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
             stream=False,
+            tools=["string"],
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(TurnCreateResponse, turn, path=["response"])
@@ -138,12 +133,7 @@ class TestTurn:
             ],
             session_id="session_id",
             stream=True,
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
+            tools=["string"],
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         turn_stream.response.close()
@@ -276,13 +266,8 @@ class TestAsyncTurn:
                 }
             ],
             session_id="session_id",
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
             stream=False,
+            tools=["string"],
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(TurnCreateResponse, turn, path=["response"])
@@ -365,12 +350,7 @@ class TestAsyncTurn:
             ],
             session_id="session_id",
             stream=True,
-            attachments=[
-                {
-                    "content": "string",
-                    "mime_type": "mime_type",
-                }
-            ],
+            tools=["string"],
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         await turn_stream.response.aclose()

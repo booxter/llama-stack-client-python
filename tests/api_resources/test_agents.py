@@ -37,6 +37,24 @@ class TestAgents:
                 "instructions": "instructions",
                 "max_infer_iters": 0,
                 "model": "model",
+                "client_tools": [
+                    {
+                        "description": "description",
+                        "metadata": {"foo": True},
+                        "name": "name",
+                        "parameters": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "parameter_type": "parameter_type",
+                                "required": True,
+                                "default": True,
+                            }
+                        ],
+                        "type": "user_defined",
+                        "tool_prompt_format": "json",
+                    }
+                ],
                 "input_shields": ["string"],
                 "output_shields": ["string"],
                 "sampling_params": {
@@ -49,22 +67,7 @@ class TestAgents:
                 },
                 "tool_choice": "auto",
                 "tool_prompt_format": "json",
-                "tools": [
-                    {
-                        "api_key": "api_key",
-                        "engine": "bing",
-                        "type": "brave_search",
-                        "input_shields": ["string"],
-                        "output_shields": ["string"],
-                        "remote_execution": {
-                            "method": "GET",
-                            "url": {"uri": "uri"},
-                            "body": {"foo": True},
-                            "headers": {"foo": True},
-                            "params": {"foo": True},
-                        },
-                    }
-                ],
+                "tools": ["string"],
             },
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
@@ -167,6 +170,24 @@ class TestAsyncAgents:
                 "instructions": "instructions",
                 "max_infer_iters": 0,
                 "model": "model",
+                "client_tools": [
+                    {
+                        "description": "description",
+                        "metadata": {"foo": True},
+                        "name": "name",
+                        "parameters": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "parameter_type": "parameter_type",
+                                "required": True,
+                                "default": True,
+                            }
+                        ],
+                        "type": "user_defined",
+                        "tool_prompt_format": "json",
+                    }
+                ],
                 "input_shields": ["string"],
                 "output_shields": ["string"],
                 "sampling_params": {
@@ -179,22 +200,7 @@ class TestAsyncAgents:
                 },
                 "tool_choice": "auto",
                 "tool_prompt_format": "json",
-                "tools": [
-                    {
-                        "api_key": "api_key",
-                        "engine": "bing",
-                        "type": "brave_search",
-                        "input_shields": ["string"],
-                        "output_shields": ["string"],
-                        "remote_execution": {
-                            "method": "GET",
-                            "url": {"uri": "uri"},
-                            "body": {"foo": True},
-                            "headers": {"foo": True},
-                            "params": {"foo": True},
-                        },
-                    }
-                ],
+                "tools": ["string"],
             },
             x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
