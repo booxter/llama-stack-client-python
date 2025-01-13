@@ -74,6 +74,7 @@ class Agent:
         session_id: Optional[str] = None,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
+        x_llama_stack_provider_data: Optional[str] = None,
     ):
         response = self.client.agents.turn.create(
             agent_id=self.agent_id,
@@ -83,6 +84,7 @@ class Agent:
             stream=True,
             documents=documents,
             toolgroups=toolgroups,
+            x_llama_stack_provider_data=x_llama_stack_provider_data,
         )
         for chunk in response:
             if hasattr(chunk, "error"):
