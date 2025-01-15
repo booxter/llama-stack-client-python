@@ -53,7 +53,6 @@ class ScoringResource(SyncAPIResource):
         *,
         input_rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
         scoring_functions: Dict[str, Optional[scoring_score_params.ScoringFunctions]],
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -73,16 +72,11 @@ class ScoringResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/scoring/score",
+            "/alpha/scoring/score",
             body=maybe_transform(
                 {
                     "input_rows": input_rows,
@@ -102,7 +96,6 @@ class ScoringResource(SyncAPIResource):
         dataset_id: str,
         save_results_dataset: bool,
         scoring_functions: Dict[str, Optional[scoring_score_batch_params.ScoringFunctions]],
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -122,16 +115,11 @@ class ScoringResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/scoring/score-batch",
+            "/alpha/scoring/score-batch",
             body=maybe_transform(
                 {
                     "dataset_id": dataset_id,
@@ -172,7 +160,6 @@ class AsyncScoringResource(AsyncAPIResource):
         *,
         input_rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
         scoring_functions: Dict[str, Optional[scoring_score_params.ScoringFunctions]],
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -192,16 +179,11 @@ class AsyncScoringResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/scoring/score",
+            "/alpha/scoring/score",
             body=await async_maybe_transform(
                 {
                     "input_rows": input_rows,
@@ -221,7 +203,6 @@ class AsyncScoringResource(AsyncAPIResource):
         dataset_id: str,
         save_results_dataset: bool,
         scoring_functions: Dict[str, Optional[scoring_score_batch_params.ScoringFunctions]],
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -241,16 +222,11 @@ class AsyncScoringResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/scoring/score-batch",
+            "/alpha/scoring/score-batch",
             body=await async_maybe_transform(
                 {
                     "dataset_id": dataset_id,

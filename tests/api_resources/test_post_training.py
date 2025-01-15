@@ -35,7 +35,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -69,7 +68,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -94,8 +92,7 @@ class TestPostTraining:
                     "memory_efficient_fsdp_wrap": True,
                 },
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -115,7 +112,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -153,7 +149,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -187,7 +182,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -215,7 +209,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -251,8 +244,7 @@ class TestPostTraining:
                 "use_dora": True,
             },
             checkpoint_dir="checkpoint_dir",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -266,7 +258,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -298,7 +289,6 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -342,7 +332,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -376,7 +365,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -401,8 +389,7 @@ class TestAsyncPostTraining:
                     "memory_efficient_fsdp_wrap": True,
                 },
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -422,7 +409,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -460,7 +446,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -494,7 +479,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -522,7 +506,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -558,8 +541,7 @@ class TestAsyncPostTraining:
                 "use_dora": True,
             },
             checkpoint_dir="checkpoint_dir",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -573,7 +555,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
@@ -605,7 +586,6 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
-                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },

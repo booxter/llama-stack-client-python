@@ -61,7 +61,6 @@ class TelemetryResource(SyncAPIResource):
         span_id: str,
         max_depth: int | NotGiven = NOT_GIVEN,
         attributes_to_return: List[str] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,16 +80,11 @@ class TelemetryResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/telemetry/get-span-tree",
+            "/alpha/telemetry/get-span-tree",
             body=maybe_transform(
                 {"attributes_to_return": attributes_to_return},
                 telemetry_get_span_tree_params.TelemetryGetSpanTreeParams,
@@ -116,7 +110,6 @@ class TelemetryResource(SyncAPIResource):
         *,
         event: telemetry_log_event_params.Event,
         ttl_seconds: int,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -137,16 +130,11 @@ class TelemetryResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/telemetry/log-event",
+            "/alpha/telemetry/log-event",
             body=maybe_transform(
                 {
                     "event": event,
@@ -166,7 +154,6 @@ class TelemetryResource(SyncAPIResource):
         attribute_filters: Iterable[telemetry_query_spans_params.AttributeFilter],
         attributes_to_return: List[str],
         max_depth: int | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -187,16 +174,11 @@ class TelemetryResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "application/jsonl", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/telemetry/query-spans",
+            "/alpha/telemetry/query-spans",
             body=maybe_transform(
                 {
                     "attribute_filters": attribute_filters,
@@ -218,7 +200,6 @@ class TelemetryResource(SyncAPIResource):
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         order_by: List[str] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -239,16 +220,11 @@ class TelemetryResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "application/jsonl", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/telemetry/query-traces",
+            "/alpha/telemetry/query-traces",
             body=maybe_transform(
                 {
                     "attribute_filters": attribute_filters,
@@ -271,7 +247,6 @@ class TelemetryResource(SyncAPIResource):
         attributes_to_save: List[str],
         dataset_id: str,
         max_depth: int | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -292,16 +267,11 @@ class TelemetryResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/telemetry/save-spans-to-dataset",
+            "/alpha/telemetry/save-spans-to-dataset",
             body=maybe_transform(
                 {
                     "attribute_filters": attribute_filters,
@@ -344,7 +314,6 @@ class AsyncTelemetryResource(AsyncAPIResource):
         span_id: str,
         max_depth: int | NotGiven = NOT_GIVEN,
         attributes_to_return: List[str] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -364,16 +333,11 @@ class AsyncTelemetryResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/telemetry/get-span-tree",
+            "/alpha/telemetry/get-span-tree",
             body=await async_maybe_transform(
                 {"attributes_to_return": attributes_to_return},
                 telemetry_get_span_tree_params.TelemetryGetSpanTreeParams,
@@ -399,7 +363,6 @@ class AsyncTelemetryResource(AsyncAPIResource):
         *,
         event: telemetry_log_event_params.Event,
         ttl_seconds: int,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -420,16 +383,11 @@ class AsyncTelemetryResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/telemetry/log-event",
+            "/alpha/telemetry/log-event",
             body=await async_maybe_transform(
                 {
                     "event": event,
@@ -449,7 +407,6 @@ class AsyncTelemetryResource(AsyncAPIResource):
         attribute_filters: Iterable[telemetry_query_spans_params.AttributeFilter],
         attributes_to_return: List[str],
         max_depth: int | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -470,16 +427,11 @@ class AsyncTelemetryResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "application/jsonl", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/telemetry/query-spans",
+            "/alpha/telemetry/query-spans",
             body=await async_maybe_transform(
                 {
                     "attribute_filters": attribute_filters,
@@ -501,7 +453,6 @@ class AsyncTelemetryResource(AsyncAPIResource):
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         order_by: List[str] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -522,16 +473,11 @@ class AsyncTelemetryResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "application/jsonl", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/telemetry/query-traces",
+            "/alpha/telemetry/query-traces",
             body=await async_maybe_transform(
                 {
                     "attribute_filters": attribute_filters,
@@ -554,7 +500,6 @@ class AsyncTelemetryResource(AsyncAPIResource):
         attributes_to_save: List[str],
         dataset_id: str,
         max_depth: int | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -575,16 +520,11 @@ class AsyncTelemetryResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/telemetry/save-spans-to-dataset",
+            "/alpha/telemetry/save-spans-to-dataset",
             body=await async_maybe_transform(
                 {
                     "attribute_filters": attribute_filters,

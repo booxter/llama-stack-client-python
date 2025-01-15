@@ -53,7 +53,6 @@ class SafetyResource(SyncAPIResource):
         messages: Iterable[safety_run_shield_params.Message],
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         shield_id: str,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -73,16 +72,11 @@ class SafetyResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/safety/run-shield",
+            "/alpha/safety/run-shield",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -124,7 +118,6 @@ class AsyncSafetyResource(AsyncAPIResource):
         messages: Iterable[safety_run_shield_params.Message],
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         shield_id: str,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -144,16 +137,11 @@ class AsyncSafetyResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/safety/run-shield",
+            "/alpha/safety/run-shield",
             body=await async_maybe_transform(
                 {
                     "messages": messages,

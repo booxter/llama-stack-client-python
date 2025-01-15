@@ -6,13 +6,12 @@ from typing import Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .shared_params.tool_call import ToolCall
 from .shared_params.user_message import UserMessage
 from .shared_params.system_message import SystemMessage
-from .shared_params.interleaved_content import InterleavedContent
+from .shared_params.completion_message import CompletionMessage
 from .shared_params.tool_response_message import ToolResponseMessage
 
-__all__ = ["SyntheticDataGenerationGenerateParams", "Dialog", "DialogCompletionMessage"]
+__all__ = ["SyntheticDataGenerationGenerateParams", "Dialog"]
 
 
 class SyntheticDataGenerationGenerateParams(TypedDict, total=False):
@@ -22,19 +21,7 @@ class SyntheticDataGenerationGenerateParams(TypedDict, total=False):
 
     model: str
 
-    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
-
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
 
 
-class DialogCompletionMessage(TypedDict, total=False):
-    content: Required[InterleavedContent]
-
-    role: Required[Literal["assistant"]]
-
-    stop_reason: Required[Literal["end_of_turn", "end_of_message", "out_of_tokens"]]
-
-    tool_calls: Required[Iterable[ToolCall]]
-
-
-Dialog: TypeAlias = Union[UserMessage, SystemMessage, ToolResponseMessage, DialogCompletionMessage]
+Dialog: TypeAlias = Union[UserMessage, SystemMessage, ToolResponseMessage, CompletionMessage]

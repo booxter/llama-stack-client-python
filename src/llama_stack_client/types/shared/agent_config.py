@@ -1,22 +1,27 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from ..tool_def import ToolDef
 from .sampling_params import SamplingParams
+from .memory_tool_definition import MemoryToolDefinition
+from .search_tool_definition import SearchToolDefinition
+from .photogen_tool_definition import PhotogenToolDefinition
+from .function_call_tool_definition import FunctionCallToolDefinition
+from .wolfram_alpha_tool_definition import WolframAlphaToolDefinition
+from .code_interpreter_tool_definition import CodeInterpreterToolDefinition
 
-__all__ = ["AgentConfig", "Toolgroup", "ToolgroupUnionMember1"]
+__all__ = ["AgentConfig", "Tool"]
 
-
-class ToolgroupUnionMember1(BaseModel):
-    args: Dict[str, Union[bool, float, str, List[object], object, None]]
-
-    name: str
-
-
-Toolgroup: TypeAlias = Union[str, ToolgroupUnionMember1]
+Tool: TypeAlias = Union[
+    SearchToolDefinition,
+    WolframAlphaToolDefinition,
+    PhotogenToolDefinition,
+    CodeInterpreterToolDefinition,
+    FunctionCallToolDefinition,
+    MemoryToolDefinition,
+]
 
 
 class AgentConfig(BaseModel):
@@ -27,8 +32,6 @@ class AgentConfig(BaseModel):
     max_infer_iters: int
 
     model: str
-
-    client_tools: Optional[List[ToolDef]] = None
 
     input_shields: Optional[List[str]] = None
 
@@ -51,4 +54,4 @@ class AgentConfig(BaseModel):
     The detailed prompts for each of these formats are added to llama cli
     """
 
-    toolgroups: Optional[List[Toolgroup]] = None
+    tools: Optional[List[Tool]] = None

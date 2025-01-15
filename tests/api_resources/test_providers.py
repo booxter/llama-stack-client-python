@@ -25,8 +25,7 @@ class TestProviders:
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
         provider = client.providers.list(
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
@@ -62,8 +61,7 @@ class TestAsyncProviders:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         provider = await async_client.providers.list(
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 

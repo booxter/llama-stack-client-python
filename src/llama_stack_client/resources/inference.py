@@ -71,7 +71,6 @@ class InferenceResource(SyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -115,7 +114,6 @@ class InferenceResource(SyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -159,7 +157,6 @@ class InferenceResource(SyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -203,7 +200,6 @@ class InferenceResource(SyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -214,18 +210,13 @@ class InferenceResource(SyncAPIResource):
     ) -> InferenceChatCompletionResponse | Stream[InferenceChatCompletionResponse]:
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return cast(
             InferenceChatCompletionResponse,
             self._post(
-                "/v1/inference/chat-completion",
+                "/alpha/inference/chat-completion",
                 body=maybe_transform(
                     {
                         "messages": messages,
@@ -261,7 +252,6 @@ class InferenceResource(SyncAPIResource):
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -292,7 +282,6 @@ class InferenceResource(SyncAPIResource):
         logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -323,7 +312,6 @@ class InferenceResource(SyncAPIResource):
         logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -354,7 +342,6 @@ class InferenceResource(SyncAPIResource):
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -365,18 +352,13 @@ class InferenceResource(SyncAPIResource):
     ) -> InferenceCompletionResponse | Stream[InferenceCompletionResponse]:
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return cast(
             InferenceCompletionResponse,
             self._post(
-                "/v1/inference/completion",
+                "/alpha/inference/completion",
                 body=maybe_transform(
                     {
                         "content": content,
@@ -404,7 +386,6 @@ class InferenceResource(SyncAPIResource):
         *,
         contents: List[InterleavedContent],
         model_id: str,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -424,16 +405,11 @@ class InferenceResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/inference/embeddings",
+            "/alpha/inference/embeddings",
             body=maybe_transform(
                 {
                     "contents": contents,
@@ -481,7 +457,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -525,7 +500,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -569,7 +543,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -613,7 +586,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         tool_choice: Literal["auto", "required"] | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -624,18 +596,13 @@ class AsyncInferenceResource(AsyncAPIResource):
     ) -> InferenceChatCompletionResponse | AsyncStream[InferenceChatCompletionResponse]:
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return cast(
             InferenceChatCompletionResponse,
             await self._post(
-                "/v1/inference/chat-completion",
+                "/alpha/inference/chat-completion",
                 body=await async_maybe_transform(
                     {
                         "messages": messages,
@@ -671,7 +638,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -702,7 +668,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -733,7 +698,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -764,7 +728,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         response_format: inference_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
         sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -775,18 +738,13 @@ class AsyncInferenceResource(AsyncAPIResource):
     ) -> InferenceCompletionResponse | AsyncStream[InferenceCompletionResponse]:
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return cast(
             InferenceCompletionResponse,
             await self._post(
-                "/v1/inference/completion",
+                "/alpha/inference/completion",
                 body=await async_maybe_transform(
                     {
                         "content": content,
@@ -814,7 +772,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         contents: List[InterleavedContent],
         model_id: str,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -834,16 +791,11 @@ class AsyncInferenceResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/inference/embeddings",
+            "/alpha/inference/embeddings",
             body=await async_maybe_transform(
                 {
                     "contents": contents,

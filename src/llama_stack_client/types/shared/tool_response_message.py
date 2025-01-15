@@ -14,6 +14,6 @@ class ToolResponseMessage(BaseModel):
 
     content: InterleavedContent
 
-    role: Literal["tool"]
+    role: Literal["ipython"]
 
     tool_name: Union[Literal["brave_search", "wolfram_alpha", "photogen", "code_interpreter"], str]

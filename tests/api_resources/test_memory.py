@@ -44,8 +44,7 @@ class TestMemory:
                 }
             ],
             ttl_seconds=0,
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert memory is None
 
@@ -101,8 +100,7 @@ class TestMemory:
             bank_id="bank_id",
             query="string",
             params={"foo": True},
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(QueryDocumentsResponse, memory, path=["response"])
 
@@ -163,8 +161,7 @@ class TestAsyncMemory:
                 }
             ],
             ttl_seconds=0,
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert memory is None
 
@@ -220,8 +217,7 @@ class TestAsyncMemory:
             bank_id="bank_id",
             query="string",
             params={"foo": True},
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(QueryDocumentsResponse, memory, path=["response"])
 

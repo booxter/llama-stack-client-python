@@ -28,8 +28,7 @@ class TestEvalTasks:
     def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
         eval_task = client.eval_tasks.retrieve(
             name="name",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(Optional[EvalTask], eval_task, path=["response"])
 
@@ -71,8 +70,7 @@ class TestEvalTasks:
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
         eval_task = client.eval_tasks.list(
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(EvalTask, eval_task, path=["response"])
 
@@ -120,8 +118,7 @@ class TestEvalTasks:
             metadata={"foo": True},
             provider_eval_task_id="provider_eval_task_id",
             provider_id="provider_id",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert eval_task is None
 
@@ -168,8 +165,7 @@ class TestAsyncEvalTasks:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         eval_task = await async_client.eval_tasks.retrieve(
             name="name",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(Optional[EvalTask], eval_task, path=["response"])
 
@@ -211,8 +207,7 @@ class TestAsyncEvalTasks:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         eval_task = await async_client.eval_tasks.list(
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(EvalTask, eval_task, path=["response"])
 
@@ -260,8 +255,7 @@ class TestAsyncEvalTasks:
             metadata={"foo": True},
             provider_eval_task_id="provider_eval_task_id",
             provider_id="provider_id",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert eval_task is None
 

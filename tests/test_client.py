@@ -675,11 +675,13 @@ class TestLlamaStackClient:
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/alpha/inference/chat-completion").mock(
+            side_effect=httpx.TimeoutException("Test timeout error")
+        )
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/v1/inference/chat-completion",
+                "/alpha/inference/chat-completion",
                 body=cast(
                     object,
                     dict(
@@ -701,11 +703,11 @@ class TestLlamaStackClient:
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(return_value=httpx.Response(500))
+        respx_mock.post("/alpha/inference/chat-completion").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/v1/inference/chat-completion",
+                "/alpha/inference/chat-completion",
                 body=cast(
                     object,
                     dict(
@@ -748,7 +750,7 @@ class TestLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.post("/alpha/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = client.inference.with_raw_response.chat_completion(
             messages=[
@@ -780,7 +782,7 @@ class TestLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.post("/alpha/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = client.inference.with_raw_response.chat_completion(
             messages=[
@@ -812,7 +814,7 @@ class TestLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.post("/alpha/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = client.inference.with_raw_response.chat_completion(
             messages=[
@@ -1460,11 +1462,13 @@ class TestAsyncLlamaStackClient:
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/alpha/inference/chat-completion").mock(
+            side_effect=httpx.TimeoutException("Test timeout error")
+        )
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/v1/inference/chat-completion",
+                "/alpha/inference/chat-completion",
                 body=cast(
                     object,
                     dict(
@@ -1486,11 +1490,11 @@ class TestAsyncLlamaStackClient:
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(return_value=httpx.Response(500))
+        respx_mock.post("/alpha/inference/chat-completion").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/v1/inference/chat-completion",
+                "/alpha/inference/chat-completion",
                 body=cast(
                     object,
                     dict(
@@ -1534,7 +1538,7 @@ class TestAsyncLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.post("/alpha/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = await client.inference.with_raw_response.chat_completion(
             messages=[
@@ -1567,7 +1571,7 @@ class TestAsyncLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.post("/alpha/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = await client.inference.with_raw_response.chat_completion(
             messages=[
@@ -1600,7 +1604,7 @@ class TestAsyncLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.post("/alpha/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = await client.inference.with_raw_response.chat_completion(
             messages=[
@@ -1627,7 +1631,7 @@ class TestAsyncLlamaStackClient:
         import threading
 
         from llama_stack_client._utils import asyncify
-        from llama_stack_client._base_client import get_platform
+        from llama_stack_client._base_client import get_platform 
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
