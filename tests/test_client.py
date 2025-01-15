@@ -688,8 +688,7 @@ class TestLlamaStackClient:
                                 "content": "string",
                                 "role": "user",
                             }
-                        ],
-                        model_id="model_id",
+                        ]
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -714,8 +713,7 @@ class TestLlamaStackClient:
                                 "content": "string",
                                 "role": "user",
                             }
-                        ],
-                        model_id="model_id",
+                        ]
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -751,13 +749,13 @@ class TestLlamaStackClient:
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = client.inference.with_raw_response.chat_completion(
+            model_id="model_id",
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            model_id="model_id",
         )
 
         assert response.retries_taken == failures_before_success
@@ -783,13 +781,13 @@ class TestLlamaStackClient:
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = client.inference.with_raw_response.chat_completion(
+            model_id="model_id",
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            model_id="model_id",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -815,13 +813,13 @@ class TestLlamaStackClient:
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = client.inference.with_raw_response.chat_completion(
+            model_id="model_id",
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            model_id="model_id",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1473,8 +1471,7 @@ class TestAsyncLlamaStackClient:
                                 "content": "string",
                                 "role": "user",
                             }
-                        ],
-                        model_id="model_id",
+                        ]
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1499,8 +1496,7 @@ class TestAsyncLlamaStackClient:
                                 "content": "string",
                                 "role": "user",
                             }
-                        ],
-                        model_id="model_id",
+                        ]
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1537,13 +1533,13 @@ class TestAsyncLlamaStackClient:
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = await client.inference.with_raw_response.chat_completion(
+            model_id="model_id",
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            model_id="model_id",
         )
 
         assert response.retries_taken == failures_before_success
@@ -1570,13 +1566,13 @@ class TestAsyncLlamaStackClient:
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = await client.inference.with_raw_response.chat_completion(
+            model_id="model_id",
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            model_id="model_id",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -1603,13 +1599,13 @@ class TestAsyncLlamaStackClient:
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
         response = await client.inference.with_raw_response.chat_completion(
+            model_id="model_id",
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            model_id="model_id",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1627,7 +1623,7 @@ class TestAsyncLlamaStackClient:
         import threading
 
         from llama_stack_client._utils import asyncify
-        from llama_stack_client._base_client import get_platform
+        from llama_stack_client._base_client import get_platform 
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
