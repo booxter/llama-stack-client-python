@@ -23,6 +23,7 @@ class TestTurn:
     @parametrize
     def test_method_create_overload_1(self, client: LlamaStackClient) -> None:
         turn = client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -30,7 +31,6 @@ class TestTurn:
                     "role": "user",
                 }
             ],
-            session_id="session_id",
         )
         assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
@@ -40,6 +40,7 @@ class TestTurn:
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: LlamaStackClient) -> None:
         turn = client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -48,14 +49,13 @@ class TestTurn:
                     "context": "string",
                 }
             ],
-            session_id="session_id",
+            stream=False,
             documents=[
                 {
                     "content": "string",
                     "mime_type": "mime_type",
                 }
             ],
-            stream=False,
             toolgroups=["string"],
             x_llama_stack_client_version="X-LlamaStack-Client-Version",
             x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
@@ -68,6 +68,7 @@ class TestTurn:
     @parametrize
     def test_raw_response_create_overload_1(self, client: LlamaStackClient) -> None:
         response = client.agents.turn.with_raw_response.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -75,7 +76,6 @@ class TestTurn:
                     "role": "user",
                 }
             ],
-            session_id="session_id",
         )
 
         assert response.is_closed is True
@@ -89,6 +89,7 @@ class TestTurn:
     @parametrize
     def test_streaming_response_create_overload_1(self, client: LlamaStackClient) -> None:
         with client.agents.turn.with_streaming_response.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -96,7 +97,6 @@ class TestTurn:
                     "role": "user",
                 }
             ],
-            session_id="session_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -110,17 +110,46 @@ class TestTurn:
         reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
     )
     @parametrize
+    def test_path_params_create_overload_1(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.turn.with_raw_response.create(
+                session_id="session_id",
+                agent_id="",
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.agents.turn.with_raw_response.create(
+                session_id="",
+                agent_id="agent_id",
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
+    )
+    @parametrize
     def test_method_create_overload_2(self, client: LlamaStackClient) -> None:
         turn_stream = client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            session_id="session_id",
-            stream=True,
         )
         turn_stream.response.close()
 
@@ -130,7 +159,9 @@ class TestTurn:
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: LlamaStackClient) -> None:
         turn_stream = client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
@@ -138,8 +169,6 @@ class TestTurn:
                     "context": "string",
                 }
             ],
-            session_id="session_id",
-            stream=True,
             documents=[
                 {
                     "content": "string",
@@ -158,15 +187,15 @@ class TestTurn:
     @parametrize
     def test_raw_response_create_overload_2(self, client: LlamaStackClient) -> None:
         response = client.agents.turn.with_raw_response.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            session_id="session_id",
-            stream=True,
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -179,15 +208,15 @@ class TestTurn:
     @parametrize
     def test_streaming_response_create_overload_2(self, client: LlamaStackClient) -> None:
         with client.agents.turn.with_streaming_response.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            session_id="session_id",
-            stream=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -197,21 +226,52 @@ class TestTurn:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
+    )
+    @parametrize
+    def test_path_params_create_overload_2(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.turn.with_raw_response.create(
+                session_id="session_id",
+                agent_id="",
+                stream=True,
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.agents.turn.with_raw_response.create(
+                session_id="",
+                agent_id="agent_id",
+                stream=True,
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
     @parametrize
     def test_method_retrieve(self, client: LlamaStackClient) -> None:
         turn = client.agents.turn.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
         )
         assert_matches_type(Turn, turn, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
         turn = client.agents.turn.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
             x_llama_stack_client_version="X-LlamaStack-Client-Version",
             x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
@@ -220,9 +280,9 @@ class TestTurn:
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
         response = client.agents.turn.with_raw_response.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
         )
 
         assert response.is_closed is True
@@ -233,9 +293,9 @@ class TestTurn:
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
         with client.agents.turn.with_streaming_response.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -244,6 +304,29 @@ class TestTurn:
             assert_matches_type(Turn, turn, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.turn.with_raw_response.retrieve(
+                turn_id="turn_id",
+                agent_id="",
+                session_id="session_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.agents.turn.with_raw_response.retrieve(
+                turn_id="turn_id",
+                agent_id="agent_id",
+                session_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `turn_id` but received ''"):
+            client.agents.turn.with_raw_response.retrieve(
+                turn_id="",
+                agent_id="agent_id",
+                session_id="session_id",
+            )
 
 
 class TestAsyncTurn:
@@ -255,6 +338,7 @@ class TestAsyncTurn:
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
         turn = await async_client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -262,7 +346,6 @@ class TestAsyncTurn:
                     "role": "user",
                 }
             ],
-            session_id="session_id",
         )
         assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
@@ -272,6 +355,7 @@ class TestAsyncTurn:
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
         turn = await async_client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -280,14 +364,13 @@ class TestAsyncTurn:
                     "context": "string",
                 }
             ],
-            session_id="session_id",
+            stream=False,
             documents=[
                 {
                     "content": "string",
                     "mime_type": "mime_type",
                 }
             ],
-            stream=False,
             toolgroups=["string"],
             x_llama_stack_client_version="X-LlamaStack-Client-Version",
             x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
@@ -300,6 +383,7 @@ class TestAsyncTurn:
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.agents.turn.with_raw_response.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -307,7 +391,6 @@ class TestAsyncTurn:
                     "role": "user",
                 }
             ],
-            session_id="session_id",
         )
 
         assert response.is_closed is True
@@ -321,6 +404,7 @@ class TestAsyncTurn:
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.agents.turn.with_streaming_response.create(
+            session_id="session_id",
             agent_id="agent_id",
             messages=[
                 {
@@ -328,7 +412,6 @@ class TestAsyncTurn:
                     "role": "user",
                 }
             ],
-            session_id="session_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -342,17 +425,46 @@ class TestAsyncTurn:
         reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
     )
     @parametrize
+    async def test_path_params_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.create(
+                session_id="session_id",
+                agent_id="",
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.create(
+                session_id="",
+                agent_id="agent_id",
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
+    )
+    @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
         turn_stream = await async_client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            session_id="session_id",
-            stream=True,
         )
         await turn_stream.response.aclose()
 
@@ -362,7 +474,9 @@ class TestAsyncTurn:
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
         turn_stream = await async_client.agents.turn.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
@@ -370,8 +484,6 @@ class TestAsyncTurn:
                     "context": "string",
                 }
             ],
-            session_id="session_id",
-            stream=True,
             documents=[
                 {
                     "content": "string",
@@ -390,15 +502,15 @@ class TestAsyncTurn:
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.agents.turn.with_raw_response.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            session_id="session_id",
-            stream=True,
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -411,15 +523,15 @@ class TestAsyncTurn:
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.agents.turn.with_streaming_response.create(
+            session_id="session_id",
             agent_id="agent_id",
+            stream=True,
             messages=[
                 {
                     "content": "string",
                     "role": "user",
                 }
             ],
-            session_id="session_id",
-            stream=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -429,21 +541,52 @@ class TestAsyncTurn:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(
+        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
+    )
+    @parametrize
+    async def test_path_params_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.create(
+                session_id="session_id",
+                agent_id="",
+                stream=True,
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.create(
+                session_id="",
+                agent_id="agent_id",
+                stream=True,
+                messages=[
+                    {
+                        "content": "string",
+                        "role": "user",
+                    }
+                ],
+            )
+
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         turn = await async_client.agents.turn.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
         )
         assert_matches_type(Turn, turn, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         turn = await async_client.agents.turn.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
             x_llama_stack_client_version="X-LlamaStack-Client-Version",
             x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
@@ -452,9 +595,9 @@ class TestAsyncTurn:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.agents.turn.with_raw_response.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
         )
 
         assert response.is_closed is True
@@ -465,9 +608,9 @@ class TestAsyncTurn:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.agents.turn.with_streaming_response.retrieve(
+            turn_id="turn_id",
             agent_id="agent_id",
             session_id="session_id",
-            turn_id="turn_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -476,3 +619,26 @@ class TestAsyncTurn:
             assert_matches_type(Turn, turn, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.retrieve(
+                turn_id="turn_id",
+                agent_id="",
+                session_id="session_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.retrieve(
+                turn_id="turn_id",
+                agent_id="agent_id",
+                session_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `turn_id` but received ''"):
+            await async_client.agents.turn.with_raw_response.retrieve(
+                turn_id="",
+                agent_id="agent_id",
+                session_id="session_id",
+            )

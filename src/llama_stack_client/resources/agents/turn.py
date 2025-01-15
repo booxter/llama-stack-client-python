@@ -24,7 +24,7 @@ from ..._response import (
 )
 from ..._streaming import Stream, AsyncStream
 from ..._base_client import make_request_options
-from ...types.agents import turn_create_params, turn_retrieve_params
+from ...types.agents import turn_create_params
 from ...types.agents.turn import Turn
 from ...types.agents.turn_create_response import TurnCreateResponse
 
@@ -54,12 +54,12 @@ class TurnResource(SyncAPIResource):
     @overload
     def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        session_id: str,
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
@@ -85,11 +85,11 @@ class TurnResource(SyncAPIResource):
     @overload
     def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
-        messages: Iterable[turn_create_params.Message],
-        session_id: str,
         stream: Literal[True],
+        messages: Iterable[turn_create_params.Message],
         documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
@@ -116,11 +116,11 @@ class TurnResource(SyncAPIResource):
     @overload
     def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
-        messages: Iterable[turn_create_params.Message],
-        session_id: str,
         stream: bool,
+        messages: Iterable[turn_create_params.Message],
         documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
@@ -144,15 +144,15 @@ class TurnResource(SyncAPIResource):
         """
         ...
 
-    @required_args(["agent_id", "messages", "session_id"], ["agent_id", "messages", "session_id", "stream"])
+    @required_args(["agent_id", "messages"], ["agent_id", "stream", "messages"])
     def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        session_id: str,
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
@@ -163,6 +163,10 @@ class TurnResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> TurnCreateResponse | Stream[TurnCreateResponse]:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {
             **strip_not_given(
@@ -176,20 +180,21 @@ class TurnResource(SyncAPIResource):
         return cast(
             TurnCreateResponse,
             self._post(
-                "/alpha/agents/turn/create",
+                f"/alpha/agents/{agent_id}/session/{session_id}/turn",
                 body=maybe_transform(
                     {
-                        "agent_id": agent_id,
                         "messages": messages,
-                        "session_id": session_id,
                         "documents": documents,
-                        "stream": stream,
                         "toolgroups": toolgroups,
                     },
                     turn_create_params.TurnCreateParams,
                 ),
                 options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform({"stream": stream}, turn_create_params.TurnCreateParams),
                 ),
                 cast_to=cast(
                     Any, TurnCreateResponse
@@ -201,10 +206,10 @@ class TurnResource(SyncAPIResource):
 
     def retrieve(
         self,
+        turn_id: str,
         *,
         agent_id: str,
         session_id: str,
-        turn_id: str,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -224,6 +229,12 @@ class TurnResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not turn_id:
+            raise ValueError(f"Expected a non-empty value for `turn_id` but received {turn_id!r}")
         extra_headers = {
             **strip_not_given(
                 {
@@ -234,20 +245,9 @@ class TurnResource(SyncAPIResource):
             **(extra_headers or {}),
         }
         return self._get(
-            "/alpha/agents/turn/get",
+            f"/alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "agent_id": agent_id,
-                        "session_id": session_id,
-                        "turn_id": turn_id,
-                    },
-                    turn_retrieve_params.TurnRetrieveParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Turn,
         )
@@ -276,12 +276,12 @@ class AsyncTurnResource(AsyncAPIResource):
     @overload
     async def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        session_id: str,
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
@@ -307,11 +307,11 @@ class AsyncTurnResource(AsyncAPIResource):
     @overload
     async def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
-        messages: Iterable[turn_create_params.Message],
-        session_id: str,
         stream: Literal[True],
+        messages: Iterable[turn_create_params.Message],
         documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
@@ -338,11 +338,11 @@ class AsyncTurnResource(AsyncAPIResource):
     @overload
     async def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
-        messages: Iterable[turn_create_params.Message],
-        session_id: str,
         stream: bool,
+        messages: Iterable[turn_create_params.Message],
         documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
@@ -366,15 +366,15 @@ class AsyncTurnResource(AsyncAPIResource):
         """
         ...
 
-    @required_args(["agent_id", "messages", "session_id"], ["agent_id", "messages", "session_id", "stream"])
+    @required_args(["agent_id", "messages"], ["agent_id", "stream", "messages"])
     async def create(
         self,
+        session_id: str,
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        session_id: str,
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
         toolgroups: List[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
@@ -385,6 +385,10 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> TurnCreateResponse | AsyncStream[TurnCreateResponse]:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {
             **strip_not_given(
@@ -398,20 +402,21 @@ class AsyncTurnResource(AsyncAPIResource):
         return cast(
             TurnCreateResponse,
             await self._post(
-                "/alpha/agents/turn/create",
+                f"/alpha/agents/{agent_id}/session/{session_id}/turn",
                 body=await async_maybe_transform(
                     {
-                        "agent_id": agent_id,
                         "messages": messages,
-                        "session_id": session_id,
                         "documents": documents,
-                        "stream": stream,
                         "toolgroups": toolgroups,
                     },
                     turn_create_params.TurnCreateParams,
                 ),
                 options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform({"stream": stream}, turn_create_params.TurnCreateParams),
                 ),
                 cast_to=cast(
                     Any, TurnCreateResponse
@@ -423,10 +428,10 @@ class AsyncTurnResource(AsyncAPIResource):
 
     async def retrieve(
         self,
+        turn_id: str,
         *,
         agent_id: str,
         session_id: str,
-        turn_id: str,
         x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -446,6 +451,12 @@ class AsyncTurnResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not turn_id:
+            raise ValueError(f"Expected a non-empty value for `turn_id` but received {turn_id!r}")
         extra_headers = {
             **strip_not_given(
                 {
@@ -456,20 +467,9 @@ class AsyncTurnResource(AsyncAPIResource):
             **(extra_headers or {}),
         }
         return await self._get(
-            "/alpha/agents/turn/get",
+            f"/alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "agent_id": agent_id,
-                        "session_id": session_id,
-                        "turn_id": turn_id,
-                    },
-                    turn_retrieve_params.TurnRetrieveParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Turn,
         )
