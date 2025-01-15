@@ -42,8 +42,7 @@ class TestSyntheticDataGeneration:
             ],
             filtering_function="none",
             model="model",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(SyntheticDataGenerationResponse, synthetic_data_generation, path=["response"])
 
@@ -112,8 +111,7 @@ class TestAsyncSyntheticDataGeneration:
             ],
             filtering_function="none",
             model="model",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(SyntheticDataGenerationResponse, synthetic_data_generation, path=["response"])
 

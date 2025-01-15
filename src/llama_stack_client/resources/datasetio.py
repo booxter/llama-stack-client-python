@@ -52,7 +52,6 @@ class DatasetioResource(SyncAPIResource):
         *,
         dataset_id: str,
         rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -73,16 +72,11 @@ class DatasetioResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._post(
-            "/v1/datasetio/append-rows",
+            "/alpha/datasetio/append-rows",
             body=maybe_transform(
                 {
                     "dataset_id": dataset_id,
@@ -103,7 +97,6 @@ class DatasetioResource(SyncAPIResource):
         rows_in_page: int,
         filter_condition: str | NotGiven = NOT_GIVEN,
         page_token: str | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -123,16 +116,11 @@ class DatasetioResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return self._get(
-            "/v1/datasetio/get-rows-paginated",
+            "/alpha/datasetio/get-rows-paginated",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -177,7 +165,6 @@ class AsyncDatasetioResource(AsyncAPIResource):
         *,
         dataset_id: str,
         rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -198,16 +185,11 @@ class AsyncDatasetioResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/v1/datasetio/append-rows",
+            "/alpha/datasetio/append-rows",
             body=await async_maybe_transform(
                 {
                     "dataset_id": dataset_id,
@@ -228,7 +210,6 @@ class AsyncDatasetioResource(AsyncAPIResource):
         rows_in_page: int,
         filter_condition: str | NotGiven = NOT_GIVEN,
         page_token: str | NotGiven = NOT_GIVEN,
-        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -248,16 +229,11 @@ class AsyncDatasetioResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given(
-                {
-                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
-                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
-                }
-            ),
+            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
             **(extra_headers or {}),
         }
         return await self._get(
-            "/v1/datasetio/get-rows-paginated",
+            "/alpha/datasetio/get-rows-paginated",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

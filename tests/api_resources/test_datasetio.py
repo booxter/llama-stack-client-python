@@ -32,8 +32,7 @@ class TestDatasetio:
         datasetio = client.datasetio.append_rows(
             dataset_id="dataset_id",
             rows=[{"foo": True}],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert datasetio is None
 
@@ -78,8 +77,7 @@ class TestDatasetio:
             rows_in_page=0,
             filter_condition="filter_condition",
             page_token="page_token",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
 
@@ -126,8 +124,7 @@ class TestAsyncDatasetio:
         datasetio = await async_client.datasetio.append_rows(
             dataset_id="dataset_id",
             rows=[{"foo": True}],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert datasetio is None
 
@@ -172,8 +169,7 @@ class TestAsyncDatasetio:
             rows_in_page=0,
             filter_condition="filter_condition",
             page_token="page_token",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
 

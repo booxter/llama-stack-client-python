@@ -6,18 +6,16 @@ from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .shared_params.tool_call import ToolCall
 from .shared_params.user_message import UserMessage
 from .shared_params.system_message import SystemMessage
 from .shared_params.sampling_params import SamplingParams
-from .shared_params.interleaved_content import InterleavedContent
+from .shared_params.completion_message import CompletionMessage
 from .shared_params.tool_param_definition import ToolParamDefinition
 from .shared_params.tool_response_message import ToolResponseMessage
 
 __all__ = [
     "InferenceChatCompletionParamsBase",
     "Message",
-    "MessageCompletionMessage",
     "Logprobs",
     "ResponseFormat",
     "ResponseFormatUnionMember0",
@@ -56,22 +54,10 @@ class InferenceChatCompletionParamsBase(TypedDict, total=False):
 
     tools: Iterable[Tool]
 
-    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
-
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
 
 
-class MessageCompletionMessage(TypedDict, total=False):
-    content: Required[InterleavedContent]
-
-    role: Required[Literal["assistant"]]
-
-    stop_reason: Required[Literal["end_of_turn", "end_of_message", "out_of_tokens"]]
-
-    tool_calls: Required[Iterable[ToolCall]]
-
-
-Message: TypeAlias = Union[UserMessage, SystemMessage, ToolResponseMessage, MessageCompletionMessage]
+Message: TypeAlias = Union[UserMessage, SystemMessage, ToolResponseMessage, CompletionMessage]
 
 
 class Logprobs(TypedDict, total=False):

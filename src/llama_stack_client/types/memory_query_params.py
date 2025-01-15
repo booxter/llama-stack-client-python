@@ -18,6 +18,4 @@ class MemoryQueryParams(TypedDict, total=False):
 
     params: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
 
-    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
-
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]

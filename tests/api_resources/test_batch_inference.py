@@ -73,8 +73,7 @@ class TestBatchInference:
                     },
                 }
             ],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(BatchInferenceChatCompletionResponse, batch_inference, path=["response"])
 
@@ -140,8 +139,7 @@ class TestBatchInference:
                 "top_k": 0,
                 "top_p": 0,
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(BatchCompletion, batch_inference, path=["response"])
 
@@ -228,8 +226,7 @@ class TestAsyncBatchInference:
                     },
                 }
             ],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(BatchInferenceChatCompletionResponse, batch_inference, path=["response"])
 
@@ -295,8 +292,7 @@ class TestAsyncBatchInference:
                 "top_k": 0,
                 "top_p": 0,
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(BatchCompletion, batch_inference, path=["response"])
 

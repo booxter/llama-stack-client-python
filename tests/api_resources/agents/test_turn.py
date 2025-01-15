@@ -49,16 +49,14 @@ class TestTurn:
                 }
             ],
             session_id="session_id",
-            documents=[
+            attachments=[
                 {
                     "content": "string",
                     "mime_type": "mime_type",
                 }
             ],
             stream=False,
-            toolgroups=["string"],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
@@ -140,15 +138,13 @@ class TestTurn:
             ],
             session_id="session_id",
             stream=True,
-            documents=[
+            attachments=[
                 {
                     "content": "string",
                     "mime_type": "mime_type",
                 }
             ],
-            toolgroups=["string"],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         turn_stream.response.close()
 
@@ -212,8 +208,7 @@ class TestTurn:
             agent_id="agent_id",
             session_id="session_id",
             turn_id="turn_id",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(Turn, turn, path=["response"])
 
@@ -281,16 +276,14 @@ class TestAsyncTurn:
                 }
             ],
             session_id="session_id",
-            documents=[
+            attachments=[
                 {
                     "content": "string",
                     "mime_type": "mime_type",
                 }
             ],
             stream=False,
-            toolgroups=["string"],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
@@ -372,15 +365,13 @@ class TestAsyncTurn:
             ],
             session_id="session_id",
             stream=True,
-            documents=[
+            attachments=[
                 {
                     "content": "string",
                     "mime_type": "mime_type",
                 }
             ],
-            toolgroups=["string"],
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         await turn_stream.response.aclose()
 
@@ -444,8 +435,7 @@ class TestAsyncTurn:
             agent_id="agent_id",
             session_id="session_id",
             turn_id="turn_id",
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(Turn, turn, path=["response"])
 

@@ -46,8 +46,7 @@ class TestScoring:
                     "prompt_template": "prompt_template",
                 }
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(ScoringScoreResponse, scoring, path=["response"])
 
@@ -115,8 +114,7 @@ class TestScoring:
                     "prompt_template": "prompt_template",
                 }
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(ScoringScoreBatchResponse, scoring, path=["response"])
 
@@ -188,8 +186,7 @@ class TestAsyncScoring:
                     "prompt_template": "prompt_template",
                 }
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(ScoringScoreResponse, scoring, path=["response"])
 
@@ -257,8 +254,7 @@ class TestAsyncScoring:
                     "prompt_template": "prompt_template",
                 }
             },
-            x_llama_stack_client_version="X-LlamaStack-Client-Version",
-            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
+            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
         )
         assert_matches_type(ScoringScoreBatchResponse, scoring, path=["response"])
 
