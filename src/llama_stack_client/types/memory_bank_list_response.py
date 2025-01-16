@@ -7,15 +7,15 @@ from .._models import BaseModel
 
 __all__ = [
     "MemoryBankListResponse",
-    "MemoryBankListResponseItem",
-    "MemoryBankListResponseItemVectorMemoryBank",
-    "MemoryBankListResponseItemKeyValueMemoryBank",
-    "MemoryBankListResponseItemKeywordMemoryBank",
-    "MemoryBankListResponseItemGraphMemoryBank",
+    "Data",
+    "DataVectorMemoryBank",
+    "DataKeyValueMemoryBank",
+    "DataKeywordMemoryBank",
+    "DataGraphMemoryBank",
 ]
 
 
-class MemoryBankListResponseItemVectorMemoryBank(BaseModel):
+class DataVectorMemoryBank(BaseModel):
     chunk_size_in_tokens: int
 
     embedding_model: str
@@ -35,7 +35,7 @@ class MemoryBankListResponseItemVectorMemoryBank(BaseModel):
     overlap_size_in_tokens: Optional[int] = None
 
 
-class MemoryBankListResponseItemKeyValueMemoryBank(BaseModel):
+class DataKeyValueMemoryBank(BaseModel):
     identifier: str
 
     memory_bank_type: Literal["keyvalue"]
@@ -47,7 +47,7 @@ class MemoryBankListResponseItemKeyValueMemoryBank(BaseModel):
     type: Literal["memory_bank"]
 
 
-class MemoryBankListResponseItemKeywordMemoryBank(BaseModel):
+class DataKeywordMemoryBank(BaseModel):
     identifier: str
 
     memory_bank_type: Literal["keyword"]
@@ -59,7 +59,7 @@ class MemoryBankListResponseItemKeywordMemoryBank(BaseModel):
     type: Literal["memory_bank"]
 
 
-class MemoryBankListResponseItemGraphMemoryBank(BaseModel):
+class DataGraphMemoryBank(BaseModel):
     identifier: str
 
     memory_bank_type: Literal["graph"]
@@ -71,11 +71,8 @@ class MemoryBankListResponseItemGraphMemoryBank(BaseModel):
     type: Literal["memory_bank"]
 
 
-MemoryBankListResponseItem: TypeAlias = Union[
-    MemoryBankListResponseItemVectorMemoryBank,
-    MemoryBankListResponseItemKeyValueMemoryBank,
-    MemoryBankListResponseItemKeywordMemoryBank,
-    MemoryBankListResponseItemGraphMemoryBank,
-]
+Data: TypeAlias = Union[DataVectorMemoryBank, DataKeyValueMemoryBank, DataKeywordMemoryBank, DataGraphMemoryBank]
 
-MemoryBankListResponse: TypeAlias = List[MemoryBankListResponseItem]
+
+class MemoryBankListResponse(BaseModel):
+    data: List[Data]

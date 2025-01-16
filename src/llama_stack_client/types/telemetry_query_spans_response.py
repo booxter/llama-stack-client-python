@@ -2,14 +2,13 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["TelemetryQuerySpansResponse", "TelemetryQuerySpansResponseItem"]
+__all__ = ["TelemetryQuerySpansResponse", "Data"]
 
 
-class TelemetryQuerySpansResponseItem(BaseModel):
+class Data(BaseModel):
     name: str
 
     span_id: str
@@ -25,4 +24,5 @@ class TelemetryQuerySpansResponseItem(BaseModel):
     parent_span_id: Optional[str] = None
 
 
-TelemetryQuerySpansResponse: TypeAlias = List[TelemetryQuerySpansResponseItem]
+class TelemetryQuerySpansResponse(BaseModel):
+    data: List[Data]
