@@ -2,11 +2,11 @@
 
 from typing import List
 
+from .trace import Trace
 from .._models import BaseModel
-from .route_info import RouteInfo
 
-__all__ = ["RouteListResponse"]
+__all__ = ["TelemetryQueryTracesResponse"]
 
 
-class RouteListResponse(BaseModel):
-    data: List[RouteInfo]
+class TelemetryQueryTracesResponse(BaseModel):
+    data: List[Trace]

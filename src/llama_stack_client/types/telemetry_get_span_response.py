@@ -5,10 +5,10 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["TelemetryQuerySpansResponse", "Data"]
+__all__ = ["TelemetryGetSpanResponse"]
 
 
-class Data(BaseModel):
+class TelemetryGetSpanResponse(BaseModel):
     name: str
 
     span_id: str
@@ -22,7 +22,3 @@ class Data(BaseModel):
     end_time: Optional[datetime] = None
 
     parent_span_id: Optional[str] = None
-
-
-class TelemetryQuerySpansResponse(BaseModel):
-    data: List[Data]
