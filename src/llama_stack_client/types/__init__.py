@@ -5,7 +5,6 @@ from __future__ import annotations
 from .job import Job as Job
 from .tool import Tool as Tool
 from .model import Model as Model
-from .trace import Trace as Trace
 from .shared import (
     URL as URL,
     ToolCall as ToolCall,
@@ -38,7 +37,6 @@ from .inference_step import InferenceStep as InferenceStep
 from .tool_def_param import ToolDefParam as ToolDefParam
 from .token_log_probs import TokenLogProbs as TokenLogProbs
 from .shield_call_step import ShieldCallStep as ShieldCallStep
-from .span_with_status import SpanWithStatus as SpanWithStatus
 from .tool_list_params import ToolListParams as ToolListParams
 from .evaluate_response import EvaluateResponse as EvaluateResponse
 from .post_training_job import PostTrainingJob as PostTrainingJob
@@ -79,21 +77,17 @@ from .telemetry_log_event_params import TelemetryLogEventParams as TelemetryLogE
 from .inference_completion_params import InferenceCompletionParams as InferenceCompletionParams
 from .inference_embeddings_params import InferenceEmbeddingsParams as InferenceEmbeddingsParams
 from .memory_bank_register_params import MemoryBankRegisterParams as MemoryBankRegisterParams
+from .telemetry_get_span_response import TelemetryGetSpanResponse as TelemetryGetSpanResponse
 from .datasetio_append_rows_params import DatasetioAppendRowsParams as DatasetioAppendRowsParams
 from .scoring_score_batch_response import ScoringScoreBatchResponse as ScoringScoreBatchResponse
-from .telemetry_query_spans_params import TelemetryQuerySpansParams as TelemetryQuerySpansParams
 from .inference_completion_response import InferenceCompletionResponse as InferenceCompletionResponse
 from .memory_bank_register_response import MemoryBankRegisterResponse as MemoryBankRegisterResponse
 from .memory_bank_retrieve_response import MemoryBankRetrieveResponse as MemoryBankRetrieveResponse
-from .telemetry_query_traces_params import TelemetryQueryTracesParams as TelemetryQueryTracesParams
 from .scoring_function_list_response import ScoringFunctionListResponse as ScoringFunctionListResponse
-from .telemetry_get_span_tree_params import TelemetryGetSpanTreeParams as TelemetryGetSpanTreeParams
-from .telemetry_query_spans_response import TelemetryQuerySpansResponse as TelemetryQuerySpansResponse
 from .tool_runtime_list_tools_params import ToolRuntimeListToolsParams as ToolRuntimeListToolsParams
 from .tool_runtime_invoke_tool_params import ToolRuntimeInvokeToolParams as ToolRuntimeInvokeToolParams
 from .inference_chat_completion_params import InferenceChatCompletionParams as InferenceChatCompletionParams
 from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
-from .telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse as TelemetryGetSpanTreeResponse
 from .batch_inference_completion_params import BatchInferenceCompletionParams as BatchInferenceCompletionParams
 from .inference_chat_completion_response import InferenceChatCompletionResponse as InferenceChatCompletionResponse
 from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
