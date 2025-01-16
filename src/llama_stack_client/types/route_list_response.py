@@ -1,10 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List
-from typing_extensions import TypeAlias
 
+from .._models import BaseModel
 from .route_info import RouteInfo
 
 __all__ = ["RouteListResponse"]
 
-RouteListResponse: TypeAlias = List[RouteInfo]
+
+class RouteListResponse(BaseModel):
+    data: List[RouteInfo]
