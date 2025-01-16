@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Type, Union, Iterable, cast
+from typing import Dict, Union, Iterable
 
 import httpx
 
@@ -21,7 +21,6 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.tool_group import ToolGroup
 from ..types.shared_params.url import URL
@@ -86,13 +85,9 @@ class ToolgroupsResource(SyncAPIResource):
         return self._get(
             "/v1/toolgroups",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ToolgroupListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ToolgroupListResponse], DataWrapper[ToolgroupListResponse]),
+            cast_to=ToolgroupListResponse,
         )
 
     def get(
@@ -294,13 +289,9 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         return await self._get(
             "/v1/toolgroups",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ToolgroupListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ToolgroupListResponse], DataWrapper[ToolgroupListResponse]),
+            cast_to=ToolgroupListResponse,
         )
 
     async def get(

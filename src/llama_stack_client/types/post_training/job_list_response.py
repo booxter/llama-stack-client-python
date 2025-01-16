@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List
-from typing_extensions import TypeAlias
 
 from ..._models import BaseModel
 
-__all__ = ["JobListResponse", "JobListResponseItem"]
+__all__ = ["JobListResponse", "Data"]
 
 
-class JobListResponseItem(BaseModel):
+class Data(BaseModel):
     job_uuid: str
 
 
-JobListResponse: TypeAlias = List[JobListResponseItem]
+class JobListResponse(BaseModel):
+    data: List[Data]

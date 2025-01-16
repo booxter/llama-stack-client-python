@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Type, Optional, cast
+from typing import Any, Optional, cast
 
 import httpx
 
@@ -21,7 +21,6 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.memory_bank_list_response import MemoryBankListResponse
 from ..types.memory_bank_register_response import MemoryBankRegisterResponse
@@ -131,13 +130,9 @@ class MemoryBanksResource(SyncAPIResource):
         return self._get(
             "/v1/memory-banks",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[MemoryBankListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[MemoryBankListResponse], DataWrapper[MemoryBankListResponse]),
+            cast_to=MemoryBankListResponse,
         )
 
     def register(
@@ -342,13 +337,9 @@ class AsyncMemoryBanksResource(AsyncAPIResource):
         return await self._get(
             "/v1/memory-banks",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[MemoryBankListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[MemoryBankListResponse], DataWrapper[MemoryBankListResponse]),
+            cast_to=MemoryBankListResponse,
         )
 
     async def register(

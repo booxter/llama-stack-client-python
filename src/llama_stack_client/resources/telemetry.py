@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Iterable, cast
+from typing import List, Iterable
 
 import httpx
 
@@ -27,7 +27,6 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from ..types.trace import Trace
 from .._base_client import make_request_options
 from ..types.telemetry_get_span_response import TelemetryGetSpanResponse
@@ -153,9 +152,8 @@ class TelemetryResource(SyncAPIResource):
                     },
                     telemetry_get_span_tree_params.TelemetryGetSpanTreeParams,
                 ),
-                post_parser=DataWrapper[TelemetryGetSpanTreeResponse]._unwrapper,
             ),
-            cast_to=cast(Type[TelemetryGetSpanTreeResponse], DataWrapper[TelemetryGetSpanTreeResponse]),
+            cast_to=TelemetryGetSpanTreeResponse,
         )
 
     def get_trace(
@@ -298,9 +296,8 @@ class TelemetryResource(SyncAPIResource):
                     },
                     telemetry_query_spans_params.TelemetryQuerySpansParams,
                 ),
-                post_parser=DataWrapper[TelemetryQuerySpansResponse]._unwrapper,
             ),
-            cast_to=cast(Type[TelemetryQuerySpansResponse], DataWrapper[TelemetryQuerySpansResponse]),
+            cast_to=TelemetryQuerySpansResponse,
         )
 
     def query_traces(
@@ -354,9 +351,8 @@ class TelemetryResource(SyncAPIResource):
                     },
                     telemetry_query_traces_params.TelemetryQueryTracesParams,
                 ),
-                post_parser=DataWrapper[TelemetryQueryTracesResponse]._unwrapper,
             ),
-            cast_to=cast(Type[TelemetryQueryTracesResponse], DataWrapper[TelemetryQueryTracesResponse]),
+            cast_to=TelemetryQueryTracesResponse,
         )
 
     def save_spans_to_dataset(
@@ -528,9 +524,8 @@ class AsyncTelemetryResource(AsyncAPIResource):
                     },
                     telemetry_get_span_tree_params.TelemetryGetSpanTreeParams,
                 ),
-                post_parser=DataWrapper[TelemetryGetSpanTreeResponse]._unwrapper,
             ),
-            cast_to=cast(Type[TelemetryGetSpanTreeResponse], DataWrapper[TelemetryGetSpanTreeResponse]),
+            cast_to=TelemetryGetSpanTreeResponse,
         )
 
     async def get_trace(
@@ -673,9 +668,8 @@ class AsyncTelemetryResource(AsyncAPIResource):
                     },
                     telemetry_query_spans_params.TelemetryQuerySpansParams,
                 ),
-                post_parser=DataWrapper[TelemetryQuerySpansResponse]._unwrapper,
             ),
-            cast_to=cast(Type[TelemetryQuerySpansResponse], DataWrapper[TelemetryQuerySpansResponse]),
+            cast_to=TelemetryQuerySpansResponse,
         )
 
     async def query_traces(
@@ -729,9 +723,8 @@ class AsyncTelemetryResource(AsyncAPIResource):
                     },
                     telemetry_query_traces_params.TelemetryQueryTracesParams,
                 ),
-                post_parser=DataWrapper[TelemetryQueryTracesResponse]._unwrapper,
             ),
-            cast_to=cast(Type[TelemetryQueryTracesResponse], DataWrapper[TelemetryQueryTracesResponse]),
+            cast_to=TelemetryQueryTracesResponse,
         )
 
     async def save_spans_to_dataset(
