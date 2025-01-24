@@ -103,6 +103,7 @@ class LlamaStackClient(SyncAPIClient):
         self,
         *,
         base_url: str | httpx.URL | None = None,
+        api_key: str | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -132,6 +133,8 @@ class LlamaStackClient(SyncAPIClient):
         custom_headers["X-LlamaStack-Client-Version"] = __version__
         if provider_data is not None:
             custom_headers["X-LlamaStack-Provider-Data"] = json.dumps(provider_data)
+        if api_key is not None:
+            custom_headers["Authorization"] = f"Bearer {api_key}"
 
         super().__init__(
             version=__version__,
@@ -300,6 +303,7 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         self,
         *,
         base_url: str | httpx.URL | None = None,
+        api_key: str | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -329,6 +333,8 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         custom_headers["X-LlamaStack-Client-Version"] = __version__
         if provider_data is not None:
             custom_headers["X-LlamaStack-Provider-Data"] = json.dumps(provider_data)
+        if api_key is not None:
+            custom_headers["Authorization"] = f"Bearer {api_key}"
 
         super().__init__(
             version=__version__,
