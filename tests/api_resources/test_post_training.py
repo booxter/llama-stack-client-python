@@ -35,11 +35,13 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -67,6 +69,7 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -75,6 +78,7 @@ class TestPostTraining:
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -90,7 +94,8 @@ class TestPostTraining:
                     "memory_efficient_fsdp_wrap": True,
                 },
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -110,11 +115,13 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -146,11 +153,13 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -178,11 +187,13 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -204,6 +215,7 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -212,6 +224,7 @@ class TestPostTraining:
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -238,7 +251,8 @@ class TestPostTraining:
                 "use_dora": True,
             },
             checkpoint_dir="checkpoint_dir",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -252,11 +266,13 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -282,11 +298,13 @@ class TestPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -324,11 +342,13 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -356,6 +376,7 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -364,6 +385,7 @@ class TestAsyncPostTraining:
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -379,7 +401,8 @@ class TestAsyncPostTraining:
                     "memory_efficient_fsdp_wrap": True,
                 },
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -399,11 +422,13 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -435,11 +460,13 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -467,11 +494,13 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -493,6 +522,7 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                     "packed": True,
@@ -501,6 +531,7 @@ class TestAsyncPostTraining:
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -527,7 +558,8 @@ class TestAsyncPostTraining:
                 "use_dora": True,
             },
             checkpoint_dir="checkpoint_dir",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -541,11 +573,13 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -571,11 +605,13 @@ class TestAsyncPostTraining:
             training_config={
                 "data_config": {
                     "batch_size": 0,
+                    "data_format": "instruct",
                     "dataset_id": "dataset_id",
                     "shuffle": True,
                 },
                 "gradient_accumulation_steps": 0,
                 "max_steps_per_epoch": 0,
+                "max_validation_steps": 0,
                 "n_epochs": 0,
                 "optimizer_config": {
                     "lr": 0,

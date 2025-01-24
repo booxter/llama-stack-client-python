@@ -50,12 +50,9 @@ class TestBatchInference:
             model="model",
             logprobs={"top_k": 0},
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             tool_choice="auto",
             tool_prompt_format="json",
@@ -73,7 +70,8 @@ class TestBatchInference:
                     },
                 }
             ],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(BatchInferenceChatCompletionResponse, batch_inference, path=["response"])
 
@@ -132,14 +130,12 @@ class TestBatchInference:
             model="model",
             logprobs={"top_k": 0},
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(BatchCompletion, batch_inference, path=["response"])
 
@@ -203,12 +199,9 @@ class TestAsyncBatchInference:
             model="model",
             logprobs={"top_k": 0},
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             tool_choice="auto",
             tool_prompt_format="json",
@@ -226,7 +219,8 @@ class TestAsyncBatchInference:
                     },
                 }
             ],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(BatchInferenceChatCompletionResponse, batch_inference, path=["response"])
 
@@ -285,14 +279,12 @@ class TestAsyncBatchInference:
             model="model",
             logprobs={"top_k": 0},
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(BatchCompletion, batch_inference, path=["response"])
 

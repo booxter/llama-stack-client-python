@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import Model
+from llama_stack_client.types import Model, ModelListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,22 +20,23 @@ class TestModels:
     @parametrize
     def test_method_retrieve(self, client: LlamaStackClient) -> None:
         model = client.models.retrieve(
-            identifier="identifier",
+            model_id="model_id",
         )
         assert_matches_type(Optional[Model], model, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
         model = client.models.retrieve(
-            identifier="identifier",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            model_id="model_id",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Optional[Model], model, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
         response = client.models.with_raw_response.retrieve(
-            identifier="identifier",
+            model_id="model_id",
         )
 
         assert response.is_closed is True
@@ -46,7 +47,7 @@ class TestModels:
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
         with client.models.with_streaming_response.retrieve(
-            identifier="identifier",
+            model_id="model_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -56,27 +57,26 @@ class TestModels:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
+    @parametrize
+    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `model_id` but received ''"):
+            client.models.with_raw_response.retrieve(
+                model_id="",
+            )
+
     @parametrize
     def test_method_list(self, client: LlamaStackClient) -> None:
         model = client.models.list()
-        assert_matches_type(Model, model, path=["response"])
+        assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
         model = client.models.list(
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
-        assert_matches_type(Model, model, path=["response"])
+        assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
         response = client.models.with_raw_response.list()
@@ -84,11 +84,8 @@ class TestModels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = response.parse()
-        assert_matches_type(Model, model, path=["response"])
+        assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
         with client.models.with_streaming_response.list() as response:
@@ -96,7 +93,7 @@ class TestModels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = response.parse()
-            assert_matches_type(Model, model, path=["response"])
+            assert_matches_type(ModelListResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -115,7 +112,8 @@ class TestModels:
             model_type="llm",
             provider_id="provider_id",
             provider_model_id="provider_model_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Model, model, path=["response"])
 
@@ -154,7 +152,8 @@ class TestModels:
     def test_method_unregister_with_all_params(self, client: LlamaStackClient) -> None:
         model = client.models.unregister(
             model_id="model_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert model is None
 
@@ -182,6 +181,13 @@ class TestModels:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_path_params_unregister(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `model_id` but received ''"):
+            client.models.with_raw_response.unregister(
+                model_id="",
+            )
+
 
 class TestAsyncModels:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -189,22 +195,23 @@ class TestAsyncModels:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         model = await async_client.models.retrieve(
-            identifier="identifier",
+            model_id="model_id",
         )
         assert_matches_type(Optional[Model], model, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         model = await async_client.models.retrieve(
-            identifier="identifier",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            model_id="model_id",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Optional[Model], model, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.models.with_raw_response.retrieve(
-            identifier="identifier",
+            model_id="model_id",
         )
 
         assert response.is_closed is True
@@ -215,7 +222,7 @@ class TestAsyncModels:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.models.with_streaming_response.retrieve(
-            identifier="identifier",
+            model_id="model_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -225,27 +232,26 @@ class TestAsyncModels:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `model_id` but received ''"):
+            await async_client.models.with_raw_response.retrieve(
+                model_id="",
+            )
+
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         model = await async_client.models.list()
-        assert_matches_type(Model, model, path=["response"])
+        assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         model = await async_client.models.list(
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
-        assert_matches_type(Model, model, path=["response"])
+        assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.models.with_raw_response.list()
@@ -253,11 +259,8 @@ class TestAsyncModels:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         model = await response.parse()
-        assert_matches_type(Model, model, path=["response"])
+        assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.models.with_streaming_response.list() as response:
@@ -265,7 +268,7 @@ class TestAsyncModels:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             model = await response.parse()
-            assert_matches_type(Model, model, path=["response"])
+            assert_matches_type(ModelListResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -284,7 +287,8 @@ class TestAsyncModels:
             model_type="llm",
             provider_id="provider_id",
             provider_model_id="provider_model_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Model, model, path=["response"])
 
@@ -323,7 +327,8 @@ class TestAsyncModels:
     async def test_method_unregister_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         model = await async_client.models.unregister(
             model_id="model_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert model is None
 
@@ -350,3 +355,10 @@ class TestAsyncModels:
             assert model is None
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `model_id` but received ''"):
+            await async_client.models.with_raw_response.unregister(
+                model_id="",
+            )

@@ -20,35 +20,33 @@ class TestEval:
     @parametrize
     def test_method_evaluate_rows(self, client: LlamaStackClient) -> None:
         eval = client.eval.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
 
     @parametrize
     def test_method_evaluate_rows_with_all_params(self, client: LlamaStackClient) -> None:
         eval = client.eval.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": "greedy",
+                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
-                        "temperature": 0,
-                        "top_k": 0,
-                        "top_p": 0,
                     },
                     "type": "model",
                     "system_message": {
@@ -59,25 +57,25 @@ class TestEval:
                 "type": "benchmark",
                 "num_examples": 0,
             },
-            task_id="task_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
 
     @parametrize
     def test_raw_response_evaluate_rows(self, client: LlamaStackClient) -> None:
         response = client.eval.with_raw_response.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -88,17 +86,17 @@ class TestEval:
     @parametrize
     def test_streaming_response_evaluate_rows(self, client: LlamaStackClient) -> None:
         with client.eval.with_streaming_response.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -109,33 +107,48 @@ class TestEval:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_path_params_evaluate_rows(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_id` but received ''"):
+            client.eval.with_raw_response.evaluate_rows(
+                task_id="",
+                input_rows=[{"foo": True}],
+                scoring_functions=["string"],
+                task_config={
+                    "eval_candidate": {
+                        "model": "model",
+                        "sampling_params": {"strategy": {"type": "greedy"}},
+                        "type": "model",
+                    },
+                    "type": "benchmark",
+                },
+            )
+
+    @parametrize
     def test_method_run_eval(self, client: LlamaStackClient) -> None:
         eval = client.eval.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
         assert_matches_type(Job, eval, path=["response"])
 
     @parametrize
     def test_method_run_eval_with_all_params(self, client: LlamaStackClient) -> None:
         eval = client.eval.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": "greedy",
+                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
-                        "temperature": 0,
-                        "top_k": 0,
-                        "top_p": 0,
                     },
                     "type": "model",
                     "system_message": {
@@ -146,23 +159,23 @@ class TestEval:
                 "type": "benchmark",
                 "num_examples": 0,
             },
-            task_id="task_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Job, eval, path=["response"])
 
     @parametrize
     def test_raw_response_run_eval(self, client: LlamaStackClient) -> None:
         response = client.eval.with_raw_response.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -173,15 +186,15 @@ class TestEval:
     @parametrize
     def test_streaming_response_run_eval(self, client: LlamaStackClient) -> None:
         with client.eval.with_streaming_response.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -191,6 +204,21 @@ class TestEval:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_path_params_run_eval(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_id` but received ''"):
+            client.eval.with_raw_response.run_eval(
+                task_id="",
+                task_config={
+                    "eval_candidate": {
+                        "model": "model",
+                        "sampling_params": {"strategy": {"type": "greedy"}},
+                        "type": "model",
+                    },
+                    "type": "benchmark",
+                },
+            )
+
 
 class TestAsyncEval:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -198,35 +226,33 @@ class TestAsyncEval:
     @parametrize
     async def test_method_evaluate_rows(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.eval.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
 
     @parametrize
     async def test_method_evaluate_rows_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.eval.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": "greedy",
+                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
-                        "temperature": 0,
-                        "top_k": 0,
-                        "top_p": 0,
                     },
                     "type": "model",
                     "system_message": {
@@ -237,25 +263,25 @@ class TestAsyncEval:
                 "type": "benchmark",
                 "num_examples": 0,
             },
-            task_id="task_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
 
     @parametrize
     async def test_raw_response_evaluate_rows(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.eval.with_raw_response.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -266,17 +292,17 @@ class TestAsyncEval:
     @parametrize
     async def test_streaming_response_evaluate_rows(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.eval.with_streaming_response.evaluate_rows(
+            task_id="task_id",
             input_rows=[{"foo": True}],
             scoring_functions=["string"],
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -287,33 +313,48 @@ class TestAsyncEval:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_path_params_evaluate_rows(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_id` but received ''"):
+            await async_client.eval.with_raw_response.evaluate_rows(
+                task_id="",
+                input_rows=[{"foo": True}],
+                scoring_functions=["string"],
+                task_config={
+                    "eval_candidate": {
+                        "model": "model",
+                        "sampling_params": {"strategy": {"type": "greedy"}},
+                        "type": "model",
+                    },
+                    "type": "benchmark",
+                },
+            )
+
+    @parametrize
     async def test_method_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.eval.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
         assert_matches_type(Job, eval, path=["response"])
 
     @parametrize
     async def test_method_run_eval_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.eval.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": "greedy",
+                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
-                        "temperature": 0,
-                        "top_k": 0,
-                        "top_p": 0,
                     },
                     "type": "model",
                     "system_message": {
@@ -324,23 +365,23 @@ class TestAsyncEval:
                 "type": "benchmark",
                 "num_examples": 0,
             },
-            task_id="task_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Job, eval, path=["response"])
 
     @parametrize
     async def test_raw_response_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.eval.with_raw_response.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -351,15 +392,15 @@ class TestAsyncEval:
     @parametrize
     async def test_streaming_response_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.eval.with_streaming_response.run_eval(
+            task_id="task_id",
             task_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": "greedy"},
+                    "sampling_params": {"strategy": {"type": "greedy"}},
                     "type": "model",
                 },
                 "type": "benchmark",
             },
-            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -368,3 +409,18 @@ class TestAsyncEval:
             assert_matches_type(Job, eval, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_id` but received ''"):
+            await async_client.eval.with_raw_response.run_eval(
+                task_id="",
+                task_config={
+                    "eval_candidate": {
+                        "model": "model",
+                        "sampling_params": {"strategy": {"type": "greedy"}},
+                        "type": "model",
+                    },
+                    "type": "benchmark",
+                },
+            )

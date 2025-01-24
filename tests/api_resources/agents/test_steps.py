@@ -20,9 +20,9 @@ class TestSteps:
     @parametrize
     def test_method_retrieve(self, client: LlamaStackClient) -> None:
         step = client.agents.steps.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
         )
         assert_matches_type(StepRetrieveResponse, step, path=["response"])
@@ -30,20 +30,21 @@ class TestSteps:
     @parametrize
     def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
         step = client.agents.steps.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(StepRetrieveResponse, step, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
         response = client.agents.steps.with_raw_response.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
         )
 
@@ -55,9 +56,9 @@ class TestSteps:
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
         with client.agents.steps.with_streaming_response.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
         ) as response:
             assert not response.is_closed
@@ -68,6 +69,40 @@ class TestSteps:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.steps.with_raw_response.retrieve(
+                step_id="step_id",
+                agent_id="",
+                session_id="session_id",
+                turn_id="turn_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.agents.steps.with_raw_response.retrieve(
+                step_id="step_id",
+                agent_id="agent_id",
+                session_id="",
+                turn_id="turn_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `turn_id` but received ''"):
+            client.agents.steps.with_raw_response.retrieve(
+                step_id="step_id",
+                agent_id="agent_id",
+                session_id="session_id",
+                turn_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `step_id` but received ''"):
+            client.agents.steps.with_raw_response.retrieve(
+                step_id="",
+                agent_id="agent_id",
+                session_id="session_id",
+                turn_id="turn_id",
+            )
+
 
 class TestAsyncSteps:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -75,9 +110,9 @@ class TestAsyncSteps:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         step = await async_client.agents.steps.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
         )
         assert_matches_type(StepRetrieveResponse, step, path=["response"])
@@ -85,20 +120,21 @@ class TestAsyncSteps:
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         step = await async_client.agents.steps.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(StepRetrieveResponse, step, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.agents.steps.with_raw_response.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
         )
 
@@ -110,9 +146,9 @@ class TestAsyncSteps:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.agents.steps.with_streaming_response.retrieve(
+            step_id="step_id",
             agent_id="agent_id",
             session_id="session_id",
-            step_id="step_id",
             turn_id="turn_id",
         ) as response:
             assert not response.is_closed
@@ -122,3 +158,37 @@ class TestAsyncSteps:
             assert_matches_type(StepRetrieveResponse, step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.steps.with_raw_response.retrieve(
+                step_id="step_id",
+                agent_id="",
+                session_id="session_id",
+                turn_id="turn_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.agents.steps.with_raw_response.retrieve(
+                step_id="step_id",
+                agent_id="agent_id",
+                session_id="",
+                turn_id="turn_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `turn_id` but received ''"):
+            await async_client.agents.steps.with_raw_response.retrieve(
+                step_id="step_id",
+                agent_id="agent_id",
+                session_id="session_id",
+                turn_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `step_id` but received ''"):
+            await async_client.agents.steps.with_raw_response.retrieve(
+                step_id="",
+                agent_id="agent_id",
+                session_id="session_id",
+                turn_id="turn_id",
+            )

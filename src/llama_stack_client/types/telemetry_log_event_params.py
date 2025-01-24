@@ -11,12 +11,12 @@ from .._utils import PropertyInfo
 __all__ = [
     "TelemetryLogEventParams",
     "Event",
-    "EventUnstructuredLogEvent",
-    "EventMetricEvent",
-    "EventStructuredLogEvent",
-    "EventStructuredLogEventPayload",
-    "EventStructuredLogEventPayloadSpanStartPayload",
-    "EventStructuredLogEventPayloadSpanEndPayload",
+    "EventUnstructuredLog",
+    "EventMetric",
+    "EventStructuredLog",
+    "EventStructuredLogPayload",
+    "EventStructuredLogPayloadSpanStart",
+    "EventStructuredLogPayloadSpanEnd",
 ]
 
 
@@ -25,10 +25,12 @@ class TelemetryLogEventParams(TypedDict, total=False):
 
     ttl_seconds: Required[int]
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
+
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
 
 
-class EventUnstructuredLogEvent(TypedDict, total=False):
+class EventUnstructuredLog(TypedDict, total=False):
     message: Required[str]
 
     severity: Required[Literal["verbose", "debug", "info", "warn", "error", "critical"]]
@@ -44,7 +46,7 @@ class EventUnstructuredLogEvent(TypedDict, total=False):
     attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
 
 
-class EventMetricEvent(TypedDict, total=False):
+class EventMetric(TypedDict, total=False):
     metric: Required[str]
 
     span_id: Required[str]
@@ -62,7 +64,7 @@ class EventMetricEvent(TypedDict, total=False):
     attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
 
 
-class EventStructuredLogEventPayloadSpanStartPayload(TypedDict, total=False):
+class EventStructuredLogPayloadSpanStart(TypedDict, total=False):
     name: Required[str]
 
     type: Required[Literal["span_start"]]
@@ -70,19 +72,17 @@ class EventStructuredLogEventPayloadSpanStartPayload(TypedDict, total=False):
     parent_span_id: str
 
 
-class EventStructuredLogEventPayloadSpanEndPayload(TypedDict, total=False):
+class EventStructuredLogPayloadSpanEnd(TypedDict, total=False):
     status: Required[Literal["ok", "error"]]
 
     type: Required[Literal["span_end"]]
 
 
-EventStructuredLogEventPayload: TypeAlias = Union[
-    EventStructuredLogEventPayloadSpanStartPayload, EventStructuredLogEventPayloadSpanEndPayload
-]
+EventStructuredLogPayload: TypeAlias = Union[EventStructuredLogPayloadSpanStart, EventStructuredLogPayloadSpanEnd]
 
 
-class EventStructuredLogEvent(TypedDict, total=False):
-    payload: Required[EventStructuredLogEventPayload]
+class EventStructuredLog(TypedDict, total=False):
+    payload: Required[EventStructuredLogPayload]
 
     span_id: Required[str]
 
@@ -95,4 +95,4 @@ class EventStructuredLogEvent(TypedDict, total=False):
     attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
 
 
-Event: TypeAlias = Union[EventUnstructuredLogEvent, EventMetricEvent, EventStructuredLogEvent]
+Event: TypeAlias = Union[EventUnstructuredLog, EventMetric, EventStructuredLog]

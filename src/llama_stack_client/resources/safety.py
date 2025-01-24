@@ -23,6 +23,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.run_shield_response import RunShieldResponse
+from ..types.shared_params.message import Message
 
 __all__ = ["SafetyResource", "AsyncSafetyResource"]
 
@@ -31,7 +32,7 @@ class SafetyResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> SafetyResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/llama-stack-python#accessing-raw-response-data-eg-headers
@@ -50,9 +51,10 @@ class SafetyResource(SyncAPIResource):
     def run_shield(
         self,
         *,
-        messages: Iterable[safety_run_shield_params.Message],
+        messages: Iterable[Message],
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         shield_id: str,
+        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -72,11 +74,16 @@ class SafetyResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
+            **strip_not_given(
+                {
+                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
+                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
+                }
+            ),
             **(extra_headers or {}),
         }
         return self._post(
-            "/alpha/safety/run-shield",
+            "/v1/safety/run-shield",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -96,7 +103,7 @@ class AsyncSafetyResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncSafetyResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/llama-stack-python#accessing-raw-response-data-eg-headers
@@ -115,9 +122,10 @@ class AsyncSafetyResource(AsyncAPIResource):
     async def run_shield(
         self,
         *,
-        messages: Iterable[safety_run_shield_params.Message],
+        messages: Iterable[Message],
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         shield_id: str,
+        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -137,11 +145,16 @@ class AsyncSafetyResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
+            **strip_not_given(
+                {
+                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
+                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
+                }
+            ),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/alpha/safety/run-shield",
+            "/v1/safety/run-shield",
             body=await async_maybe_transform(
                 {
                     "messages": messages,

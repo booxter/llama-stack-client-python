@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import Shield
+from llama_stack_client.types import Shield, ShieldListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -28,7 +28,8 @@ class TestShields:
     def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
         shield = client.shields.retrieve(
             identifier="identifier",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Optional[Shield], shield, path=["response"])
 
@@ -56,27 +57,26 @@ class TestShields:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
+    @parametrize
+    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
+            client.shields.with_raw_response.retrieve(
+                identifier="",
+            )
+
     @parametrize
     def test_method_list(self, client: LlamaStackClient) -> None:
         shield = client.shields.list()
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldListResponse, shield, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
         shield = client.shields.list(
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldListResponse, shield, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
         response = client.shields.with_raw_response.list()
@@ -84,11 +84,8 @@ class TestShields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shield = response.parse()
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldListResponse, shield, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
         with client.shields.with_streaming_response.list() as response:
@@ -96,7 +93,7 @@ class TestShields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shield = response.parse()
-            assert_matches_type(Shield, shield, path=["response"])
+            assert_matches_type(ShieldListResponse, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -114,7 +111,8 @@ class TestShields:
             params={"foo": True},
             provider_id="provider_id",
             provider_shield_id="provider_shield_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Shield, shield, path=["response"])
 
@@ -157,7 +155,8 @@ class TestAsyncShields:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         shield = await async_client.shields.retrieve(
             identifier="identifier",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Optional[Shield], shield, path=["response"])
 
@@ -185,27 +184,26 @@ class TestAsyncShields:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
+            await async_client.shields.with_raw_response.retrieve(
+                identifier="",
+            )
+
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         shield = await async_client.shields.list()
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldListResponse, shield, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         shield = await async_client.shields.list(
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldListResponse, shield, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.shields.with_raw_response.list()
@@ -213,11 +211,8 @@ class TestAsyncShields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shield = await response.parse()
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldListResponse, shield, path=["response"])
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type application/jsonl, Prism mock server will fail"
-    )
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.shields.with_streaming_response.list() as response:
@@ -225,7 +220,7 @@ class TestAsyncShields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shield = await response.parse()
-            assert_matches_type(Shield, shield, path=["response"])
+            assert_matches_type(ShieldListResponse, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -243,7 +238,8 @@ class TestAsyncShields:
             params={"foo": True},
             provider_id="provider_id",
             provider_shield_id="provider_shield_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Shield, shield, path=["response"])
 

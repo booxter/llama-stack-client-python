@@ -14,8 +14,8 @@ __all__ = [
     "TrainingConfigOptimizerConfig",
     "TrainingConfigEfficiencyConfig",
     "AlgorithmConfig",
-    "AlgorithmConfigLoraFinetuningConfig",
-    "AlgorithmConfigQatFinetuningConfig",
+    "AlgorithmConfigLoRa",
+    "AlgorithmConfigQat",
 ]
 
 
@@ -34,11 +34,15 @@ class PostTrainingSupervisedFineTuneParams(TypedDict, total=False):
 
     checkpoint_dir: str
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
+
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):
     batch_size: Required[int]
+
+    data_format: Required[Literal["instruct", "dialog"]]
 
     dataset_id: Required[str]
 
@@ -78,6 +82,8 @@ class TrainingConfig(TypedDict, total=False):
 
     max_steps_per_epoch: Required[int]
 
+    max_validation_steps: Required[int]
+
     n_epochs: Required[int]
 
     optimizer_config: Required[TrainingConfigOptimizerConfig]
@@ -87,7 +93,7 @@ class TrainingConfig(TypedDict, total=False):
     efficiency_config: TrainingConfigEfficiencyConfig
 
 
-class AlgorithmConfigLoraFinetuningConfig(TypedDict, total=False):
+class AlgorithmConfigLoRa(TypedDict, total=False):
     alpha: Required[int]
 
     apply_lora_to_mlp: Required[bool]
@@ -105,7 +111,7 @@ class AlgorithmConfigLoraFinetuningConfig(TypedDict, total=False):
     use_dora: bool
 
 
-class AlgorithmConfigQatFinetuningConfig(TypedDict, total=False):
+class AlgorithmConfigQat(TypedDict, total=False):
     group_size: Required[int]
 
     quantizer_name: Required[str]
@@ -113,4 +119,4 @@ class AlgorithmConfigQatFinetuningConfig(TypedDict, total=False):
     type: Required[Literal["QAT"]]
 
 
-AlgorithmConfig: TypeAlias = Union[AlgorithmConfigLoraFinetuningConfig, AlgorithmConfigQatFinetuningConfig]
+AlgorithmConfig: TypeAlias = Union[AlgorithmConfigLoRa, AlgorithmConfigQat]

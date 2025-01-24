@@ -2,20 +2,36 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-__all__ = ["SamplingParams"]
+__all__ = ["SamplingParams", "Strategy", "StrategyGreedy", "StrategyTopP", "StrategyTopK"]
+
+
+class StrategyGreedy(TypedDict, total=False):
+    type: Required[Literal["greedy"]]
+
+
+class StrategyTopP(TypedDict, total=False):
+    type: Required[Literal["top_p"]]
+
+    temperature: float
+
+    top_p: float
+
+
+class StrategyTopK(TypedDict, total=False):
+    top_k: Required[int]
+
+    type: Required[Literal["top_k"]]
+
+
+Strategy: TypeAlias = Union[StrategyGreedy, StrategyTopP, StrategyTopK]
 
 
 class SamplingParams(TypedDict, total=False):
-    strategy: Required[Literal["greedy", "top_p", "top_k"]]
+    strategy: Required[Strategy]
 
     max_tokens: int
 
     repetition_penalty: float
-
-    temperature: float
-
-    top_k: int
-
-    top_p: float

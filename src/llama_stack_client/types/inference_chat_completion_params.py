@@ -6,20 +6,16 @@ from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .shared_params.user_message import UserMessage
-from .shared_params.system_message import SystemMessage
+from .shared_params.message import Message
 from .shared_params.sampling_params import SamplingParams
-from .shared_params.completion_message import CompletionMessage
 from .shared_params.tool_param_definition import ToolParamDefinition
-from .shared_params.tool_response_message import ToolResponseMessage
 
 __all__ = [
     "InferenceChatCompletionParamsBase",
-    "Message",
     "Logprobs",
     "ResponseFormat",
-    "ResponseFormatJsonSchemaFormat",
-    "ResponseFormatGrammarFormat",
+    "ResponseFormatJsonSchema",
+    "ResponseFormatGrammar",
     "Tool",
     "InferenceChatCompletionParamsNonStreaming",
     "InferenceChatCompletionParamsStreaming",
@@ -54,29 +50,28 @@ class InferenceChatCompletionParamsBase(TypedDict, total=False):
 
     tools: Iterable[Tool]
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
 
-
-Message: TypeAlias = Union[UserMessage, SystemMessage, ToolResponseMessage, CompletionMessage]
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
 
 
 class Logprobs(TypedDict, total=False):
     top_k: int
 
 
-class ResponseFormatJsonSchemaFormat(TypedDict, total=False):
+class ResponseFormatJsonSchema(TypedDict, total=False):
     json_schema: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
 
     type: Required[Literal["json_schema"]]
 
 
-class ResponseFormatGrammarFormat(TypedDict, total=False):
+class ResponseFormatGrammar(TypedDict, total=False):
     bnf: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
 
     type: Required[Literal["grammar"]]
 
 
-ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchemaFormat, ResponseFormatGrammarFormat]
+ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchema, ResponseFormatGrammar]
 
 
 class Tool(TypedDict, total=False):

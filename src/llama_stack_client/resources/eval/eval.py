@@ -44,7 +44,7 @@ class EvalResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> EvalResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/llama-stack-python#accessing-raw-response-data-eg-headers
@@ -62,11 +62,12 @@ class EvalResource(SyncAPIResource):
 
     def evaluate_rows(
         self,
+        task_id: str,
         *,
         input_rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
         scoring_functions: List[str],
         task_config: eval_evaluate_rows_params.TaskConfig,
-        task_id: str,
+        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -85,18 +86,24 @@ class EvalResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not task_id:
+            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
         extra_headers = {
-            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
+            **strip_not_given(
+                {
+                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
+                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
+                }
+            ),
             **(extra_headers or {}),
         }
         return self._post(
-            "/alpha/eval/evaluate-rows",
+            f"/v1/eval/tasks/{task_id}/evaluations",
             body=maybe_transform(
                 {
                     "input_rows": input_rows,
                     "scoring_functions": scoring_functions,
                     "task_config": task_config,
-                    "task_id": task_id,
                 },
                 eval_evaluate_rows_params.EvalEvaluateRowsParams,
             ),
@@ -108,9 +115,10 @@ class EvalResource(SyncAPIResource):
 
     def run_eval(
         self,
+        task_id: str,
         *,
         task_config: eval_run_eval_params.TaskConfig,
-        task_id: str,
+        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -129,19 +137,20 @@ class EvalResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not task_id:
+            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
         extra_headers = {
-            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
+            **strip_not_given(
+                {
+                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
+                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
+                }
+            ),
             **(extra_headers or {}),
         }
         return self._post(
-            "/alpha/eval/run-eval",
-            body=maybe_transform(
-                {
-                    "task_config": task_config,
-                    "task_id": task_id,
-                },
-                eval_run_eval_params.EvalRunEvalParams,
-            ),
+            f"/v1/eval/tasks/{task_id}/jobs",
+            body=maybe_transform({"task_config": task_config}, eval_run_eval_params.EvalRunEvalParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -157,7 +166,7 @@ class AsyncEvalResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncEvalResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/llama-stack-python#accessing-raw-response-data-eg-headers
@@ -175,11 +184,12 @@ class AsyncEvalResource(AsyncAPIResource):
 
     async def evaluate_rows(
         self,
+        task_id: str,
         *,
         input_rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
         scoring_functions: List[str],
         task_config: eval_evaluate_rows_params.TaskConfig,
-        task_id: str,
+        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -198,18 +208,24 @@ class AsyncEvalResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not task_id:
+            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
         extra_headers = {
-            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
+            **strip_not_given(
+                {
+                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
+                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
+                }
+            ),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/alpha/eval/evaluate-rows",
+            f"/v1/eval/tasks/{task_id}/evaluations",
             body=await async_maybe_transform(
                 {
                     "input_rows": input_rows,
                     "scoring_functions": scoring_functions,
                     "task_config": task_config,
-                    "task_id": task_id,
                 },
                 eval_evaluate_rows_params.EvalEvaluateRowsParams,
             ),
@@ -221,9 +237,10 @@ class AsyncEvalResource(AsyncAPIResource):
 
     async def run_eval(
         self,
+        task_id: str,
         *,
         task_config: eval_run_eval_params.TaskConfig,
-        task_id: str,
+        x_llama_stack_client_version: str | NotGiven = NOT_GIVEN,
         x_llama_stack_provider_data: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -242,19 +259,20 @@ class AsyncEvalResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        if not task_id:
+            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
         extra_headers = {
-            **strip_not_given({"X-LlamaStack-ProviderData": x_llama_stack_provider_data}),
+            **strip_not_given(
+                {
+                    "X-LlamaStack-Client-Version": x_llama_stack_client_version,
+                    "X-LlamaStack-Provider-Data": x_llama_stack_provider_data,
+                }
+            ),
             **(extra_headers or {}),
         }
         return await self._post(
-            "/alpha/eval/run-eval",
-            body=await async_maybe_transform(
-                {
-                    "task_config": task_config,
-                    "task_id": task_id,
-                },
-                eval_run_eval_params.EvalRunEvalParams,
-            ),
+            f"/v1/eval/tasks/{task_id}/jobs",
+            body=await async_maybe_transform({"task_config": task_config}, eval_run_eval_params.EvalRunEvalParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

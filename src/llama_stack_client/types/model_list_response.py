@@ -1,23 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import List
+from typing_extensions import TypeAlias
 
-from .._models import BaseModel
+from .model import Model
 
-__all__ = ["ModelListResponse", "ProviderConfig"]
+__all__ = ["ModelListResponse"]
 
-
-class ProviderConfig(BaseModel):
-    config: Dict[str, Union[bool, float, str, List[object], object, None]]
-
-    provider_type: str
-
-
-class ModelListResponse(BaseModel):
-    llama_model: object
-    """
-    The model family and SKU of the model along with other parameters corresponding
-    to the model.
-    """
-
-    provider_config: ProviderConfig
+ModelListResponse: TypeAlias = List[Model]

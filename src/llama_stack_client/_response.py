@@ -30,6 +30,7 @@ from ._models import BaseModel, is_basemodel
 from ._constants import RAW_RESPONSE_HEADER, OVERRIDE_CAST_TO_HEADER
 from ._streaming import Stream, AsyncStream, is_stream_class_type, extract_stream_chunk_type
 from ._exceptions import LlamaStackClientError, APIResponseValidationError
+from ._decoders.jsonl import JSONLDecoder, AsyncJSONLDecoder
 
 if TYPE_CHECKING:
     from ._models import FinalRequestOptions
@@ -136,6 +137,29 @@ class BaseAPIResponse(Generic[R]):
         if cast_to and is_annotated_type(cast_to):
             cast_to = extract_type_arg(cast_to, 0)
 
+        origin = get_origin(cast_to) or cast_to
+
+        if inspect.isclass(origin):
+            if issubclass(cast(Any, origin), JSONLDecoder):
+                return cast(
+                    R,
+                    cast("type[JSONLDecoder[Any]]", cast_to)(
+                        raw_iterator=self.http_response.iter_bytes(chunk_size=4096),
+                        line_type=extract_type_arg(cast_to, 0),
+                        http_response=self.http_response,
+                    ),
+                )
+
+            if issubclass(cast(Any, origin), AsyncJSONLDecoder):
+                return cast(
+                    R,
+                    cast("type[AsyncJSONLDecoder[Any]]", cast_to)(
+                        raw_iterator=self.http_response.aiter_bytes(chunk_size=4096),
+                        line_type=extract_type_arg(cast_to, 0),
+                        http_response=self.http_response,
+                    ),
+                )
+
         if self._is_sse_stream:
             if to:
                 if not is_stream_class_type(to):
@@ -195,8 +219,6 @@ class BaseAPIResponse(Generic[R]):
         if cast_to == bool:
             return cast(R, response.text.lower() == "true")
 
-        origin = get_origin(cast_to) or cast_to
-
         if origin == APIResponse:
             raise RuntimeError("Unexpected state - cast_to is `APIResponse`")
 
@@ -210,7 +232,13 @@ class BaseAPIResponse(Generic[R]):
                 raise ValueError(f"Subclasses of httpx.Response cannot be passed to `cast_to`")
             return cast(R, response)
 
-        if inspect.isclass(origin) and not issubclass(origin, BaseModel) and issubclass(origin, pydantic.BaseModel):
+        if (
+            inspect.isclass(
+                origin  # pyright: ignore[reportUnknownArgumentType]
+            )
+            and not issubclass(origin, BaseModel)
+            and issubclass(origin, pydantic.BaseModel)
+        ):
             raise TypeError(
                 "Pydantic models must subclass our base model type, e.g. `from llama_stack_client import BaseModel`"
             )

@@ -13,8 +13,8 @@ __all__ = [
     "InferenceCompletionParamsBase",
     "Logprobs",
     "ResponseFormat",
-    "ResponseFormatJsonSchemaFormat",
-    "ResponseFormatGrammarFormat",
+    "ResponseFormatJsonSchema",
+    "ResponseFormatGrammar",
     "InferenceCompletionParamsNonStreaming",
     "InferenceCompletionParamsStreaming",
 ]
@@ -31,26 +31,28 @@ class InferenceCompletionParamsBase(TypedDict, total=False):
 
     sampling_params: SamplingParams
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
+
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
 
 
 class Logprobs(TypedDict, total=False):
     top_k: int
 
 
-class ResponseFormatJsonSchemaFormat(TypedDict, total=False):
+class ResponseFormatJsonSchema(TypedDict, total=False):
     json_schema: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
 
     type: Required[Literal["json_schema"]]
 
 
-class ResponseFormatGrammarFormat(TypedDict, total=False):
+class ResponseFormatGrammar(TypedDict, total=False):
     bnf: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
 
     type: Required[Literal["grammar"]]
 
 
-ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchemaFormat, ResponseFormatGrammarFormat]
+ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchema, ResponseFormatGrammar]
 
 
 class InferenceCompletionParamsNonStreaming(InferenceCompletionParamsBase, total=False):

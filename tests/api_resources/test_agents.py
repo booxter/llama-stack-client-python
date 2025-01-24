@@ -37,36 +37,35 @@ class TestAgents:
                 "instructions": "instructions",
                 "max_infer_iters": 0,
                 "model": "model",
+                "client_tools": [
+                    {
+                        "name": "name",
+                        "description": "description",
+                        "metadata": {"foo": True},
+                        "parameters": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "parameter_type": "parameter_type",
+                                "required": True,
+                                "default": True,
+                            }
+                        ],
+                    }
+                ],
                 "input_shields": ["string"],
                 "output_shields": ["string"],
                 "sampling_params": {
-                    "strategy": "greedy",
+                    "strategy": {"type": "greedy"},
                     "max_tokens": 0,
                     "repetition_penalty": 0,
-                    "temperature": 0,
-                    "top_k": 0,
-                    "top_p": 0,
                 },
                 "tool_choice": "auto",
                 "tool_prompt_format": "json",
-                "tools": [
-                    {
-                        "api_key": "api_key",
-                        "engine": "bing",
-                        "type": "brave_search",
-                        "input_shields": ["string"],
-                        "output_shields": ["string"],
-                        "remote_execution": {
-                            "method": "GET",
-                            "url": {"uri": "uri"},
-                            "body": {"foo": True},
-                            "headers": {"foo": True},
-                            "params": {"foo": True},
-                        },
-                    }
-                ],
+                "toolgroups": ["string"],
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(AgentCreateResponse, agent, path=["response"])
 
@@ -115,7 +114,8 @@ class TestAgents:
     def test_method_delete_with_all_params(self, client: LlamaStackClient) -> None:
         agent = client.agents.delete(
             agent_id="agent_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert agent is None
 
@@ -143,6 +143,13 @@ class TestAgents:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.with_raw_response.delete(
+                agent_id="",
+            )
+
 
 class TestAsyncAgents:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -167,36 +174,35 @@ class TestAsyncAgents:
                 "instructions": "instructions",
                 "max_infer_iters": 0,
                 "model": "model",
+                "client_tools": [
+                    {
+                        "name": "name",
+                        "description": "description",
+                        "metadata": {"foo": True},
+                        "parameters": [
+                            {
+                                "description": "description",
+                                "name": "name",
+                                "parameter_type": "parameter_type",
+                                "required": True,
+                                "default": True,
+                            }
+                        ],
+                    }
+                ],
                 "input_shields": ["string"],
                 "output_shields": ["string"],
                 "sampling_params": {
-                    "strategy": "greedy",
+                    "strategy": {"type": "greedy"},
                     "max_tokens": 0,
                     "repetition_penalty": 0,
-                    "temperature": 0,
-                    "top_k": 0,
-                    "top_p": 0,
                 },
                 "tool_choice": "auto",
                 "tool_prompt_format": "json",
-                "tools": [
-                    {
-                        "api_key": "api_key",
-                        "engine": "bing",
-                        "type": "brave_search",
-                        "input_shields": ["string"],
-                        "output_shields": ["string"],
-                        "remote_execution": {
-                            "method": "GET",
-                            "url": {"uri": "uri"},
-                            "body": {"foo": True},
-                            "headers": {"foo": True},
-                            "params": {"foo": True},
-                        },
-                    }
-                ],
+                "toolgroups": ["string"],
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(AgentCreateResponse, agent, path=["response"])
 
@@ -245,7 +251,8 @@ class TestAsyncAgents:
     async def test_method_delete_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         agent = await async_client.agents.delete(
             agent_id="agent_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert agent is None
 
@@ -272,3 +279,10 @@ class TestAsyncAgents:
             assert agent is None
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.with_raw_response.delete(
+                agent_id="",
+            )

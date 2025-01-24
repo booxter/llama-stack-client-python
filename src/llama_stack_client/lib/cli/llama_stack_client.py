@@ -5,6 +5,7 @@
 # the root directory of this source tree.
 
 import os
+from importlib.metadata import version
 
 import click
 import yaml
@@ -17,16 +18,23 @@ from .datasets import datasets
 from .eval import eval
 from .eval_tasks import eval_tasks
 from .inference import inference
-from .memory_banks import memory_banks
+from .inspect import inspect
 from .models import models
 from .post_training import post_training
 from .providers import providers
 from .scoring_functions import scoring_functions
 from .shields import shields
+from .toolgroups import toolgroups
+from .vector_dbs import vector_dbs
 
 
 @click.group()
-@click.option("--endpoint", type=str, help="Llama Stack distribution endpoint", default="")
+@click.version_option(
+    version=version("llama-stack-client"), prog_name="llama-stack-client"
+)
+@click.option(
+    "--endpoint", type=str, help="Llama Stack distribution endpoint", default=""
+)
 @click.option("--config", type=str, help="Path to config file", default=None)
 @click.pass_context
 def cli(ctx, endpoint: str, config: str | None):
@@ -47,15 +55,21 @@ def cli(ctx, endpoint: str, config: str | None):
             with open(config, "r") as f:
                 config_dict = yaml.safe_load(f)
                 endpoint = config_dict.get("endpoint", endpoint)
+                api_key = config_dict.get("api_key", None)
         except Exception as e:
             click.echo(f"Error loading config from {config}: {str(e)}", err=True)
             click.echo("Falling back to HTTP client with endpoint", err=True)
 
     if endpoint == "":
-        endpoint = "http://localhost:5000"
+        endpoint = "http://localhost:8321"
+
+    print(f"[DEBUG] Using base url: {endpoint}")
+    if api_key:
+        print(f"[DEBUG] Using API key: {api_key}")
 
     client = LlamaStackClient(
         base_url=endpoint,
+        api_key=api_key,
         provider_data={
             "fireworks_api_key": os.environ.get("FIREWORKS_API_KEY", ""),
             "together_api_key": os.environ.get("TOGETHER_API_KEY", ""),
@@ -67,7 +81,7 @@ def cli(ctx, endpoint: str, config: str | None):
 
 # Register all subcommands
 cli.add_command(models, "models")
-cli.add_command(memory_banks, "memory_banks")
+cli.add_command(vector_dbs, "vector_dbs")
 cli.add_command(shields, "shields")
 cli.add_command(eval_tasks, "eval_tasks")
 cli.add_command(providers, "providers")
@@ -77,6 +91,8 @@ cli.add_command(scoring_functions, "scoring_functions")
 cli.add_command(eval, "eval")
 cli.add_command(inference, "inference")
 cli.add_command(post_training, "post_training")
+cli.add_command(inspect, "inspect")
+cli.add_command(toolgroups, "toolgroups")
 
 
 def main():

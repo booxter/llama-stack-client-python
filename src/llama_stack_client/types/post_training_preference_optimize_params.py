@@ -30,7 +30,9 @@ class PostTrainingPreferenceOptimizeParams(TypedDict, total=False):
 
     training_config: Required[TrainingConfig]
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
+
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
 
 
 class AlgorithmConfig(TypedDict, total=False):
@@ -45,6 +47,8 @@ class AlgorithmConfig(TypedDict, total=False):
 
 class TrainingConfigDataConfig(TypedDict, total=False):
     batch_size: Required[int]
+
+    data_format: Required[Literal["instruct", "dialog"]]
 
     dataset_id: Required[str]
 
@@ -83,6 +87,8 @@ class TrainingConfig(TypedDict, total=False):
     gradient_accumulation_steps: Required[int]
 
     max_steps_per_epoch: Required[int]
+
+    max_validation_steps: Required[int]
 
     n_epochs: Required[int]
 

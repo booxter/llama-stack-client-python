@@ -3,15 +3,12 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared_params.user_message import UserMessage
-from .shared_params.system_message import SystemMessage
-from .shared_params.completion_message import CompletionMessage
-from .shared_params.tool_response_message import ToolResponseMessage
+from .shared_params.message import Message
 
-__all__ = ["SafetyRunShieldParams", "Message"]
+__all__ = ["SafetyRunShieldParams"]
 
 
 class SafetyRunShieldParams(TypedDict, total=False):
@@ -21,7 +18,6 @@ class SafetyRunShieldParams(TypedDict, total=False):
 
     shield_id: Required[str]
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
 
-
-Message: TypeAlias = Union[UserMessage, SystemMessage, ToolResponseMessage, CompletionMessage]
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]

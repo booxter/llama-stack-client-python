@@ -57,12 +57,9 @@ class TestInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             stream=False,
             tool_choice="auto",
@@ -81,7 +78,8 @@ class TestInference:
                     },
                 }
             ],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(InferenceChatCompletionResponse, inference, path=["response"])
 
@@ -165,12 +163,9 @@ class TestInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             tool_choice="auto",
             tool_prompt_format="json",
@@ -188,7 +183,8 @@ class TestInference:
                     },
                 }
             ],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         inference_stream.response.close()
 
@@ -260,15 +256,13 @@ class TestInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             stream=False,
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(InferenceCompletionResponse, inference, path=["response"])
 
@@ -331,14 +325,12 @@ class TestInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         inference_stream.response.close()
 
@@ -388,7 +380,8 @@ class TestInference:
         inference = client.inference.embeddings(
             contents=["string"],
             model_id="model_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(EmbeddingsResponse, inference, path=["response"])
 
@@ -458,12 +451,9 @@ class TestAsyncInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             stream=False,
             tool_choice="auto",
@@ -482,7 +472,8 @@ class TestAsyncInference:
                     },
                 }
             ],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(InferenceChatCompletionResponse, inference, path=["response"])
 
@@ -566,12 +557,9 @@ class TestAsyncInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             tool_choice="auto",
             tool_prompt_format="json",
@@ -589,7 +577,8 @@ class TestAsyncInference:
                     },
                 }
             ],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         await inference_stream.response.aclose()
 
@@ -661,15 +650,13 @@ class TestAsyncInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
             stream=False,
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(InferenceCompletionResponse, inference, path=["response"])
 
@@ -732,14 +719,12 @@ class TestAsyncInference:
                 "type": "json_schema",
             },
             sampling_params={
-                "strategy": "greedy",
+                "strategy": {"type": "greedy"},
                 "max_tokens": 0,
                 "repetition_penalty": 0,
-                "temperature": 0,
-                "top_k": 0,
-                "top_p": 0,
             },
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         await inference_stream.response.aclose()
 
@@ -789,7 +774,8 @@ class TestAsyncInference:
         inference = await async_client.inference.embeddings(
             contents=["string"],
             model_id="model_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(EmbeddingsResponse, inference, path=["response"])
 

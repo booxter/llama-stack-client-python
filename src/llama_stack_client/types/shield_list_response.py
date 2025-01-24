@@ -1,19 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import List
+from typing_extensions import TypeAlias
 
-from .._models import BaseModel
+from .shield import Shield
 
-__all__ = ["ShieldListResponse", "ProviderConfig"]
+__all__ = ["ShieldListResponse"]
 
-
-class ProviderConfig(BaseModel):
-    config: Dict[str, Union[bool, float, str, List[object], object, None]]
-
-    provider_type: str
-
-
-class ShieldListResponse(BaseModel):
-    provider_config: ProviderConfig
-
-    shield_type: str
+ShieldListResponse: TypeAlias = List[Shield]

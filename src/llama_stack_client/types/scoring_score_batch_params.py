@@ -10,9 +10,9 @@ from .._utils import PropertyInfo
 __all__ = [
     "ScoringScoreBatchParams",
     "ScoringFunctions",
-    "ScoringFunctionsLlmAsJudgeScoringFnParams",
-    "ScoringFunctionsRegexParserScoringFnParams",
-    "ScoringFunctionsBasicScoringFnParams",
+    "ScoringFunctionsLlmAsJudge",
+    "ScoringFunctionsRegexParser",
+    "ScoringFunctionsBasic",
 ]
 
 
@@ -23,10 +23,12 @@ class ScoringScoreBatchParams(TypedDict, total=False):
 
     scoring_functions: Required[Dict[str, Optional[ScoringFunctions]]]
 
-    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-ProviderData")]
+    x_llama_stack_client_version: Annotated[str, PropertyInfo(alias="X-LlamaStack-Client-Version")]
+
+    x_llama_stack_provider_data: Annotated[str, PropertyInfo(alias="X-LlamaStack-Provider-Data")]
 
 
-class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):
+class ScoringFunctionsLlmAsJudge(TypedDict, total=False):
     judge_model: Required[str]
 
     type: Required[Literal["llm_as_judge"]]
@@ -38,7 +40,7 @@ class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):
     prompt_template: str
 
 
-class ScoringFunctionsRegexParserScoringFnParams(TypedDict, total=False):
+class ScoringFunctionsRegexParser(TypedDict, total=False):
     type: Required[Literal["regex_parser"]]
 
     aggregation_functions: List[Literal["average", "median", "categorical_count", "accuracy"]]
@@ -46,14 +48,10 @@ class ScoringFunctionsRegexParserScoringFnParams(TypedDict, total=False):
     parsing_regexes: List[str]
 
 
-class ScoringFunctionsBasicScoringFnParams(TypedDict, total=False):
+class ScoringFunctionsBasic(TypedDict, total=False):
     type: Required[Literal["basic"]]
 
     aggregation_functions: List[Literal["average", "median", "categorical_count", "accuracy"]]
 
 
-ScoringFunctions: TypeAlias = Union[
-    ScoringFunctionsLlmAsJudgeScoringFnParams,
-    ScoringFunctionsRegexParserScoringFnParams,
-    ScoringFunctionsBasicScoringFnParams,
-]
+ScoringFunctions: TypeAlias = Union[ScoringFunctionsLlmAsJudge, ScoringFunctionsRegexParser, ScoringFunctionsBasic]

@@ -33,7 +33,8 @@ class TestSession:
         session = client.agents.session.create(
             agent_id="agent_id",
             session_name="session_name",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(SessionCreateResponse, session, path=["response"])
 
@@ -64,28 +65,37 @@ class TestSession:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_path_params_create(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.session.with_raw_response.create(
+                agent_id="",
+                session_name="session_name",
+            )
+
+    @parametrize
     def test_method_retrieve(self, client: LlamaStackClient) -> None:
         session = client.agents.session.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
         session = client.agents.session.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
             turn_ids=["string"],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
         response = client.agents.session.with_raw_response.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -96,8 +106,8 @@ class TestSession:
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
         with client.agents.session.with_streaming_response.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -108,27 +118,42 @@ class TestSession:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.session.with_raw_response.retrieve(
+                session_id="session_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.agents.session.with_raw_response.retrieve(
+                session_id="",
+                agent_id="agent_id",
+            )
+
+    @parametrize
     def test_method_delete(self, client: LlamaStackClient) -> None:
         session = client.agents.session.delete(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
         assert session is None
 
     @parametrize
     def test_method_delete_with_all_params(self, client: LlamaStackClient) -> None:
         session = client.agents.session.delete(
-            agent_id="agent_id",
             session_id="session_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            agent_id="agent_id",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert session is None
 
     @parametrize
     def test_raw_response_delete(self, client: LlamaStackClient) -> None:
         response = client.agents.session.with_raw_response.delete(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -139,8 +164,8 @@ class TestSession:
     @parametrize
     def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
         with client.agents.session.with_streaming_response.delete(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -149,6 +174,20 @@ class TestSession:
             assert session is None
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.session.with_raw_response.delete(
+                session_id="session_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.agents.session.with_raw_response.delete(
+                session_id="",
+                agent_id="agent_id",
+            )
 
 
 class TestAsyncSession:
@@ -167,7 +206,8 @@ class TestAsyncSession:
         session = await async_client.agents.session.create(
             agent_id="agent_id",
             session_name="session_name",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(SessionCreateResponse, session, path=["response"])
 
@@ -198,28 +238,37 @@ class TestAsyncSession:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_path_params_create(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.session.with_raw_response.create(
+                agent_id="",
+                session_name="session_name",
+            )
+
+    @parametrize
     async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         session = await async_client.agents.session.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         session = await async_client.agents.session.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
             turn_ids=["string"],
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.agents.session.with_raw_response.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -230,8 +279,8 @@ class TestAsyncSession:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.agents.session.with_streaming_response.retrieve(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -242,27 +291,42 @@ class TestAsyncSession:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.session.with_raw_response.retrieve(
+                session_id="session_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.agents.session.with_raw_response.retrieve(
+                session_id="",
+                agent_id="agent_id",
+            )
+
+    @parametrize
     async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
         session = await async_client.agents.session.delete(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
         assert session is None
 
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         session = await async_client.agents.session.delete(
-            agent_id="agent_id",
             session_id="session_id",
-            x_llama_stack_provider_data="X-LlamaStack-ProviderData",
+            agent_id="agent_id",
+            x_llama_stack_client_version="X-LlamaStack-Client-Version",
+            x_llama_stack_provider_data="X-LlamaStack-Provider-Data",
         )
         assert session is None
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.agents.session.with_raw_response.delete(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -273,8 +337,8 @@ class TestAsyncSession:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.agents.session.with_streaming_response.delete(
-            agent_id="agent_id",
             session_id="session_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -283,3 +347,17 @@ class TestAsyncSession:
             assert session is None
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.session.with_raw_response.delete(
+                session_id="session_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.agents.session.with_raw_response.delete(
+                session_id="",
+                agent_id="agent_id",
+            )
