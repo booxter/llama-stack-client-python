@@ -55,6 +55,7 @@ def cli(ctx, endpoint: str, config: str | None):
             with open(config, "r") as f:
                 config_dict = yaml.safe_load(f)
                 endpoint = config_dict.get("endpoint", endpoint)
+                api_key = config_dict.get("api_key", None)
         except Exception as e:
             click.echo(f"Error loading config from {config}: {str(e)}", err=True)
             click.echo("Falling back to HTTP client with endpoint", err=True)
@@ -62,8 +63,13 @@ def cli(ctx, endpoint: str, config: str | None):
     if endpoint == "":
         endpoint = "http://localhost:8321"
 
+    print(f"[DEBUG] Using base url: {endpoint}")
+    if api_key:
+        print(f"[DEBUG] Using API key: {api_key}")
+
     client = LlamaStackClient(
         base_url=endpoint,
+        api_key=api_key,
         provider_data={
             "fireworks_api_key": os.environ.get("FIREWORKS_API_KEY", ""),
             "together_api_key": os.environ.get("TOGETHER_API_KEY", ""),

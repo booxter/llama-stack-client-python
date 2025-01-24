@@ -26,8 +26,10 @@ def get_config():
 @click.command()
 @click.option("--host", type=str, help="Llama Stack distribution host")
 @click.option("--port", type=str, help="Llama Stack distribution port number")
+@click.option("--use-https", type=bool, default=False, help="Llama Stack distribution uses HTTPS")
 @click.option("--endpoint", type=str, help="Llama Stack distribution endpoint")
-def configure(host: str | None, port: str | None, endpoint: str | None):
+@click.option("--api-key", type=str, help="Llama Stack distribution API key")
+def configure(host: str | None, port: str | None, use_https: bool | None, endpoint: str | None, api_key: str | None):
     """Configure Llama Stack Client CLI"""
     os.makedirs(LLAMA_STACK_CLIENT_CONFIG_DIR, exist_ok=True)
     config_path = get_config_file_path()
@@ -36,7 +38,10 @@ def configure(host: str | None, port: str | None, endpoint: str | None):
         final_endpoint = endpoint
     else:
         if host and port:
-            final_endpoint = f"http://{host}:{port}"
+            if use_https:
+                final_endpoint = f"https://{host}:{port}"
+            else:
+                final_endpoint = f"http://{host}:{port}"
         else:
             host = prompt(
                 "> Enter the host name of the Llama Stack distribution server: ",
@@ -52,14 +57,33 @@ def configure(host: str | None, port: str | None, endpoint: str | None):
                     error_message="Please enter a valid port number",
                 ),
             )
-            final_endpoint = f"http://{host}:{port}"
+            api_key = prompt(
+                "> Enter the API key (leave empty if no key is needed): ",
+            )
+
+            is_https = prompt(
+                "> Is Llama Stack distribution server using HTTPS? (y/n): ",
+                validator=Validator.from_callable(
+                    lambda x: x.lower() in ["y", "n", "yes", "no"],
+                    error_message="Please enter a valid response for HTTPS, yes or no",
+                ),
+            )
+            if is_https == "y":
+                final_endpoint = f"https://{host}:{port}"
+            else:
+                final_endpoint = f"http://{host}:{port}"
+
+    # Prepare config dict before writing it
+    config_dict = {
+        "endpoint": final_endpoint,
+    }
+    if api_key:
+        config_dict["api_key"] = api_key
 
     with open(config_path, "w") as f:
         f.write(
             yaml.dump(
-                {
-                    "endpoint": final_endpoint,
-                },
+                config_dict,
                 sort_keys=True,
             )
         )
