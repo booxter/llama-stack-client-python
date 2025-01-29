@@ -2,27 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Union
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Required, TypedDict
 
-__all__ = ["QueryConfig", "QueryGeneratorConfig", "QueryGeneratorConfigDefault", "QueryGeneratorConfigLlm"]
+from .query_generator_config import QueryGeneratorConfig
 
-
-class QueryGeneratorConfigDefault(TypedDict, total=False):
-    separator: Required[str]
-
-    type: Required[Literal["default"]]
-
-
-class QueryGeneratorConfigLlm(TypedDict, total=False):
-    model: Required[str]
-
-    template: Required[str]
-
-    type: Required[Literal["llm"]]
-
-
-QueryGeneratorConfig: TypeAlias = Union[QueryGeneratorConfigDefault, QueryGeneratorConfigLlm]
+__all__ = ["QueryConfig"]
 
 
 class QueryConfig(TypedDict, total=False):

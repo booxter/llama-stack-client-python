@@ -5,6 +5,7 @@ from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 from ..tool_def import ToolDef
+from .response_format import ResponseFormat
 from .sampling_params import SamplingParams
 
 __all__ = ["AgentConfig", "Toolgroup", "ToolgroupUnionMember1"]
@@ -33,6 +34,8 @@ class AgentConfig(BaseModel):
     input_shields: Optional[List[str]] = None
 
     output_shields: Optional[List[str]] = None
+
+    response_format: Optional[ResponseFormat] = None
 
     sampling_params: Optional[SamplingParams] = None
 
