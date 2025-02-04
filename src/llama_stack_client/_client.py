@@ -129,7 +129,13 @@ class LlamaStackClient(SyncAPIClient):
         if base_url is None:
             base_url = f"http://any-hosted-llama-stack.com"
 
+        if api_key is None:
+            api_key = os.environ.get("LLAMA_STACK_CLIENT_API_KEY")
+        self.api_key = api_key
+
         custom_headers = default_headers or {}
+        if api_key is not None:
+            custom_headers["Authorization"] = f"Bearer {api_key}"
         custom_headers["X-LlamaStack-Client-Version"] = __version__
         if api_key is not None:
             custom_headers["Authorization"] = f"Bearer {api_key}"
@@ -331,7 +337,13 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         if base_url is None:
             base_url = f"http://any-hosted-llama-stack.com"
 
+        if api_key is None:
+            api_key = os.environ.get("LLAMA_STACK_CLIENT_API_KEY")
+        self.api_key = api_key
+
         custom_headers = default_headers or {}
+        if api_key is not None:
+            custom_headers["Authorization"] = f"Bearer {api_key}"
         custom_headers["X-LlamaStack-Client-Version"] = __version__
         if api_key is not None:
             custom_headers["Authorization"] = f"Bearer {api_key}"
