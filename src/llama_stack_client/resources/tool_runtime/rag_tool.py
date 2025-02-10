@@ -21,10 +21,10 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.tool_runtime import rag_tool_query_params, rag_tool_insert_params
-from ...types.shared.query_result import QueryResult
 from ...types.shared_params.document import Document
 from ...types.shared_params.query_config import QueryConfig
 from ...types.shared_params.interleaved_content import InterleavedContent
+from ...types.tool_runtime.rag_tool_query_response import RagToolQueryResponse
 
 __all__ = ["RagToolResource", "AsyncRagToolResource"]
 
@@ -103,7 +103,7 @@ class RagToolResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> QueryResult:
+    ) -> RagToolQueryResponse:
         """
         Query the RAG system for context; typically invoked by the agent
 
@@ -131,7 +131,7 @@ class RagToolResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=QueryResult,
+            cast_to=RagToolQueryResponse,
         )
 
 
@@ -209,7 +209,7 @@ class AsyncRagToolResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> QueryResult:
+    ) -> RagToolQueryResponse:
         """
         Query the RAG system for context; typically invoked by the agent
 
@@ -237,7 +237,7 @@ class AsyncRagToolResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=QueryResult,
+            cast_to=RagToolQueryResponse,
         )
 
 

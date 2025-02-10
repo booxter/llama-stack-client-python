@@ -23,10 +23,10 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.shared_params.message import Message
-from ..types.shared.batch_completion import BatchCompletion
 from ..types.shared_params.response_format import ResponseFormat
 from ..types.shared_params.sampling_params import SamplingParams
 from ..types.shared_params.interleaved_content import InterleavedContent
+from ..types.batch_inference_completion_response import BatchInferenceCompletionResponse
 from ..types.batch_inference_chat_completion_response import BatchInferenceChatCompletionResponse
 
 __all__ = ["BatchInferenceResource", "AsyncBatchInferenceResource"]
@@ -123,7 +123,7 @@ class BatchInferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BatchCompletion:
+    ) -> BatchInferenceCompletionResponse:
         """
         Args:
           response_format: Configuration for JSON schema-guided response generation.
@@ -151,7 +151,7 @@ class BatchInferenceResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BatchCompletion,
+            cast_to=BatchInferenceCompletionResponse,
         )
 
 
@@ -246,7 +246,7 @@ class AsyncBatchInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BatchCompletion:
+    ) -> BatchInferenceCompletionResponse:
         """
         Args:
           response_format: Configuration for JSON schema-guided response generation.
@@ -274,7 +274,7 @@ class AsyncBatchInferenceResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BatchCompletion,
+            cast_to=BatchInferenceCompletionResponse,
         )
 
 

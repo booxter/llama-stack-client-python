@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import RunShieldResponse
+from llama_stack_client.types import SafetyRunShieldResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -29,7 +29,7 @@ class TestSafety:
             params={"foo": True},
             shield_id="shield_id",
         )
-        assert_matches_type(RunShieldResponse, safety, path=["response"])
+        assert_matches_type(SafetyRunShieldResponse, safety, path=["response"])
 
     @parametrize
     def test_raw_response_run_shield(self, client: LlamaStackClient) -> None:
@@ -47,7 +47,7 @@ class TestSafety:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         safety = response.parse()
-        assert_matches_type(RunShieldResponse, safety, path=["response"])
+        assert_matches_type(SafetyRunShieldResponse, safety, path=["response"])
 
     @parametrize
     def test_streaming_response_run_shield(self, client: LlamaStackClient) -> None:
@@ -65,7 +65,7 @@ class TestSafety:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             safety = response.parse()
-            assert_matches_type(RunShieldResponse, safety, path=["response"])
+            assert_matches_type(SafetyRunShieldResponse, safety, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -85,7 +85,7 @@ class TestAsyncSafety:
             params={"foo": True},
             shield_id="shield_id",
         )
-        assert_matches_type(RunShieldResponse, safety, path=["response"])
+        assert_matches_type(SafetyRunShieldResponse, safety, path=["response"])
 
     @parametrize
     async def test_raw_response_run_shield(self, async_client: AsyncLlamaStackClient) -> None:
@@ -103,7 +103,7 @@ class TestAsyncSafety:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         safety = await response.parse()
-        assert_matches_type(RunShieldResponse, safety, path=["response"])
+        assert_matches_type(SafetyRunShieldResponse, safety, path=["response"])
 
     @parametrize
     async def test_streaming_response_run_shield(self, async_client: AsyncLlamaStackClient) -> None:
@@ -121,6 +121,6 @@ class TestAsyncSafety:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             safety = await response.parse()
-            assert_matches_type(RunShieldResponse, safety, path=["response"])
+            assert_matches_type(SafetyRunShieldResponse, safety, path=["response"])
 
         assert cast(Any, response.is_closed) is True

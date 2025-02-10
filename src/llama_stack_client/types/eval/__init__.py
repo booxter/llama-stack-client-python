@@ -3,3 +3,4 @@
 from __future__ import annotations
 
 from .job_status_response import JobStatusResponse as JobStatusResponse
+from .job_retrieve_response import JobRetrieveResponse as JobRetrieveResponse

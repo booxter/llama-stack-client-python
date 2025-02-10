@@ -1,84 +1,63 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
+from .scoring_fn import ScoringFn
 
 __all__ = [
     "ScoringFunctionRetrieveResponse",
-    "Parameter",
-    "ParameterType",
-    "ParameterTypeType",
-    "ReturnType",
-    "ReturnTypeType",
-    "Context",
+    "ScoringFunctionsScoringFn",
+    "ScoringFunctionsScoringFnMetric",
+    "Metrics",
+    "MetricsMetric",
 ]
 
 
-class ParameterTypeType(BaseModel):
-    type: Literal["string"]
+class ScoringFunctionsScoringFnMetric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
-ParameterType: TypeAlias = Union[
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-]
+class ScoringFunctionsScoringFn(ScoringFn):
+    metrics: Optional[List[ScoringFunctionsScoringFnMetric]] = None
 
 
-class Parameter(BaseModel):
-    name: str
+class MetricsMetric(BaseModel):
+    metric: str
 
-    type: ParameterType
+    span_id: str
 
-    description: Optional[str] = None
+    timestamp: datetime
 
+    trace_id: str
 
-class ReturnTypeType(BaseModel):
-    type: Literal["string"]
+    type: Literal["metric"]
 
+    unit: str
 
-ReturnType: TypeAlias = Union[
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-]
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
-class Context(BaseModel):
-    judge_model: str
-
-    judge_score_regex: Optional[List[str]] = None
-
-    prompt_template: Optional[str] = None
+class Metrics(BaseModel):
+    metrics: Optional[List[MetricsMetric]] = None
 
 
-class ScoringFunctionRetrieveResponse(BaseModel):
-    identifier: str
-
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-
-    parameters: List[Parameter]
-
-    provider_id: str
-
-    return_type: ReturnType
-
-    context: Optional[Context] = None
-
-    description: Optional[str] = None
+ScoringFunctionRetrieveResponse: TypeAlias = Union[ScoringFunctionsScoringFn, Optional[Metrics]]

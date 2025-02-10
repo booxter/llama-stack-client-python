@@ -10,8 +10,8 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
-    Job,
-    EvaluateResponse,
+    EvalRunEvalResponse,
+    EvalEvaluateRowsResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -35,7 +35,7 @@ class TestEval:
                 "type": "benchmark",
             },
         )
-        assert_matches_type(EvaluateResponse, eval, path=["response"])
+        assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
     @parametrize
     def test_method_evaluate_rows_with_all_params(self, client: LlamaStackClient) -> None:
@@ -61,7 +61,7 @@ class TestEval:
                 "num_examples": 0,
             },
         )
-        assert_matches_type(EvaluateResponse, eval, path=["response"])
+        assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
     @parametrize
     def test_raw_response_evaluate_rows(self, client: LlamaStackClient) -> None:
@@ -82,7 +82,7 @@ class TestEval:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         eval = response.parse()
-        assert_matches_type(EvaluateResponse, eval, path=["response"])
+        assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
     @parametrize
     def test_streaming_response_evaluate_rows(self, client: LlamaStackClient) -> None:
@@ -103,7 +103,7 @@ class TestEval:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             eval = response.parse()
-            assert_matches_type(EvaluateResponse, eval, path=["response"])
+            assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -137,7 +137,7 @@ class TestEval:
                 "type": "benchmark",
             },
         )
-        assert_matches_type(Job, eval, path=["response"])
+        assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
     @parametrize
     def test_method_run_eval_with_all_params(self, client: LlamaStackClient) -> None:
@@ -161,7 +161,7 @@ class TestEval:
                 "num_examples": 0,
             },
         )
-        assert_matches_type(Job, eval, path=["response"])
+        assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
     @parametrize
     def test_raw_response_run_eval(self, client: LlamaStackClient) -> None:
@@ -180,7 +180,7 @@ class TestEval:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         eval = response.parse()
-        assert_matches_type(Job, eval, path=["response"])
+        assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
     @parametrize
     def test_streaming_response_run_eval(self, client: LlamaStackClient) -> None:
@@ -199,7 +199,7 @@ class TestEval:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             eval = response.parse()
-            assert_matches_type(Job, eval, path=["response"])
+            assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -237,7 +237,7 @@ class TestAsyncEval:
                 "type": "benchmark",
             },
         )
-        assert_matches_type(EvaluateResponse, eval, path=["response"])
+        assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
     @parametrize
     async def test_method_evaluate_rows_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -263,7 +263,7 @@ class TestAsyncEval:
                 "num_examples": 0,
             },
         )
-        assert_matches_type(EvaluateResponse, eval, path=["response"])
+        assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
     @parametrize
     async def test_raw_response_evaluate_rows(self, async_client: AsyncLlamaStackClient) -> None:
@@ -284,7 +284,7 @@ class TestAsyncEval:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         eval = await response.parse()
-        assert_matches_type(EvaluateResponse, eval, path=["response"])
+        assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
     @parametrize
     async def test_streaming_response_evaluate_rows(self, async_client: AsyncLlamaStackClient) -> None:
@@ -305,7 +305,7 @@ class TestAsyncEval:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             eval = await response.parse()
-            assert_matches_type(EvaluateResponse, eval, path=["response"])
+            assert_matches_type(EvalEvaluateRowsResponse, eval, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -339,7 +339,7 @@ class TestAsyncEval:
                 "type": "benchmark",
             },
         )
-        assert_matches_type(Job, eval, path=["response"])
+        assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
     @parametrize
     async def test_method_run_eval_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -363,7 +363,7 @@ class TestAsyncEval:
                 "num_examples": 0,
             },
         )
-        assert_matches_type(Job, eval, path=["response"])
+        assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
     @parametrize
     async def test_raw_response_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
@@ -382,7 +382,7 @@ class TestAsyncEval:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         eval = await response.parse()
-        assert_matches_type(Job, eval, path=["response"])
+        assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
     @parametrize
     async def test_streaming_response_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
@@ -401,7 +401,7 @@ class TestAsyncEval:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             eval = await response.parse()
-            assert_matches_type(Job, eval, path=["response"])
+            assert_matches_type(EvalRunEvalResponse, eval, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -29,10 +29,10 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.tool_def import ToolDef
 from ..._decoders.jsonl import JSONLDecoder, AsyncJSONLDecoder
 from ...types.shared_params.url import URL
-from ...types.tool_invocation_result import ToolInvocationResult
+from ...types.tool_runtime_list_tools_response import ToolRuntimeListToolsResponse
+from ...types.tool_runtime_invoke_tool_response import ToolRuntimeInvokeToolResponse
 
 __all__ = ["ToolRuntimeResource", "AsyncToolRuntimeResource"]
 
@@ -72,7 +72,7 @@ class ToolRuntimeResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ToolInvocationResult:
+    ) -> ToolRuntimeInvokeToolResponse:
         """
         Run a tool with the given arguments
 
@@ -97,7 +97,7 @@ class ToolRuntimeResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ToolInvocationResult,
+            cast_to=ToolRuntimeInvokeToolResponse,
         )
 
     def list_tools(
@@ -111,7 +111,7 @@ class ToolRuntimeResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> JSONLDecoder[ToolDef]:
+    ) -> JSONLDecoder[ToolRuntimeListToolsResponse]:
         """
         Args:
           extra_headers: Send extra headers
@@ -138,7 +138,7 @@ class ToolRuntimeResource(SyncAPIResource):
                     tool_runtime_list_tools_params.ToolRuntimeListToolsParams,
                 ),
             ),
-            cast_to=JSONLDecoder[ToolDef],
+            cast_to=JSONLDecoder[ToolRuntimeListToolsResponse],
             stream=True,
         )
 
@@ -178,7 +178,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ToolInvocationResult:
+    ) -> ToolRuntimeInvokeToolResponse:
         """
         Run a tool with the given arguments
 
@@ -203,7 +203,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ToolInvocationResult,
+            cast_to=ToolRuntimeInvokeToolResponse,
         )
 
     async def list_tools(
@@ -217,7 +217,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncJSONLDecoder[ToolDef]:
+    ) -> AsyncJSONLDecoder[ToolRuntimeListToolsResponse]:
         """
         Args:
           extra_headers: Send extra headers
@@ -244,7 +244,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
                     tool_runtime_list_tools_params.ToolRuntimeListToolsParams,
                 ),
             ),
-            cast_to=AsyncJSONLDecoder[ToolDef],
+            cast_to=AsyncJSONLDecoder[ToolRuntimeListToolsResponse],
             stream=True,
         )
 

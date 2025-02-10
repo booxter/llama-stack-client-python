@@ -1,10 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
-from typing_extensions import TypeAlias
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
-from .shield import Shield
+from .._models import BaseModel
+from .list_shields_response import ListShieldsResponse
 
-__all__ = ["ShieldListResponse"]
+__all__ = ["ShieldListResponse", "ShieldListResponseMetric"]
 
-ShieldListResponse: TypeAlias = List[Shield]
+
+class ShieldListResponseMetric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class ShieldListResponse(ListShieldsResponse):
+    metrics: Optional[List[ShieldListResponseMetric]] = None

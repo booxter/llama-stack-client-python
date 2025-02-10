@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Type, Optional, cast
+from typing import Any, cast
 
 import httpx
 
@@ -20,7 +20,6 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.vector_db_list_response import VectorDBListResponse
 from ..types.vector_db_register_response import VectorDBRegisterResponse
@@ -59,7 +58,7 @@ class VectorDBsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[VectorDBRetrieveResponse]:
+    ) -> VectorDBRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -72,12 +71,17 @@ class VectorDBsResource(SyncAPIResource):
         """
         if not vector_db_id:
             raise ValueError(f"Expected a non-empty value for `vector_db_id` but received {vector_db_id!r}")
-        return self._get(
-            f"/v1/vector-dbs/{vector_db_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            VectorDBRetrieveResponse,
+            self._get(
+                f"/v1/vector-dbs/{vector_db_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, VectorDBRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=VectorDBRetrieveResponse,
         )
 
     def list(
@@ -93,13 +97,9 @@ class VectorDBsResource(SyncAPIResource):
         return self._get(
             "/v1/vector-dbs",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[VectorDBListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[VectorDBListResponse], DataWrapper[VectorDBListResponse]),
+            cast_to=VectorDBListResponse,
         )
 
     def register(
@@ -208,7 +208,7 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[VectorDBRetrieveResponse]:
+    ) -> VectorDBRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -221,12 +221,17 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         """
         if not vector_db_id:
             raise ValueError(f"Expected a non-empty value for `vector_db_id` but received {vector_db_id!r}")
-        return await self._get(
-            f"/v1/vector-dbs/{vector_db_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            VectorDBRetrieveResponse,
+            await self._get(
+                f"/v1/vector-dbs/{vector_db_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, VectorDBRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=VectorDBRetrieveResponse,
         )
 
     async def list(
@@ -242,13 +247,9 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         return await self._get(
             "/v1/vector-dbs",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[VectorDBListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[VectorDBListResponse], DataWrapper[VectorDBListResponse]),
+            cast_to=VectorDBListResponse,
         )
 
     async def register(

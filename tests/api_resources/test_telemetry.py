@@ -10,8 +10,8 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
-    Trace,
     TelemetryGetSpanResponse,
+    TelemetryGetTraceResponse,
     TelemetryQuerySpansResponse,
     TelemetryGetSpanTreeResponse,
     TelemetryQueryTracesResponse,
@@ -124,7 +124,7 @@ class TestTelemetry:
         telemetry = client.telemetry.get_trace(
             "trace_id",
         )
-        assert_matches_type(Trace, telemetry, path=["response"])
+        assert_matches_type(TelemetryGetTraceResponse, telemetry, path=["response"])
 
     @parametrize
     def test_raw_response_get_trace(self, client: LlamaStackClient) -> None:
@@ -135,7 +135,7 @@ class TestTelemetry:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         telemetry = response.parse()
-        assert_matches_type(Trace, telemetry, path=["response"])
+        assert_matches_type(TelemetryGetTraceResponse, telemetry, path=["response"])
 
     @parametrize
     def test_streaming_response_get_trace(self, client: LlamaStackClient) -> None:
@@ -146,7 +146,7 @@ class TestTelemetry:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             telemetry = response.parse()
-            assert_matches_type(Trace, telemetry, path=["response"])
+            assert_matches_type(TelemetryGetTraceResponse, telemetry, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -519,7 +519,7 @@ class TestAsyncTelemetry:
         telemetry = await async_client.telemetry.get_trace(
             "trace_id",
         )
-        assert_matches_type(Trace, telemetry, path=["response"])
+        assert_matches_type(TelemetryGetTraceResponse, telemetry, path=["response"])
 
     @parametrize
     async def test_raw_response_get_trace(self, async_client: AsyncLlamaStackClient) -> None:
@@ -530,7 +530,7 @@ class TestAsyncTelemetry:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         telemetry = await response.parse()
-        assert_matches_type(Trace, telemetry, path=["response"])
+        assert_matches_type(TelemetryGetTraceResponse, telemetry, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_trace(self, async_client: AsyncLlamaStackClient) -> None:
@@ -541,7 +541,7 @@ class TestAsyncTelemetry:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             telemetry = await response.parse()
-            assert_matches_type(Trace, telemetry, path=["response"])
+            assert_matches_type(TelemetryGetTraceResponse, telemetry, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

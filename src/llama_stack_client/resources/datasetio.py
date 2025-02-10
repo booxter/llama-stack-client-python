@@ -21,7 +21,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.paginated_rows_result import PaginatedRowsResult
+from ..types.datasetio_get_rows_paginated_response import DatasetioGetRowsPaginatedResponse
 
 __all__ = ["DatasetioResource", "AsyncDatasetioResource"]
 
@@ -97,7 +97,7 @@ class DatasetioResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PaginatedRowsResult:
+    ) -> DatasetioGetRowsPaginatedResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -125,7 +125,7 @@ class DatasetioResource(SyncAPIResource):
                     datasetio_get_rows_paginated_params.DatasetioGetRowsPaginatedParams,
                 ),
             ),
-            cast_to=PaginatedRowsResult,
+            cast_to=DatasetioGetRowsPaginatedResponse,
         )
 
 
@@ -200,7 +200,7 @@ class AsyncDatasetioResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PaginatedRowsResult:
+    ) -> DatasetioGetRowsPaginatedResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -228,7 +228,7 @@ class AsyncDatasetioResource(AsyncAPIResource):
                     datasetio_get_rows_paginated_params.DatasetioGetRowsPaginatedParams,
                 ),
             ),
-            cast_to=PaginatedRowsResult,
+            cast_to=DatasetioGetRowsPaginatedResponse,
         )
 
 

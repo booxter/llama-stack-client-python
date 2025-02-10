@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types.agents import Turn
+from llama_stack_client.types.agents import TurnCreateResponse, TurnRetrieveResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -29,7 +29,7 @@ class TestTurn:
                 }
             ],
         )
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: LlamaStackClient) -> None:
@@ -57,7 +57,7 @@ class TestTurn:
             },
             toolgroups=["string"],
         )
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
     @parametrize
     def test_raw_response_create_overload_1(self, client: LlamaStackClient) -> None:
@@ -75,7 +75,7 @@ class TestTurn:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         turn = response.parse()
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
     @parametrize
     def test_streaming_response_create_overload_1(self, client: LlamaStackClient) -> None:
@@ -93,7 +93,7 @@ class TestTurn:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             turn = response.parse()
-            assert_matches_type(Turn, turn, path=["response"])
+            assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -240,7 +240,7 @@ class TestTurn:
             agent_id="agent_id",
             session_id="session_id",
         )
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnRetrieveResponse, turn, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
@@ -253,7 +253,7 @@ class TestTurn:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         turn = response.parse()
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnRetrieveResponse, turn, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
@@ -266,7 +266,7 @@ class TestTurn:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             turn = response.parse()
-            assert_matches_type(Turn, turn, path=["response"])
+            assert_matches_type(TurnRetrieveResponse, turn, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -309,7 +309,7 @@ class TestAsyncTurn:
                 }
             ],
         )
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
@@ -337,7 +337,7 @@ class TestAsyncTurn:
             },
             toolgroups=["string"],
         )
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
@@ -355,7 +355,7 @@ class TestAsyncTurn:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         turn = await response.parse()
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
@@ -373,7 +373,7 @@ class TestAsyncTurn:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             turn = await response.parse()
-            assert_matches_type(Turn, turn, path=["response"])
+            assert_matches_type(TurnCreateResponse, turn, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -520,7 +520,7 @@ class TestAsyncTurn:
             agent_id="agent_id",
             session_id="session_id",
         )
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnRetrieveResponse, turn, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
@@ -533,7 +533,7 @@ class TestAsyncTurn:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         turn = await response.parse()
-        assert_matches_type(Turn, turn, path=["response"])
+        assert_matches_type(TurnRetrieveResponse, turn, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
@@ -546,7 +546,7 @@ class TestAsyncTurn:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             turn = await response.parse()
-            assert_matches_type(Turn, turn, path=["response"])
+            assert_matches_type(TurnRetrieveResponse, turn, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

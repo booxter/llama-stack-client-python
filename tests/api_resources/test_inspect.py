@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import HealthInfo, VersionInfo
+from llama_stack_client.types import InspectHealthResponse, InspectVersionResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestInspect:
     @parametrize
     def test_method_health(self, client: LlamaStackClient) -> None:
         inspect = client.inspect.health()
-        assert_matches_type(HealthInfo, inspect, path=["response"])
+        assert_matches_type(InspectHealthResponse, inspect, path=["response"])
 
     @parametrize
     def test_raw_response_health(self, client: LlamaStackClient) -> None:
@@ -29,7 +29,7 @@ class TestInspect:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         inspect = response.parse()
-        assert_matches_type(HealthInfo, inspect, path=["response"])
+        assert_matches_type(InspectHealthResponse, inspect, path=["response"])
 
     @parametrize
     def test_streaming_response_health(self, client: LlamaStackClient) -> None:
@@ -38,14 +38,14 @@ class TestInspect:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             inspect = response.parse()
-            assert_matches_type(HealthInfo, inspect, path=["response"])
+            assert_matches_type(InspectHealthResponse, inspect, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_version(self, client: LlamaStackClient) -> None:
         inspect = client.inspect.version()
-        assert_matches_type(VersionInfo, inspect, path=["response"])
+        assert_matches_type(InspectVersionResponse, inspect, path=["response"])
 
     @parametrize
     def test_raw_response_version(self, client: LlamaStackClient) -> None:
@@ -54,7 +54,7 @@ class TestInspect:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         inspect = response.parse()
-        assert_matches_type(VersionInfo, inspect, path=["response"])
+        assert_matches_type(InspectVersionResponse, inspect, path=["response"])
 
     @parametrize
     def test_streaming_response_version(self, client: LlamaStackClient) -> None:
@@ -63,7 +63,7 @@ class TestInspect:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             inspect = response.parse()
-            assert_matches_type(VersionInfo, inspect, path=["response"])
+            assert_matches_type(InspectVersionResponse, inspect, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -74,7 +74,7 @@ class TestAsyncInspect:
     @parametrize
     async def test_method_health(self, async_client: AsyncLlamaStackClient) -> None:
         inspect = await async_client.inspect.health()
-        assert_matches_type(HealthInfo, inspect, path=["response"])
+        assert_matches_type(InspectHealthResponse, inspect, path=["response"])
 
     @parametrize
     async def test_raw_response_health(self, async_client: AsyncLlamaStackClient) -> None:
@@ -83,7 +83,7 @@ class TestAsyncInspect:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         inspect = await response.parse()
-        assert_matches_type(HealthInfo, inspect, path=["response"])
+        assert_matches_type(InspectHealthResponse, inspect, path=["response"])
 
     @parametrize
     async def test_streaming_response_health(self, async_client: AsyncLlamaStackClient) -> None:
@@ -92,14 +92,14 @@ class TestAsyncInspect:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             inspect = await response.parse()
-            assert_matches_type(HealthInfo, inspect, path=["response"])
+            assert_matches_type(InspectHealthResponse, inspect, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_version(self, async_client: AsyncLlamaStackClient) -> None:
         inspect = await async_client.inspect.version()
-        assert_matches_type(VersionInfo, inspect, path=["response"])
+        assert_matches_type(InspectVersionResponse, inspect, path=["response"])
 
     @parametrize
     async def test_raw_response_version(self, async_client: AsyncLlamaStackClient) -> None:
@@ -108,7 +108,7 @@ class TestAsyncInspect:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         inspect = await response.parse()
-        assert_matches_type(VersionInfo, inspect, path=["response"])
+        assert_matches_type(InspectVersionResponse, inspect, path=["response"])
 
     @parametrize
     async def test_streaming_response_version(self, async_client: AsyncLlamaStackClient) -> None:
@@ -117,6 +117,6 @@ class TestAsyncInspect:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             inspect = await response.parse()
-            assert_matches_type(VersionInfo, inspect, path=["response"])
+            assert_matches_type(InspectVersionResponse, inspect, path=["response"])
 
         assert cast(Any, response.is_closed) is True

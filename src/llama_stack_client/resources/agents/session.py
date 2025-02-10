@@ -21,8 +21,8 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.agents import session_create_params, session_retrieve_params
-from ...types.agents.session import Session
 from ...types.agents.session_create_response import SessionCreateResponse
+from ...types.agents.session_retrieve_response import SessionRetrieveResponse
 
 __all__ = ["SessionResource", "AsyncSessionResource"]
 
@@ -92,7 +92,7 @@ class SessionResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Session:
+    ) -> SessionRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -116,7 +116,7 @@ class SessionResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"turn_ids": turn_ids}, session_retrieve_params.SessionRetrieveParams),
             ),
-            cast_to=Session,
+            cast_to=SessionRetrieveResponse,
         )
 
     def delete(
@@ -220,7 +220,7 @@ class AsyncSessionResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Session:
+    ) -> SessionRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -246,7 +246,7 @@ class AsyncSessionResource(AsyncAPIResource):
                     {"turn_ids": turn_ids}, session_retrieve_params.SessionRetrieveParams
                 ),
             ),
-            cast_to=Session,
+            cast_to=SessionRetrieveResponse,
         )
 
     async def delete(

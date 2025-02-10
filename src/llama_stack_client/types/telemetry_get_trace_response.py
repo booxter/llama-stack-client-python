@@ -1,18 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
+from .trace import Trace
 from .._models import BaseModel
 
-__all__ = ["TelemetryGetTraceResponse"]
+__all__ = ["TelemetryGetTraceResponse", "TelemetryGetTraceResponseMetric"]
 
 
-class TelemetryGetTraceResponse(BaseModel):
-    root_span_id: str
+class TelemetryGetTraceResponseMetric(BaseModel):
+    metric: str
 
-    start_time: datetime
+    span_id: str
+
+    timestamp: datetime
 
     trace_id: str
 
-    end_time: Optional[datetime] = None
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class TelemetryGetTraceResponse(Trace):
+    metrics: Optional[List[TelemetryGetTraceResponseMetric]] = None

@@ -10,7 +10,7 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
-    PaginatedRowsResult,
+    DatasetioGetRowsPaginatedResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -59,7 +59,7 @@ class TestDatasetio:
             dataset_id="dataset_id",
             rows_in_page=0,
         )
-        assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+        assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
     @parametrize
     def test_method_get_rows_paginated_with_all_params(self, client: LlamaStackClient) -> None:
@@ -69,7 +69,7 @@ class TestDatasetio:
             filter_condition="filter_condition",
             page_token="page_token",
         )
-        assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+        assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
     @parametrize
     def test_raw_response_get_rows_paginated(self, client: LlamaStackClient) -> None:
@@ -81,7 +81,7 @@ class TestDatasetio:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         datasetio = response.parse()
-        assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+        assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
     @parametrize
     def test_streaming_response_get_rows_paginated(self, client: LlamaStackClient) -> None:
@@ -93,7 +93,7 @@ class TestDatasetio:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             datasetio = response.parse()
-            assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+            assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -141,7 +141,7 @@ class TestAsyncDatasetio:
             dataset_id="dataset_id",
             rows_in_page=0,
         )
-        assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+        assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
     @parametrize
     async def test_method_get_rows_paginated_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -151,7 +151,7 @@ class TestAsyncDatasetio:
             filter_condition="filter_condition",
             page_token="page_token",
         )
-        assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+        assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
     @parametrize
     async def test_raw_response_get_rows_paginated(self, async_client: AsyncLlamaStackClient) -> None:
@@ -163,7 +163,7 @@ class TestAsyncDatasetio:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         datasetio = await response.parse()
-        assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+        assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_rows_paginated(self, async_client: AsyncLlamaStackClient) -> None:
@@ -175,6 +175,6 @@ class TestAsyncDatasetio:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             datasetio = await response.parse()
-            assert_matches_type(PaginatedRowsResult, datasetio, path=["response"])
+            assert_matches_type(DatasetioGetRowsPaginatedResponse, datasetio, path=["response"])
 
         assert cast(Any, response.is_closed) is True

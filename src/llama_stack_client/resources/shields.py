@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Type, Union, Iterable, Optional, cast
+from typing import Any, Dict, Union, Iterable, cast
 
 import httpx
 
@@ -20,10 +20,10 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.shield import Shield
 from ..types.shield_list_response import ShieldListResponse
+from ..types.shield_register_response import ShieldRegisterResponse
+from ..types.shield_retrieve_response import ShieldRetrieveResponse
 
 __all__ = ["ShieldsResource", "AsyncShieldsResource"]
 
@@ -58,7 +58,7 @@ class ShieldsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[Shield]:
+    ) -> ShieldRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -71,12 +71,17 @@ class ShieldsResource(SyncAPIResource):
         """
         if not identifier:
             raise ValueError(f"Expected a non-empty value for `identifier` but received {identifier!r}")
-        return self._get(
-            f"/v1/shields/{identifier}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            ShieldRetrieveResponse,
+            self._get(
+                f"/v1/shields/{identifier}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ShieldRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=Shield,
         )
 
     def list(
@@ -92,13 +97,9 @@ class ShieldsResource(SyncAPIResource):
         return self._get(
             "/v1/shields",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ShieldListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ShieldListResponse], DataWrapper[ShieldListResponse]),
+            cast_to=ShieldListResponse,
         )
 
     def register(
@@ -114,7 +115,7 @@ class ShieldsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Shield:
+    ) -> ShieldRegisterResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -139,7 +140,7 @@ class ShieldsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Shield,
+            cast_to=ShieldRegisterResponse,
         )
 
 
@@ -173,7 +174,7 @@ class AsyncShieldsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[Shield]:
+    ) -> ShieldRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -186,12 +187,17 @@ class AsyncShieldsResource(AsyncAPIResource):
         """
         if not identifier:
             raise ValueError(f"Expected a non-empty value for `identifier` but received {identifier!r}")
-        return await self._get(
-            f"/v1/shields/{identifier}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            ShieldRetrieveResponse,
+            await self._get(
+                f"/v1/shields/{identifier}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ShieldRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=Shield,
         )
 
     async def list(
@@ -207,13 +213,9 @@ class AsyncShieldsResource(AsyncAPIResource):
         return await self._get(
             "/v1/shields",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ShieldListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ShieldListResponse], DataWrapper[ShieldListResponse]),
+            cast_to=ShieldListResponse,
         )
 
     async def register(
@@ -229,7 +231,7 @@ class AsyncShieldsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Shield:
+    ) -> ShieldRegisterResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -254,7 +256,7 @@ class AsyncShieldsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Shield,
+            cast_to=ShieldRegisterResponse,
         )
 
 

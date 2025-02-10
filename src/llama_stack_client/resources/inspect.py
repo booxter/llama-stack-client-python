@@ -14,8 +14,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.health_info import HealthInfo
-from ..types.version_info import VersionInfo
+from ..types.inspect_health_response import InspectHealthResponse
+from ..types.inspect_version_response import InspectVersionResponse
 
 __all__ = ["InspectResource", "AsyncInspectResource"]
 
@@ -49,13 +49,13 @@ class InspectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HealthInfo:
+    ) -> InspectHealthResponse:
         return self._get(
             "/v1/health",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=HealthInfo,
+            cast_to=InspectHealthResponse,
         )
 
     def version(
@@ -67,13 +67,13 @@ class InspectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VersionInfo:
+    ) -> InspectVersionResponse:
         return self._get(
             "/v1/version",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=VersionInfo,
+            cast_to=InspectVersionResponse,
         )
 
 
@@ -106,13 +106,13 @@ class AsyncInspectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HealthInfo:
+    ) -> InspectHealthResponse:
         return await self._get(
             "/v1/health",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=HealthInfo,
+            cast_to=InspectHealthResponse,
         )
 
     async def version(
@@ -124,13 +124,13 @@ class AsyncInspectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VersionInfo:
+    ) -> InspectVersionResponse:
         return await self._get(
             "/v1/version",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=VersionInfo,
+            cast_to=InspectVersionResponse,
         )
 
 

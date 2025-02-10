@@ -1,17 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union
-from typing_extensions import TypeAlias
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 from .turn import Turn
 from ..._models import BaseModel
-from .turn_response_event import TurnResponseEvent
 
-__all__ = ["TurnCreateResponse", "AgentTurnResponseStreamChunk"]
-
-
-class AgentTurnResponseStreamChunk(BaseModel):
-    event: TurnResponseEvent
+__all__ = ["TurnCreateResponse", "TurnCreateResponseMetric"]
 
 
-TurnCreateResponse: TypeAlias = Union[Turn, AgentTurnResponseStreamChunk]
+class TurnCreateResponseMetric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class TurnCreateResponse(Turn):
+    metrics: Optional[List[TurnCreateResponseMetric]] = None

@@ -52,6 +52,7 @@ from .tool_list_params import ToolListParams as ToolListParams
 from .evaluate_response import EvaluateResponse as EvaluateResponse
 from .post_training_job import PostTrainingJob as PostTrainingJob
 from .scoring_fn_params import ScoringFnParams as ScoringFnParams
+from .tool_get_response import ToolGetResponse as ToolGetResponse
 from .tool_list_response import ToolListResponse as ToolListResponse
 from .agent_create_params import AgentCreateParams as AgentCreateParams
 from .completion_response import CompletionResponse as CompletionResponse
@@ -77,31 +78,43 @@ from .paginated_rows_result import PaginatedRowsResult as PaginatedRowsResult
 from .query_chunks_response import QueryChunksResponse as QueryChunksResponse
 from .query_condition_param import QueryConditionParam as QueryConditionParam
 from .algorithm_config_param import AlgorithmConfigParam as AlgorithmConfigParam
+from .eval_run_eval_response import EvalRunEvalResponse as EvalRunEvalResponse
 from .eval_task_config_param import EvalTaskConfigParam as EvalTaskConfigParam
 from .list_datasets_response import ListDatasetsResponse as ListDatasetsResponse
 from .provider_list_response import ProviderListResponse as ProviderListResponse
 from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
 from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
+from .toolgroup_get_response import ToolgroupGetResponse as ToolgroupGetResponse
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
 from .dataset_register_params import DatasetRegisterParams as DatasetRegisterParams
 from .eval_task_list_response import EvalTaskListResponse as EvalTaskListResponse
+from .inspect_health_response import InspectHealthResponse as InspectHealthResponse
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
+from .model_register_response import ModelRegisterResponse as ModelRegisterResponse
+from .model_retrieve_response import ModelRetrieveResponse as ModelRetrieveResponse
 from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
 from .vector_db_list_response import VectorDBListResponse as VectorDBListResponse
 from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParams
+from .inspect_version_response import InspectVersionResponse as InspectVersionResponse
 from .list_eval_tasks_response import ListEvalTasksResponse as ListEvalTasksResponse
 from .list_vector_dbs_response import ListVectorDBsResponse as ListVectorDBsResponse
 from .safety_run_shield_params import SafetyRunShieldParams as SafetyRunShieldParams
+from .shield_register_response import ShieldRegisterResponse as ShieldRegisterResponse
+from .shield_retrieve_response import ShieldRetrieveResponse as ShieldRetrieveResponse
+from .vector_io_query_response import VectorIoQueryResponse as VectorIoQueryResponse
 from .dataset_retrieve_response import DatasetRetrieveResponse as DatasetRetrieveResponse
 from .eval_evaluate_rows_params import EvalEvaluateRowsParams as EvalEvaluateRowsParams
 from .eval_task_register_params import EvalTaskRegisterParams as EvalTaskRegisterParams
 from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsResponse
 from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .vector_db_register_params import VectorDBRegisterParams as VectorDBRegisterParams
+from .safety_run_shield_response import SafetyRunShieldResponse as SafetyRunShieldResponse
 from .scoring_score_batch_params import ScoringScoreBatchParams as ScoringScoreBatchParams
 from .telemetry_log_event_params import TelemetryLogEventParams as TelemetryLogEventParams
+from .eval_evaluate_rows_response import EvalEvaluateRowsResponse as EvalEvaluateRowsResponse
+from .eval_task_retrieve_response import EvalTaskRetrieveResponse as EvalTaskRetrieveResponse
 from .inference_completion_params import InferenceCompletionParams as InferenceCompletionParams
 from .inference_embeddings_params import InferenceEmbeddingsParams as InferenceEmbeddingsParams
 from .telemetry_get_span_response import TelemetryGetSpanResponse as TelemetryGetSpanResponse
@@ -109,7 +122,10 @@ from .vector_db_register_response import VectorDBRegisterResponse as VectorDBReg
 from .vector_db_retrieve_response import VectorDBRetrieveResponse as VectorDBRetrieveResponse
 from .datasetio_append_rows_params import DatasetioAppendRowsParams as DatasetioAppendRowsParams
 from .scoring_score_batch_response import ScoringScoreBatchResponse as ScoringScoreBatchResponse
+from .telemetry_get_trace_response import TelemetryGetTraceResponse as TelemetryGetTraceResponse
 from .telemetry_query_spans_params import TelemetryQuerySpansParams as TelemetryQuerySpansParams
+from .inference_completion_response import InferenceCompletionResponse as InferenceCompletionResponse
+from .inference_embeddings_response import InferenceEmbeddingsResponse as InferenceEmbeddingsResponse
 from .telemetry_query_traces_params import TelemetryQueryTracesParams as TelemetryQueryTracesParams
 from .scoring_function_list_response import ScoringFunctionListResponse as ScoringFunctionListResponse
 from .telemetry_get_span_tree_params import TelemetryGetSpanTreeParams as TelemetryGetSpanTreeParams
@@ -122,11 +138,19 @@ from .inference_chat_completion_params import InferenceChatCompletionParams as I
 from .list_post_training_jobs_response import ListPostTrainingJobsResponse as ListPostTrainingJobsResponse
 from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse as TelemetryGetSpanTreeResponse
+from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as ToolRuntimeListToolsResponse
 from .batch_inference_completion_params import BatchInferenceCompletionParams as BatchInferenceCompletionParams
+from .tool_runtime_invoke_tool_response import ToolRuntimeInvokeToolResponse as ToolRuntimeInvokeToolResponse
+from .inference_chat_completion_response import InferenceChatCompletionResponse as InferenceChatCompletionResponse
+from .scoring_function_retrieve_response import ScoringFunctionRetrieveResponse as ScoringFunctionRetrieveResponse
 from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
+from .batch_inference_completion_response import BatchInferenceCompletionResponse as BatchInferenceCompletionResponse
 from .datasetio_get_rows_paginated_params import DatasetioGetRowsPaginatedParams as DatasetioGetRowsPaginatedParams
 from .chat_completion_response_stream_chunk import (
     ChatCompletionResponseStreamChunk as ChatCompletionResponseStreamChunk,
+)
+from .datasetio_get_rows_paginated_response import (
+    DatasetioGetRowsPaginatedResponse as DatasetioGetRowsPaginatedResponse,
 )
 from .batch_inference_chat_completion_params import (
     BatchInferenceChatCompletionParams as BatchInferenceChatCompletionParams,
@@ -145,4 +169,13 @@ from .post_training_supervised_fine_tune_params import (
 )
 from .synthetic_data_generation_generate_params import (
     SyntheticDataGenerationGenerateParams as SyntheticDataGenerationGenerateParams,
+)
+from .post_training_preference_optimize_response import (
+    PostTrainingPreferenceOptimizeResponse as PostTrainingPreferenceOptimizeResponse,
+)
+from .post_training_supervised_fine_tune_response import (
+    PostTrainingSupervisedFineTuneResponse as PostTrainingSupervisedFineTuneResponse,
+)
+from .synthetic_data_generation_generate_response import (
+    SyntheticDataGenerationGenerateResponse as SyntheticDataGenerationGenerateResponse,
 )

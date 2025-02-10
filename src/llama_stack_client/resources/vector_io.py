@@ -21,7 +21,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.query_chunks_response import QueryChunksResponse
+from ..types.vector_io_query_response import VectorIoQueryResponse
 from ..types.shared_params.interleaved_content import InterleavedContent
 
 __all__ = ["VectorIoResource", "AsyncVectorIoResource"]
@@ -99,7 +99,7 @@ class VectorIoResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> QueryChunksResponse:
+    ) -> VectorIoQueryResponse:
         """
         Args:
           query: A image content item
@@ -125,7 +125,7 @@ class VectorIoResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=QueryChunksResponse,
+            cast_to=VectorIoQueryResponse,
         )
 
 
@@ -201,7 +201,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> QueryChunksResponse:
+    ) -> VectorIoQueryResponse:
         """
         Args:
           query: A image content item
@@ -227,7 +227,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=QueryChunksResponse,
+            cast_to=VectorIoQueryResponse,
         )
 
 

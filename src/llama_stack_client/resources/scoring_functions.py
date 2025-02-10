@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Type, Optional, cast
+from typing import Any, cast
 
 import httpx
 
@@ -20,12 +20,11 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.scoring_fn import ScoringFn
 from ..types.scoring_fn_params_param import ScoringFnParamsParam
 from ..types.shared_params.return_type import ReturnType
 from ..types.scoring_function_list_response import ScoringFunctionListResponse
+from ..types.scoring_function_retrieve_response import ScoringFunctionRetrieveResponse
 
 __all__ = ["ScoringFunctionsResource", "AsyncScoringFunctionsResource"]
 
@@ -60,7 +59,7 @@ class ScoringFunctionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[ScoringFn]:
+    ) -> ScoringFunctionRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -73,12 +72,17 @@ class ScoringFunctionsResource(SyncAPIResource):
         """
         if not scoring_fn_id:
             raise ValueError(f"Expected a non-empty value for `scoring_fn_id` but received {scoring_fn_id!r}")
-        return self._get(
-            f"/v1/scoring-functions/{scoring_fn_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            ScoringFunctionRetrieveResponse,
+            self._get(
+                f"/v1/scoring-functions/{scoring_fn_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ScoringFunctionRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=ScoringFn,
         )
 
     def list(
@@ -94,13 +98,9 @@ class ScoringFunctionsResource(SyncAPIResource):
         return self._get(
             "/v1/scoring-functions",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ScoringFunctionListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ScoringFunctionListResponse], DataWrapper[ScoringFunctionListResponse]),
+            cast_to=ScoringFunctionListResponse,
         )
 
     def register(
@@ -180,7 +180,7 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[ScoringFn]:
+    ) -> ScoringFunctionRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -193,12 +193,17 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         """
         if not scoring_fn_id:
             raise ValueError(f"Expected a non-empty value for `scoring_fn_id` but received {scoring_fn_id!r}")
-        return await self._get(
-            f"/v1/scoring-functions/{scoring_fn_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            ScoringFunctionRetrieveResponse,
+            await self._get(
+                f"/v1/scoring-functions/{scoring_fn_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, ScoringFunctionRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=ScoringFn,
         )
 
     async def list(
@@ -214,13 +219,9 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         return await self._get(
             "/v1/scoring-functions",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ScoringFunctionListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ScoringFunctionListResponse], DataWrapper[ScoringFunctionListResponse]),
+            cast_to=ScoringFunctionListResponse,
         )
 
     async def register(

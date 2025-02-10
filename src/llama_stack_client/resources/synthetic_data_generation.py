@@ -23,7 +23,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.shared_params.message import Message
-from ..types.synthetic_data_generation_response import SyntheticDataGenerationResponse
+from ..types.synthetic_data_generation_generate_response import SyntheticDataGenerationGenerateResponse
 
 __all__ = ["SyntheticDataGenerationResource", "AsyncSyntheticDataGenerationResource"]
 
@@ -60,7 +60,7 @@ class SyntheticDataGenerationResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyntheticDataGenerationResponse:
+    ) -> SyntheticDataGenerationGenerateResponse:
         """
         Args:
           filtering_function: The type of filtering function.
@@ -86,7 +86,7 @@ class SyntheticDataGenerationResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SyntheticDataGenerationResponse,
+            cast_to=SyntheticDataGenerationGenerateResponse,
         )
 
 
@@ -122,7 +122,7 @@ class AsyncSyntheticDataGenerationResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyntheticDataGenerationResponse:
+    ) -> SyntheticDataGenerationGenerateResponse:
         """
         Args:
           filtering_function: The type of filtering function.
@@ -148,7 +148,7 @@ class AsyncSyntheticDataGenerationResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SyntheticDataGenerationResponse,
+            cast_to=SyntheticDataGenerationGenerateResponse,
         )
 
 

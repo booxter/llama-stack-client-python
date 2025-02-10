@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
@@ -22,7 +22,7 @@ class TestDatasets:
         dataset = client.datasets.retrieve(
             "dataset_id",
         )
-        assert_matches_type(Optional[DatasetRetrieveResponse], dataset, path=["response"])
+        assert_matches_type(DatasetRetrieveResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
@@ -33,7 +33,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(Optional[DatasetRetrieveResponse], dataset, path=["response"])
+        assert_matches_type(DatasetRetrieveResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
@@ -44,7 +44,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(Optional[DatasetRetrieveResponse], dataset, path=["response"])
+            assert_matches_type(DatasetRetrieveResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -176,7 +176,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.retrieve(
             "dataset_id",
         )
-        assert_matches_type(Optional[DatasetRetrieveResponse], dataset, path=["response"])
+        assert_matches_type(DatasetRetrieveResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
@@ -187,7 +187,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(Optional[DatasetRetrieveResponse], dataset, path=["response"])
+        assert_matches_type(DatasetRetrieveResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
@@ -198,7 +198,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(Optional[DatasetRetrieveResponse], dataset, path=["response"])
+            assert_matches_type(DatasetRetrieveResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -24,7 +24,8 @@ from ..._response import (
 from ..._streaming import Stream, AsyncStream
 from ..._base_client import make_request_options
 from ...types.agents import turn_create_params
-from ...types.agents.turn import Turn
+from ...types.agents.turn_create_response import TurnCreateResponse
+from ...types.agents.turn_retrieve_response import TurnRetrieveResponse
 from ...types.agents.agent_turn_response_stream_chunk import AgentTurnResponseStreamChunk
 
 __all__ = ["TurnResource", "AsyncTurnResource"]
@@ -67,7 +68,7 @@ class TurnResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn:
+    ) -> TurnCreateResponse:
         """
         Args:
           tool_config: Configuration for tool use.
@@ -131,7 +132,7 @@ class TurnResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn | Stream[AgentTurnResponseStreamChunk]:
+    ) -> TurnCreateResponse | Stream[AgentTurnResponseStreamChunk]:
         """
         Args:
           tool_config: Configuration for tool use.
@@ -163,7 +164,7 @@ class TurnResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn | Stream[AgentTurnResponseStreamChunk]:
+    ) -> TurnCreateResponse | Stream[AgentTurnResponseStreamChunk]:
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not session_id:
@@ -183,7 +184,7 @@ class TurnResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Turn,
+            cast_to=TurnCreateResponse,
             stream=stream or False,
             stream_cls=Stream[AgentTurnResponseStreamChunk],
         )
@@ -200,7 +201,7 @@ class TurnResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn:
+    ) -> TurnRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -222,7 +223,7 @@ class TurnResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Turn,
+            cast_to=TurnRetrieveResponse,
         )
 
 
@@ -263,7 +264,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn:
+    ) -> TurnCreateResponse:
         """
         Args:
           tool_config: Configuration for tool use.
@@ -327,7 +328,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn | AsyncStream[AgentTurnResponseStreamChunk]:
+    ) -> TurnCreateResponse | AsyncStream[AgentTurnResponseStreamChunk]:
         """
         Args:
           tool_config: Configuration for tool use.
@@ -359,7 +360,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn | AsyncStream[AgentTurnResponseStreamChunk]:
+    ) -> TurnCreateResponse | AsyncStream[AgentTurnResponseStreamChunk]:
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not session_id:
@@ -379,7 +380,7 @@ class AsyncTurnResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Turn,
+            cast_to=TurnCreateResponse,
             stream=stream or False,
             stream_cls=AsyncStream[AgentTurnResponseStreamChunk],
         )
@@ -396,7 +397,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Turn:
+    ) -> TurnRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -418,7 +419,7 @@ class AsyncTurnResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Turn,
+            cast_to=TurnRetrieveResponse,
         )
 
 

@@ -28,13 +28,13 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
-from ..types.completion_response import CompletionResponse
-from ..types.embeddings_response import EmbeddingsResponse
 from ..types.shared_params.message import Message
+from ..types.inference_completion_response import InferenceCompletionResponse
+from ..types.inference_embeddings_response import InferenceEmbeddingsResponse
 from ..types.shared_params.response_format import ResponseFormat
 from ..types.shared_params.sampling_params import SamplingParams
-from ..types.shared.chat_completion_response import ChatCompletionResponse
 from ..types.shared_params.interleaved_content import InterleavedContent
+from ..types.inference_chat_completion_response import InferenceChatCompletionResponse
 from ..types.chat_completion_response_stream_chunk import ChatCompletionResponseStreamChunk
 
 __all__ = ["InferenceResource", "AsyncInferenceResource"]
@@ -80,7 +80,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionResponse:
+    ) -> InferenceChatCompletionResponse:
         """
         Generate a chat completion for the given messages using the specified model.
 
@@ -216,7 +216,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
+    ) -> InferenceChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
 
@@ -284,7 +284,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
+    ) -> InferenceChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._post(
@@ -307,7 +307,7 @@ class InferenceResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatCompletionResponse,
+            cast_to=InferenceChatCompletionResponse,
             stream=stream or False,
             stream_cls=Stream[ChatCompletionResponseStreamChunk],
         )
@@ -328,7 +328,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CompletionResponse:
+    ) -> InferenceCompletionResponse:
         """
         Generate a completion for the given content using the specified model.
 
@@ -374,7 +374,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Stream[CompletionResponse]:
+    ) -> Stream[InferenceCompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -420,7 +420,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CompletionResponse | Stream[CompletionResponse]:
+    ) -> InferenceCompletionResponse | Stream[InferenceCompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -466,7 +466,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CompletionResponse | Stream[CompletionResponse]:
+    ) -> InferenceCompletionResponse | Stream[InferenceCompletionResponse]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._post(
@@ -485,9 +485,9 @@ class InferenceResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompletionResponse,
+            cast_to=InferenceCompletionResponse,
             stream=stream or False,
-            stream_cls=Stream[CompletionResponse],
+            stream_cls=Stream[InferenceCompletionResponse],
         )
 
     def embeddings(
@@ -501,7 +501,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EmbeddingsResponse:
+    ) -> InferenceEmbeddingsResponse:
         """
         Generate embeddings for content pieces using the specified model.
 
@@ -533,7 +533,7 @@ class InferenceResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EmbeddingsResponse,
+            cast_to=InferenceEmbeddingsResponse,
         )
 
 
@@ -577,7 +577,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionResponse:
+    ) -> InferenceChatCompletionResponse:
         """
         Generate a chat completion for the given messages using the specified model.
 
@@ -713,7 +713,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
+    ) -> InferenceChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
 
@@ -781,7 +781,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
+    ) -> InferenceChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
@@ -804,7 +804,7 @@ class AsyncInferenceResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatCompletionResponse,
+            cast_to=InferenceChatCompletionResponse,
             stream=stream or False,
             stream_cls=AsyncStream[ChatCompletionResponseStreamChunk],
         )
@@ -825,7 +825,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CompletionResponse:
+    ) -> InferenceCompletionResponse:
         """
         Generate a completion for the given content using the specified model.
 
@@ -871,7 +871,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncStream[CompletionResponse]:
+    ) -> AsyncStream[InferenceCompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -917,7 +917,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CompletionResponse | AsyncStream[CompletionResponse]:
+    ) -> InferenceCompletionResponse | AsyncStream[InferenceCompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -963,7 +963,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CompletionResponse | AsyncStream[CompletionResponse]:
+    ) -> InferenceCompletionResponse | AsyncStream[InferenceCompletionResponse]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
@@ -982,9 +982,9 @@ class AsyncInferenceResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CompletionResponse,
+            cast_to=InferenceCompletionResponse,
             stream=stream or False,
-            stream_cls=AsyncStream[CompletionResponse],
+            stream_cls=AsyncStream[InferenceCompletionResponse],
         )
 
     async def embeddings(
@@ -998,7 +998,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EmbeddingsResponse:
+    ) -> InferenceEmbeddingsResponse:
         """
         Generate embeddings for content pieces using the specified model.
 
@@ -1030,7 +1030,7 @@ class AsyncInferenceResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EmbeddingsResponse,
+            cast_to=InferenceEmbeddingsResponse,
         )
 
 

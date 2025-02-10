@@ -1,19 +1,57 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
+from .shield import Shield
 from .._models import BaseModel
 
-__all__ = ["ShieldRetrieveResponse", "ProviderConfig"]
+__all__ = ["ShieldRetrieveResponse", "ShieldsShield", "ShieldsShieldMetric", "Metrics", "MetricsMetric"]
 
 
-class ProviderConfig(BaseModel):
-    config: Dict[str, Union[bool, float, str, List[object], object, None]]
+class ShieldsShieldMetric(BaseModel):
+    metric: str
 
-    provider_type: str
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
-class ShieldRetrieveResponse(BaseModel):
-    provider_config: ProviderConfig
+class ShieldsShield(Shield):
+    metrics: Optional[List[ShieldsShieldMetric]] = None
 
-    shield_type: str
+
+class MetricsMetric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class Metrics(BaseModel):
+    metrics: Optional[List[MetricsMetric]] = None
+
+
+ShieldRetrieveResponse: TypeAlias = Union[ShieldsShield, Optional[Metrics]]

@@ -28,10 +28,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.job import Job
 from ..._base_client import make_request_options
-from ...types.evaluate_response import EvaluateResponse
+from ...types.eval_run_eval_response import EvalRunEvalResponse
 from ...types.eval_task_config_param import EvalTaskConfigParam
+from ...types.eval_evaluate_rows_response import EvalEvaluateRowsResponse
 
 __all__ = ["EvalResource", "AsyncEvalResource"]
 
@@ -73,7 +73,7 @@ class EvalResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateResponse:
+    ) -> EvalEvaluateRowsResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -99,7 +99,7 @@ class EvalResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EvaluateResponse,
+            cast_to=EvalEvaluateRowsResponse,
         )
 
     def run_eval(
@@ -113,7 +113,7 @@ class EvalResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Job:
+    ) -> EvalRunEvalResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -132,7 +132,7 @@ class EvalResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Job,
+            cast_to=EvalRunEvalResponse,
         )
 
 
@@ -173,7 +173,7 @@ class AsyncEvalResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateResponse:
+    ) -> EvalEvaluateRowsResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -199,7 +199,7 @@ class AsyncEvalResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EvaluateResponse,
+            cast_to=EvalEvaluateRowsResponse,
         )
 
     async def run_eval(
@@ -213,7 +213,7 @@ class AsyncEvalResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Job:
+    ) -> EvalRunEvalResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -232,7 +232,7 @@ class AsyncEvalResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Job,
+            cast_to=EvalRunEvalResponse,
         )
 
 
