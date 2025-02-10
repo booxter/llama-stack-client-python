@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import QueryChunksResponse
+from llama_stack_client.types import VectorIoQueryResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -86,7 +86,7 @@ class TestVectorIo:
             query="string",
             vector_db_id="vector_db_id",
         )
-        assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+        assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
     @parametrize
     def test_method_query_with_all_params(self, client: LlamaStackClient) -> None:
@@ -95,7 +95,7 @@ class TestVectorIo:
             vector_db_id="vector_db_id",
             params={"foo": True},
         )
-        assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+        assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
     @parametrize
     def test_raw_response_query(self, client: LlamaStackClient) -> None:
@@ -107,7 +107,7 @@ class TestVectorIo:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         vector_io = response.parse()
-        assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+        assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
     @parametrize
     def test_streaming_response_query(self, client: LlamaStackClient) -> None:
@@ -119,7 +119,7 @@ class TestVectorIo:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             vector_io = response.parse()
-            assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+            assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -196,7 +196,7 @@ class TestAsyncVectorIo:
             query="string",
             vector_db_id="vector_db_id",
         )
-        assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+        assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
     @parametrize
     async def test_method_query_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -205,7 +205,7 @@ class TestAsyncVectorIo:
             vector_db_id="vector_db_id",
             params={"foo": True},
         )
-        assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+        assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
     @parametrize
     async def test_raw_response_query(self, async_client: AsyncLlamaStackClient) -> None:
@@ -217,7 +217,7 @@ class TestAsyncVectorIo:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         vector_io = await response.parse()
-        assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+        assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
     @parametrize
     async def test_streaming_response_query(self, async_client: AsyncLlamaStackClient) -> None:
@@ -229,6 +229,6 @@ class TestAsyncVectorIo:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             vector_io = await response.parse()
-            assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
+            assert_matches_type(VectorIoQueryResponse, vector_io, path=["response"])
 
         assert cast(Any, response.is_closed) is True

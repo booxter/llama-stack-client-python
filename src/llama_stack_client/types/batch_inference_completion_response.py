@@ -1,82 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
+from .shared.batch_completion import BatchCompletion
 
-__all__ = [
-    "BatchInferenceCompletionResponse",
-    "CompletionMessageBatch",
-    "CompletionMessageBatchContent",
-    "CompletionMessageBatchContentImageMedia",
-    "CompletionMessageBatchContentImageMediaImage",
-    "CompletionMessageBatchContentImageMediaImageThisClassRepresentsAnImageObjectToCreate",
-    "CompletionMessageBatchContentUnionMember2",
-    "CompletionMessageBatchContentUnionMember2ImageMedia",
-    "CompletionMessageBatchContentUnionMember2ImageMediaImage",
-    "CompletionMessageBatchContentUnionMember2ImageMediaImageThisClassRepresentsAnImageObjectToCreate",
-    "CompletionMessageBatchToolCall",
-]
+__all__ = ["BatchInferenceCompletionResponse", "Metric"]
 
 
-class CompletionMessageBatchContentImageMediaImageThisClassRepresentsAnImageObjectToCreate(BaseModel):
-    format: Optional[str] = None
+class Metric(BaseModel):
+    metric: str
 
-    format_description: Optional[str] = None
+    span_id: str
 
+    timestamp: datetime
 
-CompletionMessageBatchContentImageMediaImage: TypeAlias = Union[
-    CompletionMessageBatchContentImageMediaImageThisClassRepresentsAnImageObjectToCreate, str
-]
+    trace_id: str
 
+    type: Literal["metric"]
 
-class CompletionMessageBatchContentImageMedia(BaseModel):
-    image: CompletionMessageBatchContentImageMediaImage
+    unit: str
 
+    value: float
 
-class CompletionMessageBatchContentUnionMember2ImageMediaImageThisClassRepresentsAnImageObjectToCreate(BaseModel):
-    format: Optional[str] = None
-
-    format_description: Optional[str] = None
-
-
-CompletionMessageBatchContentUnionMember2ImageMediaImage: TypeAlias = Union[
-    CompletionMessageBatchContentUnionMember2ImageMediaImageThisClassRepresentsAnImageObjectToCreate, str
-]
-
-
-class CompletionMessageBatchContentUnionMember2ImageMedia(BaseModel):
-    image: CompletionMessageBatchContentUnionMember2ImageMediaImage
-
-
-CompletionMessageBatchContentUnionMember2: TypeAlias = Union[str, CompletionMessageBatchContentUnionMember2ImageMedia]
-
-CompletionMessageBatchContent: TypeAlias = Union[
-    str, CompletionMessageBatchContentImageMedia, List[CompletionMessageBatchContentUnionMember2]
-]
-
-
-class CompletionMessageBatchToolCall(BaseModel):
-    arguments: Dict[
-        str,
-        Union[str, float, bool, List[Union[str, float, bool, None]], Dict[str, Union[str, float, bool, None]], None],
-    ]
-
-    call_id: str
-
-    tool_name: Union[Literal["brave_search", "wolfram_alpha", "photogen", "code_interpreter"], str]
-
-
-class CompletionMessageBatch(BaseModel):
-    content: CompletionMessageBatchContent
-
-    role: Literal["assistant"]
-
-    stop_reason: Literal["end_of_turn", "end_of_message", "out_of_tokens"]
-
-    tool_calls: List[CompletionMessageBatchToolCall]
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
 class BatchInferenceCompletionResponse(BaseModel):
-    completion_message_batch: List[CompletionMessageBatch]
+    data: BatchCompletion
+
+    metrics: Optional[List[Metric]] = None

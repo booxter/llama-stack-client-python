@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Optional, cast
-
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -19,10 +17,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._wrappers import DataWrapper
 from ..._base_client import make_request_options
 from ...types.post_training import job_cancel_params, job_status_params, job_artifacts_params
-from ...types.list_post_training_jobs_response import Data
+from ...types.post_training.job_list_response import JobListResponse
 from ...types.post_training.job_status_response import JobStatusResponse
 from ...types.post_training.job_artifacts_response import JobArtifactsResponse
 
@@ -58,17 +55,13 @@ class JobResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> List[Data]:
+    ) -> JobListResponse:
         return self._get(
             "/v1/post-training/jobs",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[List[Data]]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[List[Data]], DataWrapper[Data]),
+            cast_to=JobListResponse,
         )
 
     def artifacts(
@@ -81,7 +74,7 @@ class JobResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[JobArtifactsResponse]:
+    ) -> JobArtifactsResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -145,7 +138,7 @@ class JobResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[JobStatusResponse]:
+    ) -> JobStatusResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -198,17 +191,13 @@ class AsyncJobResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> List[Data]:
+    ) -> JobListResponse:
         return await self._get(
             "/v1/post-training/jobs",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[List[Data]]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[List[Data]], DataWrapper[Data]),
+            cast_to=JobListResponse,
         )
 
     async def artifacts(
@@ -221,7 +210,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[JobArtifactsResponse]:
+    ) -> JobArtifactsResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -285,7 +274,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[JobStatusResponse]:
+    ) -> JobStatusResponse:
         """
         Args:
           extra_headers: Send extra headers

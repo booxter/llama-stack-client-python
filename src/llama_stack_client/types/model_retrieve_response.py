@@ -1,23 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
+from .model import Model
 from .._models import BaseModel
 
-__all__ = ["ModelRetrieveResponse", "ProviderConfig"]
+__all__ = ["ModelRetrieveResponse", "Metric"]
 
 
-class ProviderConfig(BaseModel):
-    config: Dict[str, Union[bool, float, str, List[object], object, None]]
+class Metric(BaseModel):
+    metric: str
 
-    provider_type: str
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
 class ModelRetrieveResponse(BaseModel):
-    llama_model: object
-    """
-    The model family and SKU of the model along with other parameters corresponding
-    to the model.
-    """
+    data: Optional[Model] = None
 
-    provider_config: ProviderConfig
+    metrics: Optional[List[Metric]] = None

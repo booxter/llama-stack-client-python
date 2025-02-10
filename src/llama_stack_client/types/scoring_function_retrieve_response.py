@@ -1,84 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
+from .scoring_fn import ScoringFn
 
-__all__ = [
-    "ScoringFunctionRetrieveResponse",
-    "Parameter",
-    "ParameterType",
-    "ParameterTypeType",
-    "ReturnType",
-    "ReturnTypeType",
-    "Context",
-]
+__all__ = ["ScoringFunctionRetrieveResponse", "Metric"]
 
 
-class ParameterTypeType(BaseModel):
-    type: Literal["string"]
+class Metric(BaseModel):
+    metric: str
 
+    span_id: str
 
-ParameterType: TypeAlias = Union[
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-    ParameterTypeType,
-]
+    timestamp: datetime
 
+    trace_id: str
 
-class Parameter(BaseModel):
-    name: str
+    type: Literal["metric"]
 
-    type: ParameterType
+    unit: str
 
-    description: Optional[str] = None
+    value: float
 
-
-class ReturnTypeType(BaseModel):
-    type: Literal["string"]
-
-
-ReturnType: TypeAlias = Union[
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-    ReturnTypeType,
-]
-
-
-class Context(BaseModel):
-    judge_model: str
-
-    judge_score_regex: Optional[List[str]] = None
-
-    prompt_template: Optional[str] = None
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
 class ScoringFunctionRetrieveResponse(BaseModel):
-    identifier: str
+    data: Optional[ScoringFn] = None
 
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-
-    parameters: List[Parameter]
-
-    provider_id: str
-
-    return_type: ReturnType
-
-    context: Optional[Context] = None
-
-    description: Optional[str] = None
+    metrics: Optional[List[Metric]] = None

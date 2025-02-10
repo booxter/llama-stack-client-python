@@ -32,8 +32,9 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.post_training_job import PostTrainingJob
 from ...types.algorithm_config_param import AlgorithmConfigParam
+from ...types.post_training_preference_optimize_response import PostTrainingPreferenceOptimizeResponse
+from ...types.post_training_supervised_fine_tune_response import PostTrainingSupervisedFineTuneResponse
 
 __all__ = ["PostTrainingResource", "AsyncPostTrainingResource"]
 
@@ -77,7 +78,7 @@ class PostTrainingResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PostTrainingJob:
+    ) -> PostTrainingPreferenceOptimizeResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -104,7 +105,7 @@ class PostTrainingResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PostTrainingJob,
+            cast_to=PostTrainingPreferenceOptimizeResponse,
         )
 
     def supervised_fine_tune(
@@ -123,7 +124,7 @@ class PostTrainingResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PostTrainingJob:
+    ) -> PostTrainingSupervisedFineTuneResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -151,7 +152,7 @@ class PostTrainingResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PostTrainingJob,
+            cast_to=PostTrainingSupervisedFineTuneResponse,
         )
 
 
@@ -194,7 +195,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PostTrainingJob:
+    ) -> PostTrainingPreferenceOptimizeResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -221,7 +222,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PostTrainingJob,
+            cast_to=PostTrainingPreferenceOptimizeResponse,
         )
 
     async def supervised_fine_tune(
@@ -240,7 +241,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PostTrainingJob:
+    ) -> PostTrainingSupervisedFineTuneResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -268,7 +269,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PostTrainingJob,
+            cast_to=PostTrainingSupervisedFineTuneResponse,
         )
 
 

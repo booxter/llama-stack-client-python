@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -16,8 +14,8 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.evaluate_response import EvaluateResponse
 from ...types.eval.job_status_response import JobStatusResponse
+from ...types.eval.job_retrieve_response import JobRetrieveResponse
 
 __all__ = ["JobsResource", "AsyncJobsResource"]
 
@@ -53,7 +51,7 @@ class JobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateResponse:
+    ) -> JobRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -73,7 +71,7 @@ class JobsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EvaluateResponse,
+            cast_to=JobRetrieveResponse,
         )
 
     def cancel(
@@ -122,7 +120,7 @@ class JobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[JobStatusResponse]:
+    ) -> JobStatusResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -177,7 +175,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> EvaluateResponse:
+    ) -> JobRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -197,7 +195,7 @@ class AsyncJobsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EvaluateResponse,
+            cast_to=JobRetrieveResponse,
         )
 
     async def cancel(
@@ -246,7 +244,7 @@ class AsyncJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[JobStatusResponse]:
+    ) -> JobStatusResponse:
         """
         Args:
           extra_headers: Send extra headers

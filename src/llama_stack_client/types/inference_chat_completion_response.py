@@ -1,49 +1,35 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .token_log_probs import TokenLogProbs
-from .shared.content_delta import ContentDelta
-from .shared.completion_message import CompletionMessage
+from .shared.chat_completion_response import ChatCompletionResponse
 
-__all__ = [
-    "InferenceChatCompletionResponse",
-    "ChatCompletionResponse",
-    "ChatCompletionResponseStreamChunk",
-    "ChatCompletionResponseStreamChunkEvent",
-]
+__all__ = ["InferenceChatCompletionResponse", "Metric"]
 
 
-class ChatCompletionResponse(BaseModel):
-    completion_message: CompletionMessage
-    """The complete response message"""
+class Metric(BaseModel):
+    metric: str
 
-    logprobs: Optional[List[TokenLogProbs]] = None
-    """Optional log probabilities for generated tokens"""
+    span_id: str
 
+    timestamp: datetime
 
-class ChatCompletionResponseStreamChunkEvent(BaseModel):
-    delta: ContentDelta
-    """Content generated since last event.
+    trace_id: str
 
-    This can be one or more tokens, or a tool call.
-    """
+    type: Literal["metric"]
 
-    event_type: Literal["start", "complete", "progress"]
-    """Type of the event"""
+    unit: str
 
-    logprobs: Optional[List[TokenLogProbs]] = None
-    """Optional log probabilities for generated tokens"""
+    value: float
 
-    stop_reason: Optional[Literal["end_of_turn", "end_of_message", "out_of_tokens"]] = None
-    """Optional reason why generation stopped, if complete"""
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
-class ChatCompletionResponseStreamChunk(BaseModel):
-    event: ChatCompletionResponseStreamChunkEvent
-    """The event containing the new content"""
+class InferenceChatCompletionResponse(BaseModel):
+    data: ChatCompletionResponse
+    """Response from a chat completion request."""
 
-
-InferenceChatCompletionResponse: TypeAlias = Union[ChatCompletionResponse, ChatCompletionResponseStreamChunk]
+    metrics: Optional[List[Metric]] = None

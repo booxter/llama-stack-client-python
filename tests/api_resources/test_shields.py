@@ -3,13 +3,17 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import Shield, ShieldListResponse
+from llama_stack_client.types import (
+    ShieldListResponse,
+    ShieldRegisterResponse,
+    ShieldRetrieveResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,7 +26,7 @@ class TestShields:
         shield = client.shields.retrieve(
             "identifier",
         )
-        assert_matches_type(Optional[Shield], shield, path=["response"])
+        assert_matches_type(ShieldRetrieveResponse, shield, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
@@ -33,7 +37,7 @@ class TestShields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shield = response.parse()
-        assert_matches_type(Optional[Shield], shield, path=["response"])
+        assert_matches_type(ShieldRetrieveResponse, shield, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
@@ -44,7 +48,7 @@ class TestShields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shield = response.parse()
-            assert_matches_type(Optional[Shield], shield, path=["response"])
+            assert_matches_type(ShieldRetrieveResponse, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -85,7 +89,7 @@ class TestShields:
         shield = client.shields.register(
             shield_id="shield_id",
         )
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
     @parametrize
     def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
@@ -95,7 +99,7 @@ class TestShields:
             provider_id="provider_id",
             provider_shield_id="provider_shield_id",
         )
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
     @parametrize
     def test_raw_response_register(self, client: LlamaStackClient) -> None:
@@ -106,7 +110,7 @@ class TestShields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shield = response.parse()
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
     @parametrize
     def test_streaming_response_register(self, client: LlamaStackClient) -> None:
@@ -117,7 +121,7 @@ class TestShields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shield = response.parse()
-            assert_matches_type(Shield, shield, path=["response"])
+            assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -130,7 +134,7 @@ class TestAsyncShields:
         shield = await async_client.shields.retrieve(
             "identifier",
         )
-        assert_matches_type(Optional[Shield], shield, path=["response"])
+        assert_matches_type(ShieldRetrieveResponse, shield, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
@@ -141,7 +145,7 @@ class TestAsyncShields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shield = await response.parse()
-        assert_matches_type(Optional[Shield], shield, path=["response"])
+        assert_matches_type(ShieldRetrieveResponse, shield, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
@@ -152,7 +156,7 @@ class TestAsyncShields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shield = await response.parse()
-            assert_matches_type(Optional[Shield], shield, path=["response"])
+            assert_matches_type(ShieldRetrieveResponse, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -193,7 +197,7 @@ class TestAsyncShields:
         shield = await async_client.shields.register(
             shield_id="shield_id",
         )
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
     @parametrize
     async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -203,7 +207,7 @@ class TestAsyncShields:
             provider_id="provider_id",
             provider_shield_id="provider_shield_id",
         )
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
     @parametrize
     async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
@@ -214,7 +218,7 @@ class TestAsyncShields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         shield = await response.parse()
-        assert_matches_type(Shield, shield, path=["response"])
+        assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
     @parametrize
     async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
@@ -225,6 +229,6 @@ class TestAsyncShields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             shield = await response.parse()
-            assert_matches_type(Shield, shield, path=["response"])
+            assert_matches_type(ShieldRegisterResponse, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True

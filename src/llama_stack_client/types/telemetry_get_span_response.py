@@ -2,13 +2,14 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["TelemetryGetSpanResponse"]
+__all__ = ["TelemetryGetSpanResponse", "Data", "Metric"]
 
 
-class TelemetryGetSpanResponse(BaseModel):
+class Data(BaseModel):
     name: str
 
     span_id: str
@@ -22,3 +23,27 @@ class TelemetryGetSpanResponse(BaseModel):
     end_time: Optional[datetime] = None
 
     parent_span_id: Optional[str] = None
+
+
+class Metric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class TelemetryGetSpanResponse(BaseModel):
+    data: Data
+
+    metrics: Optional[List[Metric]] = None

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
-
 import httpx
 
 from ..types import tool_list_params
@@ -20,9 +18,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
-from ..types.tool import Tool
 from .._base_client import make_request_options
+from ..types.tool_get_response import ToolGetResponse
 from ..types.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
@@ -79,9 +76,8 @@ class ToolsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform({"toolgroup_id": toolgroup_id}, tool_list_params.ToolListParams),
-                post_parser=DataWrapper[ToolListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[ToolListResponse], DataWrapper[ToolListResponse]),
+            cast_to=ToolListResponse,
         )
 
     def get(
@@ -94,7 +90,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Tool:
+    ) -> ToolGetResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -112,7 +108,7 @@ class ToolsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Tool,
+            cast_to=ToolGetResponse,
         )
 
 
@@ -167,9 +163,8 @@ class AsyncToolsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform({"toolgroup_id": toolgroup_id}, tool_list_params.ToolListParams),
-                post_parser=DataWrapper[ToolListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[ToolListResponse], DataWrapper[ToolListResponse]),
+            cast_to=ToolListResponse,
         )
 
     async def get(
@@ -182,7 +177,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Tool:
+    ) -> ToolGetResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -200,7 +195,7 @@ class AsyncToolsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Tool,
+            cast_to=ToolGetResponse,
         )
 
 

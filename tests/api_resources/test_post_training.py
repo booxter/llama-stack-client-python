@@ -10,7 +10,8 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
-    PostTrainingJob,
+    PostTrainingPreferenceOptimizeResponse,
+    PostTrainingSupervisedFineTuneResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -51,7 +52,7 @@ class TestPostTraining:
                 },
             },
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
     @parametrize
     def test_method_preference_optimize_with_all_params(self, client: LlamaStackClient) -> None:
@@ -95,7 +96,7 @@ class TestPostTraining:
                 },
             },
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
     @parametrize
     def test_raw_response_preference_optimize(self, client: LlamaStackClient) -> None:
@@ -133,7 +134,7 @@ class TestPostTraining:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         post_training = response.parse()
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
     @parametrize
     def test_streaming_response_preference_optimize(self, client: LlamaStackClient) -> None:
@@ -171,7 +172,7 @@ class TestPostTraining:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             post_training = response.parse()
-            assert_matches_type(PostTrainingJob, post_training, path=["response"])
+            assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -201,7 +202,7 @@ class TestPostTraining:
                 },
             },
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
     @parametrize
     def test_method_supervised_fine_tune_with_all_params(self, client: LlamaStackClient) -> None:
@@ -250,7 +251,7 @@ class TestPostTraining:
             },
             checkpoint_dir="checkpoint_dir",
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
     @parametrize
     def test_raw_response_supervised_fine_tune(self, client: LlamaStackClient) -> None:
@@ -282,7 +283,7 @@ class TestPostTraining:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         post_training = response.parse()
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
     @parametrize
     def test_streaming_response_supervised_fine_tune(self, client: LlamaStackClient) -> None:
@@ -314,7 +315,7 @@ class TestPostTraining:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             post_training = response.parse()
-            assert_matches_type(PostTrainingJob, post_training, path=["response"])
+            assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -354,7 +355,7 @@ class TestAsyncPostTraining:
                 },
             },
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
     @parametrize
     async def test_method_preference_optimize_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -398,7 +399,7 @@ class TestAsyncPostTraining:
                 },
             },
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
     @parametrize
     async def test_raw_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
@@ -436,7 +437,7 @@ class TestAsyncPostTraining:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         post_training = await response.parse()
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
     @parametrize
     async def test_streaming_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
@@ -474,7 +475,7 @@ class TestAsyncPostTraining:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             post_training = await response.parse()
-            assert_matches_type(PostTrainingJob, post_training, path=["response"])
+            assert_matches_type(PostTrainingPreferenceOptimizeResponse, post_training, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -504,7 +505,7 @@ class TestAsyncPostTraining:
                 },
             },
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
     @parametrize
     async def test_method_supervised_fine_tune_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
@@ -553,7 +554,7 @@ class TestAsyncPostTraining:
             },
             checkpoint_dir="checkpoint_dir",
         )
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
     @parametrize
     async def test_raw_response_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
@@ -585,7 +586,7 @@ class TestAsyncPostTraining:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         post_training = await response.parse()
-        assert_matches_type(PostTrainingJob, post_training, path=["response"])
+        assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
     @parametrize
     async def test_streaming_response_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
@@ -617,6 +618,6 @@ class TestAsyncPostTraining:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             post_training = await response.parse()
-            assert_matches_type(PostTrainingJob, post_training, path=["response"])
+            assert_matches_type(PostTrainingSupervisedFineTuneResponse, post_training, path=["response"])
 
         assert cast(Any, response.is_closed) is True

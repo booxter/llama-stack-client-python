@@ -6,10 +6,10 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["JobStatusResponse"]
+__all__ = ["JobStatusResponse", "Data", "Metric"]
 
 
-class JobStatusResponse(BaseModel):
+class Data(BaseModel):
     checkpoints: List[object]
 
     job_uuid: str
@@ -23,3 +23,28 @@ class JobStatusResponse(BaseModel):
     scheduled_at: Optional[datetime] = None
 
     started_at: Optional[datetime] = None
+
+
+class Metric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class JobStatusResponse(BaseModel):
+    data: Optional[Data] = None
+    """Status of a finetuning job."""
+
+    metrics: Optional[List[Metric]] = None

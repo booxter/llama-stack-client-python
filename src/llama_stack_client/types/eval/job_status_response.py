@@ -1,8 +1,33 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-from typing_extensions import Literal, TypeAlias
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
-__all__ = ["JobStatusResponse"]
+from ..._models import BaseModel
 
-JobStatusResponse: TypeAlias = Optional[Literal["completed", "in_progress", "failed", "scheduled"]]
+__all__ = ["JobStatusResponse", "Metric"]
+
+
+class Metric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+
+
+class JobStatusResponse(BaseModel):
+    data: Optional[Literal["completed", "in_progress", "failed", "scheduled"]] = None
+
+    metrics: Optional[List[Metric]] = None

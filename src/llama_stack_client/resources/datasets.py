@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Type, Union, Iterable, Optional, cast
+from typing import Dict, Union, Iterable
 
 import httpx
 
@@ -20,7 +20,6 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.shared_params.url import URL
 from ..types.dataset_list_response import DatasetListResponse
@@ -60,7 +59,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetRetrieveResponse]:
+    ) -> DatasetRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -94,13 +93,9 @@ class DatasetsResource(SyncAPIResource):
         return self._get(
             "/v1/datasets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[DatasetListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[DatasetListResponse], DataWrapper[DatasetListResponse]),
+            cast_to=DatasetListResponse,
         )
 
     def register(
@@ -212,7 +207,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Optional[DatasetRetrieveResponse]:
+    ) -> DatasetRetrieveResponse:
         """
         Args:
           extra_headers: Send extra headers
@@ -246,13 +241,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
         return await self._get(
             "/v1/datasets",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[DatasetListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[DatasetListResponse], DataWrapper[DatasetListResponse]),
+            cast_to=DatasetListResponse,
         )
 
     async def register(
