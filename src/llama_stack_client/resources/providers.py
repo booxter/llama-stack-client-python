@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
-
 import httpx
 
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -15,9 +13,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.provider_list_response import ProviderListResponse
+from ..types.list_providers_response import ListProvidersResponse
 
 __all__ = ["ProvidersResource", "AsyncProvidersResource"]
 
@@ -51,17 +48,13 @@ class ProvidersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProviderListResponse:
+    ) -> ListProvidersResponse:
         return self._get(
             "/v1/inspect/providers",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ProviderListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ProviderListResponse], DataWrapper[ProviderListResponse]),
+            cast_to=ListProvidersResponse,
         )
 
 
@@ -94,17 +87,13 @@ class AsyncProvidersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProviderListResponse:
+    ) -> ListProvidersResponse:
         return await self._get(
             "/v1/inspect/providers",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ProviderListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ProviderListResponse], DataWrapper[ProviderListResponse]),
+            cast_to=ListProvidersResponse,
         )
 
 

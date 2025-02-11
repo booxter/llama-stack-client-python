@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Type, Union, Iterable, Optional, cast
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -21,10 +21,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from ..types.model import Model
 from .._base_client import make_request_options
-from ..types.model_list_response import ModelListResponse
+from ..types.list_models_response import ListModelsResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
 
@@ -89,17 +88,13 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ModelListResponse:
+    ) -> ListModelsResponse:
         return self._get(
             "/v1/models",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ModelListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
+            cast_to=ListModelsResponse,
         )
 
     def register(
@@ -238,17 +233,13 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ModelListResponse:
+    ) -> ListModelsResponse:
         return await self._get(
             "/v1/models",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ModelListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
+            cast_to=ListModelsResponse,
         )
 
     async def register(

@@ -10,7 +10,7 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
-    VectorDBListResponse,
+    ListVectorDBsResponse,
     VectorDBRegisterResponse,
     VectorDBRetrieveResponse,
 )
@@ -62,7 +62,7 @@ class TestVectorDBs:
     @parametrize
     def test_method_list(self, client: LlamaStackClient) -> None:
         vector_db = client.vector_dbs.list()
-        assert_matches_type(VectorDBListResponse, vector_db, path=["response"])
+        assert_matches_type(ListVectorDBsResponse, vector_db, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
@@ -71,7 +71,7 @@ class TestVectorDBs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         vector_db = response.parse()
-        assert_matches_type(VectorDBListResponse, vector_db, path=["response"])
+        assert_matches_type(ListVectorDBsResponse, vector_db, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
@@ -80,7 +80,7 @@ class TestVectorDBs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             vector_db = response.parse()
-            assert_matches_type(VectorDBListResponse, vector_db, path=["response"])
+            assert_matches_type(ListVectorDBsResponse, vector_db, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -212,7 +212,7 @@ class TestAsyncVectorDBs:
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         vector_db = await async_client.vector_dbs.list()
-        assert_matches_type(VectorDBListResponse, vector_db, path=["response"])
+        assert_matches_type(ListVectorDBsResponse, vector_db, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
@@ -221,7 +221,7 @@ class TestAsyncVectorDBs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         vector_db = await response.parse()
-        assert_matches_type(VectorDBListResponse, vector_db, path=["response"])
+        assert_matches_type(ListVectorDBsResponse, vector_db, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
@@ -230,7 +230,7 @@ class TestAsyncVectorDBs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             vector_db = await response.parse()
-            assert_matches_type(VectorDBListResponse, vector_db, path=["response"])
+            assert_matches_type(ListVectorDBsResponse, vector_db, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

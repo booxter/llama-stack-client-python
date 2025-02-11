@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Type, Optional, cast
+from typing import Optional
 
 import httpx
 
@@ -20,12 +20,11 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.scoring_fn import ScoringFn
 from ..types.scoring_fn_params_param import ScoringFnParamsParam
 from ..types.shared_params.return_type import ReturnType
-from ..types.scoring_function_list_response import ScoringFunctionListResponse
+from ..types.list_scoring_functions_response import ListScoringFunctionsResponse
 
 __all__ = ["ScoringFunctionsResource", "AsyncScoringFunctionsResource"]
 
@@ -90,17 +89,13 @@ class ScoringFunctionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ScoringFunctionListResponse:
+    ) -> ListScoringFunctionsResponse:
         return self._get(
             "/v1/scoring-functions",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ScoringFunctionListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ScoringFunctionListResponse], DataWrapper[ScoringFunctionListResponse]),
+            cast_to=ListScoringFunctionsResponse,
         )
 
     def register(
@@ -210,17 +205,13 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ScoringFunctionListResponse:
+    ) -> ListScoringFunctionsResponse:
         return await self._get(
             "/v1/scoring-functions",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ScoringFunctionListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ScoringFunctionListResponse], DataWrapper[ScoringFunctionListResponse]),
+            cast_to=ListScoringFunctionsResponse,
         )
 
     async def register(

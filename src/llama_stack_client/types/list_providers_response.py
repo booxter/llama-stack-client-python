@@ -1,11 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .provider_list_response import ProviderListResponse
+from .provider_info import ProviderInfo
 
-__all__ = ["ListProvidersResponse"]
+__all__ = ["ListProvidersResponse", "Metric"]
+
+
+class Metric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
 class ListProvidersResponse(BaseModel):
-    data: ProviderListResponse
+    data: List[ProviderInfo]
+
+    metrics: Optional[List[Metric]] = None

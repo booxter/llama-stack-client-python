@@ -1,11 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .toolgroup_list_response import ToolgroupListResponse
+from .tool_group import ToolGroup
 
-__all__ = ["ListToolGroupsResponse"]
+__all__ = ["ListToolGroupsResponse", "Metric"]
+
+
+class Metric(BaseModel):
+    metric: str
+
+    span_id: str
+
+    timestamp: datetime
+
+    trace_id: str
+
+    type: Literal["metric"]
+
+    unit: str
+
+    value: float
+
+    attributes: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
 
 
 class ListToolGroupsResponse(BaseModel):
-    data: ToolgroupListResponse
+    data: List[ToolGroup]
+
+    metrics: Optional[List[Metric]] = None

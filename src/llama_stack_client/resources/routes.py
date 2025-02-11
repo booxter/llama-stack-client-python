@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
-
 import httpx
 
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -15,9 +13,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.route_list_response import RouteListResponse
+from ..types.list_routes_response import ListRoutesResponse
 
 __all__ = ["RoutesResource", "AsyncRoutesResource"]
 
@@ -51,17 +48,13 @@ class RoutesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RouteListResponse:
+    ) -> ListRoutesResponse:
         return self._get(
             "/v1/inspect/routes",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[RouteListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[RouteListResponse], DataWrapper[RouteListResponse]),
+            cast_to=ListRoutesResponse,
         )
 
 
@@ -94,17 +87,13 @@ class AsyncRoutesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RouteListResponse:
+    ) -> ListRoutesResponse:
         return await self._get(
             "/v1/inspect/routes",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[RouteListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[RouteListResponse], DataWrapper[RouteListResponse]),
+            cast_to=ListRoutesResponse,
         )
 
 

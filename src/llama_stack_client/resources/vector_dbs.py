@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Type, Optional, cast
+from typing import Optional
 
 import httpx
 
@@ -20,9 +20,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.vector_db_list_response import VectorDBListResponse
+from ..types.list_vector_dbs_response import ListVectorDBsResponse
 from ..types.vector_db_register_response import VectorDBRegisterResponse
 from ..types.vector_db_retrieve_response import VectorDBRetrieveResponse
 
@@ -89,17 +88,13 @@ class VectorDBsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VectorDBListResponse:
+    ) -> ListVectorDBsResponse:
         return self._get(
             "/v1/vector-dbs",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[VectorDBListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[VectorDBListResponse], DataWrapper[VectorDBListResponse]),
+            cast_to=ListVectorDBsResponse,
         )
 
     def register(
@@ -238,17 +233,13 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> VectorDBListResponse:
+    ) -> ListVectorDBsResponse:
         return await self._get(
             "/v1/vector-dbs",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[VectorDBListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[VectorDBListResponse], DataWrapper[VectorDBListResponse]),
+            cast_to=ListVectorDBsResponse,
         )
 
     async def register(

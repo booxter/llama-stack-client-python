@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
-
 import httpx
 
 from ..types import tool_list_params
@@ -20,10 +18,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from ..types.tool import Tool
 from .._base_client import make_request_options
-from ..types.tool_list_response import ToolListResponse
+from ..types.list_tools_response import ListToolsResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -58,7 +55,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ToolListResponse:
+    ) -> ListToolsResponse:
         """
         List tools with optional tool group
 
@@ -79,9 +76,8 @@ class ToolsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform({"toolgroup_id": toolgroup_id}, tool_list_params.ToolListParams),
-                post_parser=DataWrapper[ToolListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[ToolListResponse], DataWrapper[ToolListResponse]),
+            cast_to=ListToolsResponse,
         )
 
     def get(
@@ -146,7 +142,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ToolListResponse:
+    ) -> ListToolsResponse:
         """
         List tools with optional tool group
 
@@ -167,9 +163,8 @@ class AsyncToolsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform({"toolgroup_id": toolgroup_id}, tool_list_params.ToolListParams),
-                post_parser=DataWrapper[ToolListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[ToolListResponse], DataWrapper[ToolListResponse]),
+            cast_to=ListToolsResponse,
         )
 
     async def get(

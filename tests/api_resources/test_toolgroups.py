@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import ToolGroup, ToolgroupListResponse
+from llama_stack_client.types import ToolGroup, ListToolGroupsResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestToolgroups:
     @parametrize
     def test_method_list(self, client: LlamaStackClient) -> None:
         toolgroup = client.toolgroups.list()
-        assert_matches_type(ToolgroupListResponse, toolgroup, path=["response"])
+        assert_matches_type(ListToolGroupsResponse, toolgroup, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
@@ -29,7 +29,7 @@ class TestToolgroups:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         toolgroup = response.parse()
-        assert_matches_type(ToolgroupListResponse, toolgroup, path=["response"])
+        assert_matches_type(ListToolGroupsResponse, toolgroup, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
@@ -38,7 +38,7 @@ class TestToolgroups:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             toolgroup = response.parse()
-            assert_matches_type(ToolgroupListResponse, toolgroup, path=["response"])
+            assert_matches_type(ListToolGroupsResponse, toolgroup, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -169,7 +169,7 @@ class TestAsyncToolgroups:
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         toolgroup = await async_client.toolgroups.list()
-        assert_matches_type(ToolgroupListResponse, toolgroup, path=["response"])
+        assert_matches_type(ListToolGroupsResponse, toolgroup, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
@@ -178,7 +178,7 @@ class TestAsyncToolgroups:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         toolgroup = await response.parse()
-        assert_matches_type(ToolgroupListResponse, toolgroup, path=["response"])
+        assert_matches_type(ListToolGroupsResponse, toolgroup, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
@@ -187,7 +187,7 @@ class TestAsyncToolgroups:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             toolgroup = await response.parse()
-            assert_matches_type(ToolgroupListResponse, toolgroup, path=["response"])
+            assert_matches_type(ListToolGroupsResponse, toolgroup, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
